@@ -1,0 +1,40 @@
+{
+  "name": "nextjs-hayoung-space",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A personal space built with Next.js (15+), showcasing work, thoughts, and experiences.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HY0118/nextjs-hayoung-space.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HY0118/nextjs-hayoung-space/issues"
+  },
+  "homepage": "https://github.com/HY0118/nextjs-hayoung-space#readme",
+  "license": "MIT",
+  "author": {
+    "name": "leehayoung",
+    "email": "lhy.it.0118@gmail.com",
+    "url": "https://github.com/HY0118"
+  },
+  "keywords": ["nextjs", "portfolio", "personal space", "blog"],
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "next": "15.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3"
+  }
+}
