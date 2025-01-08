@@ -19,7 +19,7 @@ Markdown 및 Next.js/Vercel 등 정적 사이트 생성기를 이용해 손쉽�
 ## 블로그 & 포트폴리오 링크
 
 - **블로그**: [yourblog.com](https://yourblog.com)
-- **포트폴리오 페이지**: [https://your_github_id.github.io/your_repo](https://your_github_id.github.io/your_repo)  
+- **포트폴리오 페이지**: [https://nextjs-hayoung-space.vercel.app](https://nextjs-hayoung-space.vercel.app)  
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=HY0118&show_icons=true&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
 
