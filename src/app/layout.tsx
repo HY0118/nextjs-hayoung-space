@@ -17,17 +17,17 @@ const sora = Sora({
 });
 
 export const metadata = {
-  title: "My hayoung-space",
-  description: "Personal hayoung-space built with Next.js",
-  keywords: ["blog", "portfolio", "hayoung", "developer", "web development"],
-  authors: [{ name: "Hayoung" }],
-  creator: "Hayoung",
+  title: "HaYoung's Space",
+  description: "Personal HaYoung-space built with Next.js",
+  keywords: ["blog", "portfolio", "HaYoung", "developer", "web development"],
+  authors: [{ name: "HaYoung Lee" }],
+  creator: "HaYoung Lee",
   openGraph: {
-    title: "My hayoung-space",
-    description: "Personal hayoung-space built with Next.js",
+    title: "HaYoung's Space",
+    description: "Personal HaYoung-space built with Next.js",
     type: "website",
     locale: "ko_KR",
-    siteName: "Hayoung Space",
+    siteName: "HaYoung's Space",
   },
   robots: {
     index: true,
