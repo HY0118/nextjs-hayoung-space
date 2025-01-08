@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nextjs-hayoung-space.vercel.app/sitemap.xml
