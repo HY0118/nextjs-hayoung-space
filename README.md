@@ -14,11 +14,9 @@ Markdown 및 Next.js/Vercel 등 정적 사이트 생성기를 이용해 손쉽�
 
 - **주요 내용**  
   - 프로젝트, 기술 스택, 경력 등을 한눈에 볼 수 있습니다.
-  - 간단한 글을 작성해 블로그 포스팅으로 운영합니다.
   - 
-## 블로그 & 포트폴리오 링크
+## 포트폴리오 링크
 
-- **블로그**: [yourblog.com](https://yourblog.com)
 - **포트폴리오 페이지**: [https://nextjs-hayoung-space.vercel.app](https://nextjs-hayoung-space.vercel.app)  
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=HY0118&show_icons=true&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
@@ -43,7 +41,6 @@ Markdown 및 Next.js/Vercel 등 정적 사이트 생성기를 이용해 손쉽�
 | 페이지 | 스크린샷 |
 |---|---|
 | **홈(Home)** | <img width="300" src="https://via.placeholder.com/600x400?text=Home+Page+Screenshot" alt="Home Screenshot" /> |
-| **블로그(Blog)** | <img width="300" src="https://via.placeholder.com/600x400?text=Blog+Page+Screenshot" alt="Blog Screenshot" /> |
 
 
 ## Contact
