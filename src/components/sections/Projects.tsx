@@ -20,7 +20,7 @@ const Projects = () => {
     // 카드의 열 위치 계산 (0: 첫번째 열, 1: 두번째 열, 2: 세번째 열)
     const column = index % 3;
     // 카드 하나의 대략적인 너비(gap 포함)를 고려한 이동 거리 계산
-    const moveDistance = column * -310; // 카드 너비 + gap을 고려한 값
+    const moveDistance = column * -416; // 카드 너비 + gap을 고려한 값
 
     return moveDistance;
   };

@@ -58,7 +58,7 @@ export const techColors: TechColor = {
 } as const;
 
 // 기본 스타일 (목록에 없는 기술 스택용)
-export const defaultTechColor = "bg-primary/10 text-primary";
+export const defaultTechColor = "bg-[#FFFFFF] text-primary";
 
 // 기술 스택의 색상을 가져오는 헬퍼 함수
 export const getTechColor = (tech: string): string => {

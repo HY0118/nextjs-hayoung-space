@@ -36,6 +36,8 @@ module.exports = {
       },
       animation: {
         blink: 'blink 1s step-end infinite',
+        'spin-slow': 'spin 1.5s linear infinite',
+        'spin-reverse': 'spin 2s linear infinite reverse',
       },
       fontFamily: {
         sans: ['var(--font-outfit)', 'system-ui', 'sans-serif'],

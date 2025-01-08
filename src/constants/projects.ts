@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: "1",
     description: "프로젝트 간단 설명",
     image: "/images/Project_Thumbnail.webp",
-    tech: ["React", "TypeScript", "Next.js"],
+    tech: ["React", "TypeScript", "Next.js", "TailwindCSS", "Framer Motion"],
     github: "https://github.com/",
     demo: "https://demo.com",
     details: {

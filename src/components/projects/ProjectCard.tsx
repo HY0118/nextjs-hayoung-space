@@ -13,9 +13,10 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
   return (
     <motion.div
-      className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden group 
+      onClick={() => onSelect(project)}
+      className="w-full h-[400px] sm:w-[400px] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden group 
       hover:-translate-y-2 hover:bg-gray-200 dark:hover:bg-gray-700
-      transition-all duration-300 ease-in-out
+      transition-all duration-300 ease-in-out cursor-pointer
       hover:shadow-lg hover:shadow-primary/10"
       whileHover={{ scale: 1.02 }}
     >
@@ -28,27 +29,19 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
-      <div className="p-6">
+      <div className="p-6 h-[208px] flex flex-col">
         <h3 className="text-xl font-semibold text-text-primary mb-2">{project.title}</h3>
-        <p className="text-text-secondary mb-4">{project.description}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        <p className="text-text-secondary mb-4 line-clamp-2">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mt-auto">
           {project.tech.map((tech) => (
             <span
               key={tech}
-              className={`inline-flex items-center px-3 py-1 text-sm rounded-full font-medium ${getTechColor(tech)}`}
+              className={`inline-flex items-center px-2 py-0.5 text-sm rounded-full font-medium ${getTechColor(tech)} line-clamp-1`}
             >
               {tech}
             </span>
           ))}
         </div>
-        <button
-          onClick={() => onSelect(project)}
-          className="w-full px-4 py-2 bg-primary text-white rounded 
-          hover:bg-primary-dark transition-colors
-          focus:outline-none focus:ring-2 focus:ring-primary/50"
-        >
-          자세히 보기
-        </button>
       </div>
     </motion.div>
   );
