@@ -7,11 +7,12 @@ const Skills = () => {
     <section id="skills" className="py-20 min-h-screen flex flex-col justify-center bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-8">
         <div className="mb-8">
-          <h2 className="text-4xl font-bold text-text-primary relative inline-block">
+          <h2 className="text-4xl font-bold text-text-primary mb-2 relative font-sora inline-block">
             Skills
             <div className="absolute -bottom-4 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-light"></div>
           </h2>
-          <div className="mt-8 flex items-center gap-4 text-sm">
+          <div className="mt-8 flex items-center gap-2 text-sm">
+            <span className="text-text-primary font-pret">level :</span>
             <div className="flex items-center gap-2">
               <span className={`text-xs font-medium px-3 py-1 rounded-full ${SKILL_LEVEL_STYLES[SKILL_LEVELS.EXPERT]}`}>
                 {SKILL_LEVELS.EXPERT}

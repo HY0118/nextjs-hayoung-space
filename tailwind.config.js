@@ -42,6 +42,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
         sora: ['var(--font-sora)', 'sans-serif'],
+        pret: ['Pretendard', 'sans-serif'],
       },
     },
   },

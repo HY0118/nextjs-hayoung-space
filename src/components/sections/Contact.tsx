@@ -2,7 +2,7 @@ const Contact = () => {
   return (
     <section id="contact" className="py-20 min-h-screen flex flex-col justify-center">
       <div className="max-w-7xl mx-auto px-8">
-        <h2 className="text-4xl text-text-primary mb-8 relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
+        <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
           Contact
         </h2>
 
