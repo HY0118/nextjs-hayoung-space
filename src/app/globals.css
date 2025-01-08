@@ -42,4 +42,13 @@
 
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+
+  .creative-text {
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.3),
+                 0 0 20px rgba(139, 92, 246, 0.2);
+  }
 }
