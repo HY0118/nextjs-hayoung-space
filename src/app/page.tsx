@@ -1,15 +1,15 @@
-import Hero from '../components/sections/Hero';
-import About from '../components/sections/About';
-import Projects from '../components/sections/Projects';
-import Contact from '../components/sections/Contact';
+import About from "@components/sections/About";
+import Skills from "@components/sections/Skills";
+import Projects from "@components/sections/Projects";
+import Contact from "@components/sections/Contact";
 
-const Home = () => (
-  <>
-    <Hero />
-    <About />
-    <Projects />
-    <Contact />
-  </>
-);
-
-export default Home;
+export default function Home() {
+  return (
+    <main>
+      <About />
+      <Skills />
+      <Projects />
+      <Contact />
+    </main>
+  );
+}
