@@ -129,7 +129,6 @@ const CreativeTypeWriter = ({ show, onComplete }: CreativeTypeWriterProps) => {
 
 const TypeWriter = ({ onComplete }: TypeWriterProps) => {
   const [showCreative, setShowCreative] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
 
   const handlePrefixComplete = () => {
     setShowCreative(true);
@@ -137,7 +136,6 @@ const TypeWriter = ({ onComplete }: TypeWriterProps) => {
 
   const handleCreativeComplete = () => {
     setTimeout(() => {
-      setIsComplete(true);
       onComplete();
     }, 2000);
   };

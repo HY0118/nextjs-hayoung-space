@@ -4,6 +4,7 @@ import Header from "@components/common/Header";
 import Footer from "@components/common/Footer";
 import { ThemeProvider } from "@contexts/ThemeContext";
 import { Outfit, Sora } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -44,7 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider>
           <Header />
-          <main>{children}</main>
+          <main>
+            {children}
+            <SpeedInsights />
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
