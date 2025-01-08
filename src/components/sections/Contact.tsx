@@ -5,54 +5,47 @@ const Contact = () => {
         <h2 className="text-4xl text-text-primary mb-8 relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
           Contact
         </h2>
-        <div className="grid md:grid-cols-3 gap-16">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-4">
-              <i className="fas fa-envelope text-2xl text-primary" />
-              <a
-                href="mailto:lhy.it.0118@gmail.com"
-                className="text-text-secondary hover:text-primary transition-colors"
-              >
-                lhy.it.0118@gmail.com
-              </a>
-            </div>
-            <div className="flex items-center gap-4">
-              <i className="fab fa-github text-2xl text-primary" />
-              <a
-                href="https://github.com/HY0118"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-secondary hover:text-primary transition-colors"
-              >
-                GitHub
-              </a>
-            </div>
-          </div>
-          <form className="md:col-span-2 flex flex-col gap-4">
-            <input
-              type="text"
-              placeholder="이름"
-              required
-              className="p-4 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:border-primary text-text-primary"
-            />
-            <input
-              type="email"
-              placeholder="이메일"
-              required
-              className="p-4 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:border-primary text-text-primary"
-            />
-            <textarea
-              placeholder="메시지"
-              required
-              className="p-4 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:border-primary text-text-primary min-h-[150px] resize-y"
-            />
-            <button
-              type="submit"
-              className="px-8 py-4 bg-primary text-white rounded hover:bg-primary-dark transition-colors self-start"
+
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="flex flex-col gap-4">
+            <p className="text-text-secondary mb-2">
+              아래 메일로 연락해 주시면 빠른 시일 내에 답변 드리도록 하겠습니다.
+            </p>
+            <a
+              href="mailto:lhy.it.0118@gmail.com"
+              className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-primary hover:bg-gray-50 transition-all"
             >
-              보내기
-            </button>
-          </form>
+              <img
+                src="https://www.google.com/gmail/about/static/images/logo-gmail.png?cache=1adba63"
+                alt="Gmail Logo"
+                className="w-8 h-8 object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="font-medium text-lg">이메일로 연락하기</span>
+                <span className="text-text-secondary">lhy.it.0118@gmail.com</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <p className="text-text-secondary mb-2">더 자세한 프로필이 궁금하시다면 GitHub을 방문해 주세요.</p>
+            <a
+              href="https://github.com/HY0118"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-primary hover:bg-gray-50 transition-all"
+            >
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                alt="GitHub Logo"
+                className="w-8 h-8 object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="font-medium text-lg">GitHub 방문하기</span>
+                <span className="text-text-secondary">@HY0118</span>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </section>

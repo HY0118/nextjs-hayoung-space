@@ -15,7 +15,7 @@ const ProjectDetail = () => {
       animate={{ x: isDetailOpen ? 0 : "100%" }}
       exit={{ x: "100%" }}
       transition={{ type: "spring", damping: 20 }}
-      className="fixed top-0 right-0 w-full md:w-[40%] h-full bg-background border-l border-border overflow-y-auto"
+      className="fixed top-0 right-0 w-full md:w-[60%] h-full bg-background border-l border-border overflow-y-auto"
       style={{ marginTop: "76px" }}
     >
       <div className="p-8">

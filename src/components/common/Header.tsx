@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import ThemeToggle from "@/components/common/ThemeToggle";
+import Navigation from "@/components/common/Navigation";
 
 const Header: FC = () => {
   return (
@@ -10,30 +11,7 @@ const Header: FC = () => {
           <span className="text-text-primary">HaYoung</span> <span className="text-primary">Space</span> 🚀
         </Link>
         <div className="flex items-center gap-4">
-          <nav>
-            <ul className="flex gap-8">
-              <li>
-                <Link href="/#about" className="text-text-secondary hover:text-primary transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/#skills" className="text-text-secondary hover:text-primary transition-colors">
-                  Skills
-                </Link>
-              </li>
-              <li>
-                <Link href="/#projects" className="text-text-secondary hover:text-primary transition-colors">
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact" className="text-text-secondary hover:text-primary transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <Navigation />
           <ThemeToggle />
         </div>
       </div>
