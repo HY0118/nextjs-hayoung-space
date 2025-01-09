@@ -40,7 +40,7 @@ Markdown 및 Next.js/Vercel 등 정적 사이트 생성기를 이용해 손쉽�
 
 | 페이지 | 스크린샷 |
 |---|---|
-| **홈(Home)** | <img width="300" src="https://via.placeholder.com/600x400?text=Home+Page+Screenshot" alt="Home Screenshot" /> |
+| **홈(Home)** | <img width="550" height="auto" src="./images/Homepage.png" alt="Home Screenshot" /> |
 
 
 ## Contact
