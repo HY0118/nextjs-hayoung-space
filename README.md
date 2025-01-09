@@ -45,7 +45,7 @@ Markdown 및 Next.js/Vercel 등 정적 사이트 생성기를 이용해 손쉽�
 
 ## Contact
 
-- **Email**: [your_email@example.com](mailto:your_email@example.com)
-- **LinkedIn**: [linkedin.com/in/your_profile](https://linkedin.com/in/your_profile)
-- **GitHub**: [github.com/your_github_id](https://github.com/your_github_id)
+- **Email**: [lhy.it.0118@gmail.com](lhy.it.0118@gmail.com)
+- **LinkedIn**: [linkedin.com/in/hayoung-lee-756b72332](https://linkedin.com/in/hayoung-lee-756b72332)
+- **GitHub**: [github.com/HY0118](https://github.com/HY0118)
 
