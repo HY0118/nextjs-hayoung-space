@@ -58,7 +58,7 @@ const Skills = () => {
                          overflow-auto h-full"
               >
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-text-primary mb-2 flex items-center gap-3">
+                  <h3 className="text-xl font-bold text-text-primary mb-2 flex items-center gap-3 font-sora">
                     <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
                       {category.title === "Frontend" ? "🎨" : 
                        category.title === "Backend" ? "⚙️" : 
@@ -66,7 +66,7 @@ const Skills = () => {
                     </span>
                     {category.title}
                   </h3>
-                  <p className="text-text-secondary text-sm">{category.description}</p>
+                  <p className="text-text-secondary text-sm font-pret">{category.description}</p>
                 </div>
 
                 <div className="grid gap-3">
@@ -79,14 +79,14 @@ const Skills = () => {
                                transition-all duration-300"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className={`text-base font-semibold ${getTechColor(skill.name)}  rounded-lg px-3 py-1
-                                        group-hover:scale-105 group-hover:shadow-sm
-                                        transition-transform duration-100`}>
+                        <h4 className={`text-base font-semibold ${getTechColor(skill.name)} rounded-lg px-1 py-1
+                                      group-hover:scale-105 group-hover:shadow-sm font-pret
+                                      transition-transform duration-100`}>
                           {skill.name}
                         </h4>
                         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SKILL_LEVEL_STYLES[skill.level]}
-                                          group-hover:scale-105
-                                          transition-transform duration-300`}>
+                                      group-hover:scale-105 font-pret
+                                      transition-transform duration-300`}>
                           {skill.level}
                         </span>
                       </div>
@@ -95,9 +95,9 @@ const Skills = () => {
                           <span
                             key={item}
                             className="text-xs px-2 py-0.5 rounded-full bg-gray-50 dark:bg-gray-800 text-text-secondary
-                                       border border-gray-200 dark:border-gray-700
-                                       group-hover:bg-gray-100 dark:group-hover:bg-gray-700
-                                       transition-colors duration-300"
+                                     border border-gray-200 dark:border-gray-700 font-pret
+                                     group-hover:bg-gray-100 dark:group-hover:bg-gray-700
+                                     transition-colors duration-300"
                           >
                             {item}
                           </span>
