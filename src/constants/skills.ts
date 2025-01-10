@@ -8,7 +8,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       {
         name: "JavaScript",
-        level: SKILL_LEVELS.ADVANCED,
+        level: SKILL_LEVELS.EXPERT,
         experience: "4+ years",
         projects: 8,
         expertise: ["ES6+", "DOM", "Async Programming", "Module System"],
@@ -16,7 +16,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "React",
-        level: SKILL_LEVELS.ADVANCED,
+        level: SKILL_LEVELS.EXPERT,
         experience: "3+ years",
         projects: 7,
         expertise: ["Hooks", "Context", "Component Design", "Performance Optimization"],
@@ -32,7 +32,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "TypeScript",
-        level: SKILL_LEVELS.ADVANCED,
+        level: SKILL_LEVELS.EXPERT,
         experience: "3+ years",
         projects: 6,
         expertise: ["Type System", "Interface Design", "TSDoc"],
@@ -57,7 +57,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         level: SKILL_LEVELS.ADVANCED,
         experience: "2+ years",
         projects: 4,
-        expertise: ["API Design", "JSON Schema", "MUI Integration", "Custom Functions"],
+        expertise: ["API Design", "JSON Schema", "Authentication & JWT", "API Documentation"],
         description: "RESTful API 설계 및 구현, 문서화",
       },
       {
@@ -87,8 +87,16 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         level: SKILL_LEVELS.INTERMEDIATE,
         experience: "2+ years",
         projects: 3,
-        expertise: ["Jenkins", "SVN", "Fork", "NPM", "Package Management"],
+        expertise: ["Jenkins", "Bitbucket Pipelines", "SVN", "Fork", "NPM", "Package Management"],
         description: "자동화된 빌드 및 배포 시스템 구축",
+      },
+      {
+        name: "Project Management",
+        level: SKILL_LEVELS.ADVANCED,
+        experience: "2+ years",
+        projects: 5,
+        expertise: ["JIRA", "Confluence", "Redmine", "Agile/Scrum"],
+        description: "프로젝트 관리 및 팀 협업 도구 활용",
       }
     ],
   },
@@ -101,7 +109,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         level: SKILL_LEVELS.INTERMEDIATE,
         experience: "1+ year",
         projects: 3,
-        expertise: ["MFC", "Visual Studio", "DICOM", "DMTK Lib"],
+        expertise: ["MFC", "Visual Studio", "DICOM", "DCMTK Lib"],
         description: "의료 영상 처리 시스템 및 데스크톱 애플리케이션 개발",
       }
     ],

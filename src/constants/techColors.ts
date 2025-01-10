@@ -6,7 +6,7 @@ export const techColors: TechColor = {
   // JavaScript 생태계
   React: "bg-[#61DAFB]/10 text-[#4FA8C9] dark:text-[#61DAFB]/90",
   TypeScript: "bg-[#3178C6]/10 text-[#2A669E] dark:text-[#3178C6]/90",
-  "Next.js": "bg-[#3178C6]/10 text-black dark:bg-white/10 dark:text-white/90",
+  "Next.js": "bg-[#3178C6]/10 text-black dark:text-white/90",
   JavaScript: "bg-[#F7DF1E]/10 text-[#B3A516] dark:text-[#F7DF1E]/90",
   Vue: "bg-[#4FC08D]/10 text-[#3FA173] dark:text-[#4FC08D]/90",
   Angular: "bg-[#DD0031]/10 text-[#B8002A] dark:text-[#DD0031]/90",
@@ -21,7 +21,7 @@ export const techColors: TechColor = {
   Node: "bg-[#339933]/10 text-[#2A802A] dark:text-[#339933]/90",
   Python: "bg-[#3776AB]/10 text-[#2E6189] dark:text-[#3776AB]/90",
   Django: "bg-[#092E20]/10 text-[#0A2318] dark:text-[#0F4D35]/90",
-  Flask: "bg-[#000000]/10 text-black dark:bg-white/10 dark:text-white/90",
+  Flask: "bg-[#000000]/10 text-black dark:text-white/90",
   Java: "bg-[#007396]/10 text-[#005F7A] dark:text-[#007396]/90",
   Spring: "bg-[#6DB33F]/10 text-[#5A9434] dark:text-[#6DB33F]/90",
   PHP: "bg-[#777BB4]/10 text-[#636595] dark:text-[#777BB4]/90",
@@ -69,12 +69,11 @@ export const getTechColor = (tech: string): string => {
   const color = techColors[tech];
   if (!color) {
     console.warn(`No color defined for tech: ${tech}`);
-    return "bg-white dark:bg-gray-800 border-primary/30 text-primary";
+    return "border-primary/30 text-primary";
   }
   
   // bg-[color]/10 패턴을 light/dark 모드에 맞게 변경
   return color.replace(
-    /bg-\[(.*?)\]\/10/g, 
-    'bg-white dark:bg-gray-800 border-[$1]/30'
+    /bg-\[(.*?)\]\/10/g, ' border-[$1]/30'
   );
 };

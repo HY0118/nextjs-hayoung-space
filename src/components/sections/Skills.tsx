@@ -11,8 +11,8 @@ const Skills = () => {
     lg: [
       { i: 'Frontend', x: 0, y: 0, w: 1.6, h: 3.3 },
       { i: 'Backend', x: 1.6, y: 0, w: 1.2, h: 1.99 },
-      { i: 'DevOps', x: 2.8, y: 0, w: 1.2, h: 1.99 },
-      { i: 'Desktop Development', x: 1.6, y: 1.99, w: 2.4, h: 1.3 }
+      { i: 'DevOps', x: 2.8, y: 0, w: 1.2, h: 2.5 },
+      { i: 'Desktop Development', x: 1.6, y: 1.99, w: 1.2, h: 1.3 }
     ]
   };
 
@@ -52,9 +52,9 @@ const Skills = () => {
             {SKILL_CATEGORIES.map((category) => (
               <div 
                 key={category.title}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg 
-                         border border-gray-100 dark:border-gray-700
-                         transition-all duration-300 hover:shadow-xl
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md 
+                         border border-gray-200 dark:border-gray-700
+                         transition-all duration-300 hover:shadow-lg
                          overflow-auto h-full"
               >
                 <div className="mb-4">
@@ -66,7 +66,7 @@ const Skills = () => {
                     </span>
                     {category.title}
                   </h3>
-                  <p className="text-text-secondary text-sm font-pret">{category.description}</p>
+                  <p className="text-text-secondary text-sm font-pret dark:text-white/90">{category.description}</p>
                 </div>
 
                 <div className="grid gap-3">
@@ -85,7 +85,7 @@ const Skills = () => {
                           {skill.name}
                         </h4>
                         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SKILL_LEVEL_STYLES[skill.level]}
-                                      group-hover:scale-105 font-pret
+                                      group-hover:scale-105 font-pret dark:text-black/90
                                       transition-transform duration-300`}>
                           {skill.level}
                         </span>
@@ -95,7 +95,7 @@ const Skills = () => {
                           <span
                             key={item}
                             className="text-xs px-2 py-0.5 rounded-full bg-gray-50 dark:bg-gray-800 text-text-secondary
-                                     border border-gray-200 dark:border-gray-700 font-pret
+                                     border border-gray-200 dark:border-gray-700 font-pret dark:text-white/90
                                      group-hover:bg-gray-100 dark:group-hover:bg-gray-700
                                      transition-colors duration-300"
                           >
