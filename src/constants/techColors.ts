@@ -6,7 +6,7 @@ export const techColors: TechColor = {
   // JavaScript 생태계
   React: "bg-[#61DAFB]/10 text-[#4FA8C9] dark:text-[#61DAFB]/90",
   TypeScript: "bg-[#3178C6]/10 text-[#2A669E] dark:text-[#3178C6]/90",
-  "Next.js": "bg-black/10 text-black dark:bg-white/10 dark:text-white/90",
+  "Next.js": "bg-[#3178C6]/10 text-black dark:bg-white/10 dark:text-white/90",
   JavaScript: "bg-[#F7DF1E]/10 text-[#B3A516] dark:text-[#F7DF1E]/90",
   Vue: "bg-[#4FC08D]/10 text-[#3FA173] dark:text-[#4FC08D]/90",
   Angular: "bg-[#DD0031]/10 text-[#B8002A] dark:text-[#DD0031]/90",
@@ -55,17 +55,26 @@ export const techColors: TechColor = {
   Webpack: "bg-[#8DD6F9]/10 text-[#75B4D3] dark:text-[#8DD6F9]/90",
   Vite: "bg-[#646CFF]/10 text-[#525AD4] dark:text-[#646CFF]/90",
   Firebase: "bg-[#FFCA28]/10 text-[#D6A821] dark:text-[#FFCA28]/90",
+
+  // API & 백엔드 프레임워크
+  "RESTful API": "bg-[#38B2AC]/10 text-[#2C8F8A] dark:text-[#38B2AC]/90",
+  "Deno": "bg-[#000000]/10 text-[#121212] dark:text-[#FFFFFF]/90",
 } as const;
 
 // 기본 스타일 (목록에 없는 기술 스택용)
-export const defaultTechColor = "bg-[#FFFFFF] text-primary";
+export const defaultTechColor = "bg-white border-primary/30 text-primary";
 
 // 기술 스택의 색상을 가져오는 헬퍼 함수
 export const getTechColor = (tech: string): string => {
   const color = techColors[tech];
   if (!color) {
     console.warn(`No color defined for tech: ${tech}`);
-    return defaultTechColor;
+    return "bg-white dark:bg-gray-800 border-primary/30 text-primary";
   }
-  return color;
+  
+  // bg-[color]/10 패턴을 light/dark 모드에 맞게 변경
+  return color.replace(
+    /bg-\[(.*?)\]\/10/g, 
+    'bg-white dark:bg-gray-800 border-[$1]/30'
+  );
 };
