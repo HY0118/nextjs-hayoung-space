@@ -4,7 +4,16 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "ts", "tsx"],
   images: {
-    domains: ["www.google.com", "github.githubassets.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+      },
+      {
+        protocol: "https",
+        hostname: "github.githubassets.com",
+      },
+    ],
   },
   experimental: {
     turbo: {
