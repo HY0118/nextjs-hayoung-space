@@ -3,8 +3,18 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "ts", "tsx"],
+  images: {
+    domains: ["www.google.com", "github.githubassets.com"],
+  },
+  experimental: {
+    turbo: {
+      rules: {
+        "**/test/**": ["ignore"],
+      },
+    },
+  },
   webpack: (config) => {
-    // test 폴더 무시
+    // webpack 설정은 프로덕션 빌드에서만 적용됨
     config.watchOptions = {
       ignored: ["**/test/**"],
     };

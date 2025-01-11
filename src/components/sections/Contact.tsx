@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Contact = () => {
   return (
     <section id="contact" className="py-20 min-h-screen flex flex-col justify-center">
@@ -15,10 +17,12 @@ const Contact = () => {
               href="mailto:lhy.it.0118@gmail.com"
               className="flex items-center gap-4 p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary dark:hover:border-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
-              <img
+              <Image
                 src="https://www.google.com/gmail/about/static/images/logo-gmail.png?cache=1adba63"
                 alt="Gmail Logo"
-                className="w-8 h-8 object-contain"
+                width={32}
+                height={32}
+                className="object-contain"
               />
               <div className="flex flex-col">
                 <span className="font-medium text-lg">이메일로 연락하기</span>
@@ -35,10 +39,12 @@ const Contact = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary dark:hover:border-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
-              <img
+              <Image
                 src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                 alt="GitHub Logo"
-                className="w-8 h-8 object-contain"
+                width={32}
+                height={32}
+                className="object-contain"
               />
               <div className="flex flex-col">
                 <span className="font-medium text-lg">GitHub 방문하기</span>
