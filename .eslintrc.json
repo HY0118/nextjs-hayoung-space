@@ -7,5 +7,6 @@
       "ignoreRestSiblings": false,
       "varsIgnorePattern": "^_"
     }]
-  }
+  },
+  "ignorePatterns": ["test/**/*"]
 }
