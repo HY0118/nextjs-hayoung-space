@@ -17,10 +17,14 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
       className="w-full h-[500px] sm:w-[400px] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden group 
       hover:-translate-y-2 hover:bg-gray-200 dark:hover:bg-gray-700
       transition-all duration-100 ease-in-out cursor-pointer
-      hover:shadow-lg hover:shadow-primary/10"
+      hover:shadow-lg hover:shadow-primary/10
+      border-2 border-transparent hover:border-primary/20
+      relative after:content-[''] after:absolute after:inset-0 
+      after:border-[3px] after:border-transparent hover:after:border-primary/10 
+      after:rounded-lg after:transition-all after:duration-300"
       whileHover={{ scale: 1.02 }}
     >
-      <div className="h-[300px] relative overflow-hidden">
+      <div className="h-[300px] relative overflow-hidden border-b border-gray-200 dark:border-gray-700">
         <Image
           src={project.image}
           alt={project.title}
@@ -30,13 +34,20 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
         />
       </div>
       <div className="p-6 h-[200px] flex flex-col">
-        <h3 className="text-xl font-semibold text-text-primary mb-2">{project.title}</h3>
-        <p className="text-text-secondary mb-4 line-clamp-2">{project.description}</p>
+        <h3 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-primary transition-colors font-sora">
+          {project.title}
+        </h3>
+        <p className="text-text-secondary mb-4 line-clamp-2 group-hover:text-text-primary/90 transition-colors font-pret">
+          {project.description}
+        </p>
         <div className="flex flex-wrap gap-2 mt-auto">
           {project.tech.map((tech) => (
             <span
               key={tech}
-              className={`inline-flex items-center px-2 py-0.5 text-sm rounded-full font-medium ${getTechColor(tech)} line-clamp-1`}
+              className={`inline-flex items-center px-2 py-0.5 text-sm rounded-full font-medium font-pret
+              ${getTechColor(tech)} 
+              transition-all duration-300 
+              group-hover:scale-105`}
             >
               {tech}
             </span>

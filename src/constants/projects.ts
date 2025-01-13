@@ -3,10 +3,10 @@ import { Project } from "@/store/projectStore";
 export const projects: Project[] = [
   {
     id: "project1",
-    title: "1",
-    description: "프로젝트 간단 설명",
+    title: "Tools (고객 유입 설계 컨텐츠 웹 페이지)",
+    description: "무료 설계 컨텐츠(국가별 지진·온도 하중 등) 제공 페이지",
     image: "/images/Project_Thumbnail.webp",
-    tech: ["React", "TypeScript", "Next.js", "TailwindCSS", "Framer Motion"],
+    tech: ["Next.js", "React", "TypeScript", "RJSF","Framer Motion", "Bitbucket" ],
     github: "https://github.com/",
     demo: "https://demo.com",
     details: {
@@ -19,8 +19,8 @@ export const projects: Project[] = [
   },
   {
     id: "project2",
-    title: "2",
-    description: "프로젝트 간단 설명",
+    title: "Flow (설계 컨텐츠 간 연결 실행)",
+    description: "단일·복수 설계 컨텐츠를 연결해 통합 모델링을 제공하는 사용자 페이지",
     image: "/images/Project_Thumbnail.webp",
     tech: ["React", "TypeScript", "Next.js"],
     github: "https://github.com/",
@@ -34,8 +34,8 @@ export const projects: Project[] = [
   },
   {
     id: "project3",
-    title: "3",
-    description: "프로젝트 간단 설명",
+    title: "Playground (UI Visual Programming)",
+    description: "MoaUI 컴포넌트를 활용한 드래그앤드롭 UI 제작 페이지 및 React 코드 자동 생성 기능",
     image: "/images/Project_Thumbnail.webp",
     tech: ["React", "TypeScript", "Next.js"],
     github: "https://github.com/",
@@ -49,8 +49,8 @@ export const projects: Project[] = [
   },
   {
     id: "project4",
-    title: "3",
-    description: "프로젝트 간단 설명",
+    title: "moa(Midas Open API) UI 디자인 시스템",
+    description: "자사 소프트웨어 엔지니어링 제품의 디자인 시스템",
     image: "/images/Project_Thumbnail.webp",
     tech: ["React", "TypeScript", "Next.js"],
     github: "https://github.com/",
