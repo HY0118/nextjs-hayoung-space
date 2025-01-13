@@ -32,7 +32,7 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <p className="text-text-secondary mb-2">더 자세한 프로필이 궁금하시다면 GitHub을 방문해 주세요.</p>
+            <p className="text-text-secondary mb-2">더 자세한 프로필이 궁금하시다면 아래 링크를 방문해 주세요.</p>
             <a
               href="https://github.com/HY0118"
               target="_blank"
@@ -49,6 +49,24 @@ const Contact = () => {
               <div className="flex flex-col">
                 <span className="font-medium text-lg">GitHub 방문하기</span>
                 <span className="text-text-secondary">@HY0118</span>
+              </div>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/hayoung-lee-756b72332/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary dark:hover:border-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+            >
+              <Image
+                src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
+                alt="LinkedIn Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="font-medium text-lg">LinkedIn 방문하기</span>
+                <span className="text-text-secondary">HAYOUNG LEE</span>
               </div>
             </a>
           </div>

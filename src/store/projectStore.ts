@@ -13,6 +13,11 @@ export interface Project {
     features: string[];
     challenges: string[];
     images: string[];
+    demoGif?: string;
+    demoVideo?: {
+      webm?: string;
+      mp4?: string;
+    };
   };
 }
 

@@ -11,9 +11,10 @@ export const projects: Project[] = [
     demo: "https://demo.com",
     details: {
       overview: "프로젝트 상세 설명...",
+      demoGif: "/images/projects/project1/demo.gif",
       features: ["주요 기능 1", "주요 기능 2"],
       challenges: ["해결한 문제 1", "해결한 문제 2"],
-      images: ["/detail1.png", "/detail2.png"],
+      images: [],
     },
   },
   {
@@ -28,10 +29,9 @@ export const projects: Project[] = [
       overview: "프로젝트 상세 설명...",
       features: ["주요 기능 1", "주요 기능 2"],
       challenges: ["해결한 문제 1", "해결한 문제 2"],
-      images: ["/detail1.png", "/detail2.png"],
+      images: [],
     },
   },
-
   {
     id: "project3",
     title: "3",
@@ -44,8 +44,58 @@ export const projects: Project[] = [
       overview: "프로젝트 상세 설명...",
       features: ["주요 기능 1", "주요 기능 2"],
       challenges: ["해결한 문제 1", "해결한 문제 2"],
-      images: ["/detail1.png", "/detail2.png"],
+      images: [],
     },
   },
-  // 추가 프로젝트...
+  {
+    id: "project4",
+    title: "3",
+    description: "프로젝트 간단 설명",
+    image: "/images/Project_Thumbnail.webp",
+    tech: ["React", "TypeScript", "Next.js"],
+    github: "https://github.com/",
+    demo: "https://demo.com",
+    details: {
+      overview: "프로젝트 상세 설명...",
+      features: ["주요 기능 1", "주요 기능 2"],
+      challenges: ["해결한 문제 1", "해결한 문제 2"],
+      images: [],
+    },
+  },
+  {
+    id: "project5",
+    title: "In App Plugin 플랫폼 & 컨텐츠",
+    description: "자사 소프트웨어(WebView 기반)의 Plugin 플랫폼 기획·개발 및 컨텐츠",
+    image: "/images/Project_Thumbnail.webp",
+    tech: ["React", "TypeScript", "Next.js"],
+    github: "https://github.com/",
+    demo: "https://demo.com",
+    details: {
+      overview: "프로젝트 상세 설명...",
+      demoVideo: {
+        mp4: "/images/projects/project_in_app_plugin/in_app_plugin_demo.mp4",
+      },
+      features: ["주요 기능 1", "주요 기능 2"],
+      challenges: ["해결한 문제 1", "해결한 문제 2"],
+      images: [],
+    },
+  },
+  {
+    id: "project6",
+    title: "엔지니어링 제품 API 웹 페이지 & 서버",
+    description: "API 서버 구축 및 API 가이드·테스트 페이지",
+    image: "/images/projects/project_api_beta/screenshots/api_beta_main.png",
+    tech: ["React", "JavaScript", "MUI", "Deno", "Restful API", "Bitbucket"],
+    github: "",
+    demo: "https://api-beta.midasit.com/public/web",
+    details: {
+      overview: "자사 소프트웨어 엔지니어링 제품의 API 서버 구축 및 API 가이드·테스트 페이지",
+      features: ["주요 기능 1", "주요 기능 2"],
+      challenges: ["해결한 문제 1", "해결한 문제 2"],
+      images: [
+        "/images/projects/project_api_beta/screenshots/api_beta_guide.png",
+        "/images/projects/project_api_beta/screenshots/api_beta_plugin.png",
+      ],
+    },
+  },
 ];
