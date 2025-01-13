@@ -14,22 +14,22 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
   return (
     <motion.div
       onClick={() => onSelect(project)}
-      className="w-full h-[400px] sm:w-[400px] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden group 
+      className="w-full h-[500px] sm:w-[400px] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden group 
       hover:-translate-y-2 hover:bg-gray-200 dark:hover:bg-gray-700
-      transition-all duration-300 ease-in-out cursor-pointer
+      transition-all duration-100 ease-in-out cursor-pointer
       hover:shadow-lg hover:shadow-primary/10"
       whileHover={{ scale: 1.02 }}
     >
-      <div className="h-48 relative overflow-hidden">
+      <div className="h-[300px] relative overflow-hidden">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-100 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
-      <div className="p-6 h-[208px] flex flex-col">
+      <div className="p-6 h-[200px] flex flex-col">
         <h3 className="text-xl font-semibold text-text-primary mb-2">{project.title}</h3>
         <p className="text-text-secondary mb-4 line-clamp-2">{project.description}</p>
         <div className="flex flex-wrap gap-2 mt-auto">

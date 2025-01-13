@@ -28,7 +28,7 @@ const Projects = () => {
   return (
     <section id="projects" className="relative py-20 min-h-screen flex flex-col justify-center">
       <motion.div
-        className="max-w-7xl mx-auto px-8"
+        className="mx-auto px-8"
         animate={{
           x: isDetailOpen ? "-10%" : 0,
         }}
