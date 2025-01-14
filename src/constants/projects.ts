@@ -111,13 +111,13 @@ export const projects: Project[] = [
   {
     id: "project4",
     title: "moa(Midas Open API) UI 디자인 시스템",
-    description: "자사 소프트웨어 엔지니어링 제품의 디자인 시스템 및 컴포넌트 라이브러리",
+    description: "자사 소프트웨어 제품 내 Plugin 디자인 시스템 및 컴포넌트 라이브러리",
     image: "/images/projects/project_moaUI/screenshots/moaUI-design-system-thumbnail.png",
-    tech: ["React", "TypeScript", "Next.js"],
-    github: "https://github.com/",
-    demo: "https://demo.com",
+    tech: ["React", "TypeScript", "MUI", "NPM", "Storybook", "Chromatic", "Github"],
+    github: "https://github.com/midasit-dev/moaui",
+    demo: "https://main--6556d17f924e868b000ddaf5.chromatic.com/?path=/docs/components-chip--explore",
     details: {
-      overview: "프로젝트 상세 설명...",
+      overview: "건축/토목 엔지니어링 소프트웨어 내 Plugin 디자인 시스템 및 컴포넌트 라이브러리 제공",
       features: ["주요 기능 1", "주요 기능 2"],
       challenges: [
         {
