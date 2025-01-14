@@ -12,17 +12,17 @@ const Projects = () => {
 
   useEffect(() => {
     if (isDetailOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
-    
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isDetailOpen]);
 
-  const handleProjectSelect = async (project: Project, index: number) => {
+  const handleProjectSelect = async (project: Project) => {
     const card = document.querySelector(`#project-card-${project.id}`);
     if (!card) return;
 
@@ -30,7 +30,7 @@ const Projects = () => {
     const cardRect = card.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     const navbarHeight = 0; // 네비게이션 바 높이
-    
+
     // 스크롤 위치 계산 시 네비게이션 바 높이를 고려
     const scrollTo = window.scrollY + cardRect.top - navbarHeight - (windowHeight - cardRect.height) / 2;
 
@@ -38,7 +38,7 @@ const Projects = () => {
     await new Promise((resolve) => {
       window.scrollTo({
         top: scrollTo,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
       // 스크롤 애니메이션 완료 대기
       setTimeout(resolve, 500);
@@ -53,21 +53,26 @@ const Projects = () => {
 
     // 카드의 열 위치 계산 (0: 첫번째 열, 1: 두번째 열, 2: 세번째 열)
     const column = index % 3;
-    // 카드 하나의 대략적인 너비(gap 포함)를 고려한 이동 거리 계산
-    const moveDistance = column * -416; // 카드 너비 + gap을 고려한 값
-
+    let moveDistance = 0;
+    if (column === 0) {
+      moveDistance = -60;
+    } else {
+      // 카드 하나의 대략적인 너비(gap 포함)를 고려한 이동 거리 계산
+      moveDistance = column * -412; // 카드 너비 + gap을 고려한 값
+    }
     return moveDistance;
   };
 
   return (
-    <section id="projects" className={`relative py-20 min-h-screen flex flex-col justify-center ${
-      isDetailOpen ? 'overflow-hidden' : ''
-    }`}>
+    <section
+      id="projects"
+      className={`relative py-20 min-h-screen flex flex-col justify-center ${isDetailOpen ? "overflow-hidden" : ""}`}
+    >
       <motion.div
         className="mx-auto px-8"
         animate={{
           x: isDetailOpen ? "-10%" : 0,
-          width: isDetailOpen ? "67%" : "auto"
+          width: isDetailOpen ? "67%" : "auto",
         }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
       >
@@ -85,6 +90,7 @@ const Projects = () => {
                 opacity: isDetailOpen ? (selectedProject?.id === project.id ? 1 : 0) : 1,
                 scale: isDetailOpen ? (selectedProject?.id === project.id ? 1 : 0.95) : 1,
                 x: getCardTransform(index, project.id),
+                y: isDetailOpen && index < 3 ? 100 : 0,
               }}
               transition={{
                 duration: 0.4,
@@ -96,10 +102,7 @@ const Projects = () => {
                 pointerEvents: isDetailOpen && selectedProject?.id !== project.id ? "none" : "auto",
               }}
             >
-              <ProjectCard 
-                project={project} 
-                onSelect={() => handleProjectSelect(project, index)} 
-              />
+              <ProjectCard project={project} onSelect={() => handleProjectSelect(project)} />
             </motion.div>
           ))}
         </div>

@@ -11,13 +11,27 @@ export interface Project {
   details: {
     overview: string;
     features: string[];
-    challenges: string[];
-    images: string[];
+    challenges: Array<{
+      problem: string;
+      solution: string;
+    }>;
+    images: Array<{
+      url: string;
+      description?: string;
+    }>;
     demoGif?: string;
     demoVideo?: {
       webm?: string;
       mp4?: string;
     };
+    techStack: Array<{
+      category: string;
+      items: Array<{
+        name: string;
+        description: string;
+      }>;
+    }>;
+    lessons: string[];
   };
 }
 
