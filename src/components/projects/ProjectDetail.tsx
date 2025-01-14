@@ -75,23 +75,23 @@ const ProjectDetail = () => {
                       fill="currentColor"
                     />
                   </svg>
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                    GitHub Repository
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                    <span className="font-semibold text-primary">Public</span> GitHub Repository
                   </div>
                 </a>
               ) : (
                 <div
                   className="group relative p-2 rounded-lg flex items-center justify-center
-                  text-text-secondary cursor-help hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  text-text-secondary/70 cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <svg className="w-6 h-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-6 h-6 opacity-70" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M.778 1.213a.768.768 0 0 0-.768.892l3.263 19.81c.084.5.515.868 1.022.873H19.95a.772.772 0 0 0 .77-.646l3.27-20.03a.768.768 0 0 0-.768-.891H.778zM14.52 15.53H9.522L8.17 8.466h7.561l-1.211 7.064z"
                       fill="currentColor"
                     />
                   </svg>
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                    Private Bitbucket Repository
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                    <span className="font-semibold text-gray-400">Private</span> Bitbucket Repository
                   </div>
                 </div>
               )}
@@ -117,7 +117,7 @@ const ProjectDetail = () => {
                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                   />
                 </svg>
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
                   Try it out
                 </div>
               </a>

@@ -84,9 +84,9 @@ export const projects: Project[] = [
   },
   {
     id: "project3",
-    title: "Playground (UI Visual Programming)",
-    description: "MoaUI 컴포넌트를 활용한 드래그앤드롭 UI 제작 페이지 및 React 코드 자동 생성 기능",
-    image: "/images/Project_Thumbnail.webp",
+    title: "Playground (Visual Programming)",
+    description: "moaUI 컴포넌트를 활용한 드래그앤드롭 UI 제작 페이지 및 React 코드 자동 생성 기능",
+    image: "/images/projects/project_playground/screenshots/playground_thumbnail.png",
     tech: ["React", "TypeScript", "Next.js"],
     github: "https://github.com/",
     demo: "https://demo.com",
@@ -110,7 +110,33 @@ export const projects: Project[] = [
   },
   {
     id: "project4",
-    title: "moa(Midas Open API) UI 디자인 시스템",
+    title: "moaui 기반 Plugin 개발 CRA 템플릿",
+    description: "Plugin 개발 접근성 및 효율성 향상을 위해 moaui 기반 CRA 템플릿을 배포하여 프로젝트 개발 환경 표준화",
+    image: "/images/projects/project_cra_template_moaui/screenshots/cra_template_moaui_thumbnail.png",
+    tech: ["React", "TypeScript", "Next.js"],
+    github: "https://github.com/",
+    demo: "https://demo.com",
+    details: {
+      overview: "프로젝트 상세 설명...",
+      features: ["주요 기능 1", "주요 기능 2"],
+      challenges: [
+        {
+          problem: "API 응답 결과 파싱 크기가 큰 경우 페이지 로딩 속도 저하 문제",
+          solution: "lazy loading 적용으로 기 로딩 시간 단축 및 사용자 경험 개선",
+        },
+        {
+          problem: "컴포넌트 상태 관리 및 데이터 흐름 제어 어려움",
+          solution: "전역 상태 관리 라이브러리 Recoil 도입으로 상태 관리 단순화",
+        },
+      ],
+      images: [],
+      techStack: [],
+      lessons: [],
+    },
+  },
+  {
+    id: "project5",
+    title: "moaUI 컴포넌트 & 디자인 시스템",
     description: "자사 소프트웨어 제품 내 Plugin 디자인 시스템 및 컴포넌트 라이브러리",
     image: "/images/projects/project_moaUI/screenshots/moaUI-design-system-thumbnail.png",
     tech: ["React", "TypeScript", "MUI", "NPM", "Storybook", "Chromatic", "Github"],
@@ -135,7 +161,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "project5",
+    id: "project6",
     title: "In App Plugin 플랫폼 & 설계 컨텐츠",
     description: "자사 소프트웨어에 WebView 기반 Plugin 플랫폼 기획·개발 및 컨텐츠",
     image: "/images/projects/project_in_app_plugin/screenshots/in_app_plugin_thumbnail.png",
@@ -263,7 +289,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: "project6",
+    id: "project7",
     title: "엔지니어링 제품 API 웹 페이지 & 서버",
     description: "API 서버 구축 및 API 가이드·테스트 페이지",
     image: "/images/projects/project_api_beta/screenshots/api_beta_main.png",
