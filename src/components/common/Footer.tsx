@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useIntroStore } from "@/store/introStore";
+import { useIntroStore } from "@store/introStore";
 
 const Footer = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);

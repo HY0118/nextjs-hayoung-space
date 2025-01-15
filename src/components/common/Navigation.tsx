@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { useScrollSpy } from "@hooks/useScrollSpy";
 import { useEffect, useState } from "react";
 
 const Navigation = () => {

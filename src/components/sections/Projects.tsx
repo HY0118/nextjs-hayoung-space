@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useProjectStore, Project } from "@/store/projectStore";
+import { useProjectStore } from "@store/projectStore";
+import type { Project } from "@interfaces/project";
 import ProjectCard from "@components/projects/ProjectCard";
 import ProjectDetail from "@components/projects/ProjectDetail";
-import { projects } from "@/constants/projects";
+import { projects } from "@constants/projects";
 import { useEffect } from "react";
 
 const Projects = () => {

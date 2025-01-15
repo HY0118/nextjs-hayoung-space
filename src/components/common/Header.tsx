@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import ThemeToggle from "@/components/common/ThemeToggle";
-import Navigation from "@/components/common/Navigation";
-import { useIntroStore } from "@/store/introStore";
+import ThemeToggle from "@components/common/ThemeToggle";
+import Navigation from "@components/common/Navigation";
+import { useIntroStore } from "@store/introStore";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useIntroStore } from "@/store/introStore";
+import { useIntroStore } from "@store/introStore";
 import TypeWriter from "@components/common/TypeWriter";
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';

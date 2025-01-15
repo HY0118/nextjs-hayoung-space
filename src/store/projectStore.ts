@@ -1,47 +1,5 @@
-import { create } from "zustand";
-
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  tech: string[];
-  github: string;
-  demo: string;
-  details: {
-    overview: string;
-    features: string[];
-    challenges: Array<{
-      problem: string;
-      solution: string;
-    }>;
-    images: Array<{
-      url: string;
-      description?: string;
-    }>;
-    demoGif?: string;
-    demoVideo?: {
-      webm?: string;
-      mp4?: string;
-    };
-    techStack: Array<{
-      category: string;
-      items: Array<{
-        name: string;
-        description: string;
-      }>;
-    }>;
-    lessons: string[];
-  };
-}
-
-interface ProjectStore {
-  selectedProject: Project | null;
-  isDetailOpen: boolean;
-  setSelectedProject: (project: Project | null) => void;
-  openDetail: () => void;
-  closeDetail: () => void;
-}
+import type { ProjectStore } from '@interfaces/project';
+import { create } from 'zustand';
 
 export const useProjectStore = create<ProjectStore>((set) => ({
   selectedProject: null,
@@ -50,7 +8,6 @@ export const useProjectStore = create<ProjectStore>((set) => ({
   openDetail: () => set({ isDetailOpen: true }),
   closeDetail: () => {
     set({ isDetailOpen: false });
-    // 애니메이션이 끝난 후 선택된 프로젝트 초기화
     setTimeout(() => set({ selectedProject: null }), 300);
   },
 }));
