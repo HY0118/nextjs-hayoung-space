@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useProjectStore, Project } from "@store/projectStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableOfContents from "./TableOfContents";
 
 const DemoMedia = ({ project }: { project: Project }) => {
@@ -39,7 +39,42 @@ const DemoMedia = ({ project }: { project: Project }) => {
 
 const ProjectDetail = () => {
   const { selectedProject, isDetailOpen, closeDetail } = useProjectStore();
-  const [selectedImage, setSelectedImage] = useState<{ url: string; description?: string } | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ url: string; description?: string; index: number } | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+
+  // 이전 이미지로 이동
+  const handlePrevImage = () => {
+    if (!selectedProject || !selectedImage || selectedImage.index <= 0) return;
+    setSlideDirection('right');
+    const prevImage = selectedProject.details.images[selectedImage.index - 1];
+    setSelectedImage({ ...prevImage, index: selectedImage.index - 1 });
+  };
+
+  // 다음 이미지로 이동
+  const handleNextImage = () => {
+    if (!selectedProject || !selectedImage || selectedImage.index >= selectedProject.details.images.length - 1) return;
+    setSlideDirection('left');
+    const nextImage = selectedProject.details.images[selectedImage.index + 1];
+    setSelectedImage({ ...nextImage, index: selectedImage.index + 1 });
+  };
+
+  // 이미지 선택 시 인덱스도 함께 저장
+  const handleImageSelect = (image: { url: string; description?: string }, index: number) => {
+    setSelectedImage({ ...image, index });
+  };
+
+  // 키보드 이벤트 처리
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedImage) return;
+      if (e.key === 'ArrowLeft') handlePrevImage();
+      if (e.key === 'ArrowRight') handleNextImage();
+      if (e.key === 'Escape') setSelectedImage(null);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage]);
 
   if (!selectedProject) return null;
 
@@ -282,7 +317,7 @@ const ProjectDetail = () => {
                     <div
                       key={index}
                       className="group relative h-[360px] cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                      onClick={() => setSelectedImage(image)}
+                      onClick={() => handleImageSelect(image, index)}
                     >
                       <Image
                         src={image.url}
@@ -330,39 +365,61 @@ const ProjectDetail = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative max-w-5xl w-full bg-background rounded-2xl overflow-hidden shadow-2xl"
+            className="relative max-w-5xl w-full h-[80vh] bg-background rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative w-full h-[70vh] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+            <motion.div
+              key={selectedImage.url}
+              initial={{ x: slideDirection === 'left' ? 200 : -200, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: slideDirection === 'left' ? -200 : 200, opacity: 0 }}
+              transition={{ type: "spring", damping: 20 }}
+              className="relative w-full h-full"
+            >
               <Image
                 src={selectedImage.url}
                 alt={selectedImage.description || ""}
                 fill
                 className="object-contain"
                 quality={100}
+                sizes="(max-width: 1024px) 100vw, 80vw"
               />
-            </div>
-
-            <div className="p-6 bg-background/95 backdrop-blur-sm border-t border-border">
-              <p className="text-lg text-text-primary font-pret leading-relaxed">{selectedImage.description || ""}</p>
-            </div>
-
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-background/80 backdrop-blur-sm 
-                text-text-primary hover:text-primary hover:bg-background transition-all duration-300"
-              aria-label="Close modal"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            </motion.div>
+            {selectedImage.description && (
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 text-white">
+                <p className="text-sm text-center">{selectedImage.description}</p>
+              </div>
+            )}
+            {selectedImage.index > 0 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrevImage();
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm 
+                  text-text-primary hover:text-primary hover:bg-background transition-all duration-300 z-10"
+                aria-label="Previous image"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+            {selectedImage.index < (selectedProject?.details.images.length ?? 0) - 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNextImage();
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm 
+                  text-text-primary hover:text-primary hover:bg-background transition-all duration-300 z-10"
+                aria-label="Next image"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
           </motion.div>
         </motion.div>
       )}
