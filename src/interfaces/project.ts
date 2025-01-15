@@ -25,10 +25,6 @@ export interface Project {
       implementation?: string;
     }[];
     architecture?: string;
-    challenges: Array<{
-      problem: string;
-      solution: string;
-    }>;
     performance?: {
       name: string;
       improvement: string;
@@ -61,4 +57,4 @@ export interface ProjectStore {
   setSelectedProject: (project: Project | null) => void;
   openDetail: () => void;
   closeDetail: () => void;
-} 
+}

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Project } from "@/store/projectStore";
+import type { Project } from "@interfaces/project";
 import { getTechColor } from "@constants/techColors";
 
 interface ProjectCardProps {

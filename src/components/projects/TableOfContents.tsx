@@ -15,39 +15,79 @@ const TableOfContents = () => {
   useEffect(() => {
     if (!selectedProject) return;
 
-    // 프로젝트의 실제 섹션들을 확인하여 동적으로 sections 배열 생성
     const sections: Section[] = [];
 
-    // Overview는 항상 있음
-    sections.push({ id: "overview", label: "Overview" });
+    // Overview & Achievements는 항상 있음
+    sections.push({ id: "overview", label: "Overview & Achievements" });
 
     // Demo 섹션 체크
     if (selectedProject.details.demoGif || selectedProject.details.demoVideo) {
       sections.push({ id: "demo", label: "Demo" });
     }
 
+    // Problem & Solution 체크
+    if (
+      selectedProject.details.problemStatement &&
+      selectedProject.details.solutionApproach
+    ) {
+      sections.push({ id: "problem-solution", label: "Problem & Solution" });
+    }
+
     // Features 섹션 체크
     if (selectedProject.details.features?.length > 0) {
-      sections.push({ id: "features", label: "Features" });
+      sections.push({ id: "features", label: "Key Features" });
     }
 
-    // Challenges 섹션 체크
-    if (selectedProject.details.challenges?.length > 0) {
-      sections.push({ id: "challenges", label: "Challenges" });
+    // Architecture 체크
+    if (selectedProject.details.architecture) {
+      sections.push({ id: "architecture", label: "Architecture" });
     }
 
-    // Tech Stack 섹션 체크
+    // Tech Stack 체크
     if (selectedProject.details.techStack?.length > 0) {
       sections.push({ id: "tech-stack", label: "Tech Stack" });
     }
 
-    // Lessons 섹션 체크
-    if (selectedProject.details.lessons?.length > 0) {
-      sections.push({ id: "lessons", label: "Lessons" });
+    // Performance 체크
+    if (
+      selectedProject.details.performance &&
+      selectedProject.details.performance.length > 0
+    ) {
+      sections.push({ id: "performance", label: "Performance" });
+    }
+
+    // Testing 체크
+    if (
+      selectedProject.details.testing &&
+      selectedProject.details.testing.length > 0
+    ) {
+      sections.push({ id: "testing", label: "Testing" });
+    }
+
+    // Key Learnings 체크
+    if (
+      selectedProject.details.lessons &&
+      selectedProject.details.lessons.length > 0
+    ) {
+      sections.push({ id: "learnings", label: "Key Learnings" });
+    }
+
+    // Future Improvements 체크
+    if (
+      selectedProject.details.futureImprovements &&
+      selectedProject.details.futureImprovements.length > 0
+    ) {
+      sections.push({
+        id: "future-improvements",
+        label: "Future Improvements",
+      });
     }
 
     // Screenshots 섹션 체크
-    if (selectedProject.details.images?.length > 0) {
+    if (
+      selectedProject.details.images &&
+      selectedProject.details.images.length > 0
+    ) {
       sections.push({ id: "screenshots", label: "Screenshots" });
     }
 
@@ -55,7 +95,9 @@ const TableOfContents = () => {
   }, [selectedProject]);
 
   const scrollToSection = (sectionId: string) => {
-    const scrollContainer = document.querySelector(".project-detail-content .overflow-y-auto");
+    const scrollContainer = document.querySelector(
+      ".project-detail-content .overflow-y-auto"
+    );
     const element = document.getElementById(sectionId);
 
     if (scrollContainer && element) {
@@ -73,7 +115,9 @@ const TableOfContents = () => {
   };
 
   useEffect(() => {
-    const scrollContainer = document.querySelector(".project-detail-content .overflow-y-auto");
+    const scrollContainer = document.querySelector(
+      ".project-detail-content .overflow-y-auto"
+    );
 
     if (!scrollContainer) return;
 
@@ -90,7 +134,9 @@ const TableOfContents = () => {
             const rect = section.target.getBoundingClientRect();
             const containerRect = scrollContainer.getBoundingClientRect();
             const relativeTop = rect.top - containerRect.top;
-            const distance = Math.abs(relativeTop + rect.height / 2 - middleOfContainer);
+            const distance = Math.abs(
+              relativeTop + rect.height / 2 - middleOfContainer
+            );
 
             if (distance < minDistance) {
               minDistance = distance;
