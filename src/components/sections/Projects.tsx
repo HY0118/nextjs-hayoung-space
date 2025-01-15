@@ -9,7 +9,8 @@ import { projects } from "@constants/projects";
 import { useEffect } from "react";
 
 const Projects = () => {
-  const { selectedProject, setSelectedProject, openDetail, isDetailOpen } = useProjectStore();
+  const { selectedProject, setSelectedProject, openDetail, isDetailOpen } =
+    useProjectStore();
 
   useEffect(() => {
     if (isDetailOpen) {
@@ -33,7 +34,11 @@ const Projects = () => {
     const navbarHeight = 0; // 네비게이션 바 높이
 
     // 스크롤 위치 계산 시 네비게이션 바 높이를 고려
-    const scrollTo = window.scrollY + cardRect.top - navbarHeight - (windowHeight - cardRect.height) / 2;
+    const scrollTo =
+      window.scrollY +
+      cardRect.top -
+      navbarHeight -
+      (windowHeight - cardRect.height) / 2;
 
     // 부드러운 스크롤 애니메이션
     await new Promise((resolve) => {
@@ -67,13 +72,15 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className={`relative py-20 min-h-screen flex flex-col justify-center ${isDetailOpen ? "overflow-hidden" : ""}`}
+      className={`relative py-20 min-h-screen flex flex-col justify-center ${
+        isDetailOpen ? "overflow-hidden" : ""
+      }`}
     >
       <motion.div
         className="mx-auto px-8"
         animate={{
-          x: isDetailOpen ? "-10%" : 0,
-          width: isDetailOpen ? "67%" : "auto",
+          opacity: isDetailOpen ? 0 : 1,
+          x: isDetailOpen ? "-100%" : 0,
         }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
       >
@@ -88,8 +95,16 @@ const Projects = () => {
               key={project.id}
               id={`project-card-${project.id}`}
               animate={{
-                opacity: isDetailOpen ? (selectedProject?.id === project.id ? 1 : 0) : 1,
-                scale: isDetailOpen ? (selectedProject?.id === project.id ? 1 : 0.95) : 1,
+                opacity: isDetailOpen
+                  ? selectedProject?.id === project.id
+                    ? 1
+                    : 0
+                  : 1,
+                scale: isDetailOpen
+                  ? selectedProject?.id === project.id
+                    ? 1
+                    : 0.95
+                  : 1,
                 x: getCardTransform(index, project.id),
                 y: isDetailOpen && index < 3 ? 100 : 0,
               }}
@@ -100,10 +115,16 @@ const Projects = () => {
                 scale: { duration: 0.3 },
               }}
               style={{
-                pointerEvents: isDetailOpen && selectedProject?.id !== project.id ? "none" : "auto",
+                pointerEvents:
+                  isDetailOpen && selectedProject?.id !== project.id
+                    ? "none"
+                    : "auto",
               }}
             >
-              <ProjectCard project={project} onSelect={() => handleProjectSelect(project)} />
+              <ProjectCard
+                project={project}
+                onSelect={() => handleProjectSelect(project)}
+              />
             </motion.div>
           ))}
         </div>

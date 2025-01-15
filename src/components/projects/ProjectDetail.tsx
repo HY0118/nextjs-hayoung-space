@@ -111,15 +111,15 @@ const ProjectDetail = () => {
         animate={{ x: isDetailOpen ? 0 : "100%" }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 20 }}
-        className="fixed top-0 right-0 w-full md:w-[60%] h-screen bg-background border-l border-border flex flex-col project-detail-content overflow-y-auto"
+        className="fixed top-0 right-0 w-full h-screen bg-background border-l border-border flex flex-col project-detail-content overflow-y-auto"
         style={{ marginTop: "76px" }}
       >
-        <div className="px-8 py-4 border-b border-border bg-background/95 backdrop-blur-sm">
-          <div className="flex justify-between items-center">
-            <h3 className="text-2xl font-bold text-text-primary font-sora">
+        <div className="px-8 py-6 border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <h3 className="text-3xl font-bold text-text-primary font-sora">
               {selectedProject.title}
             </h3>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               {selectedProject.github ? (
                 <a
                   href={selectedProject.github}
@@ -218,266 +218,247 @@ const ProjectDetail = () => {
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          <div className="p-8 pb-32">
-            <div className="space-y-6">
-              <div id="overview">
-                <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                  Overview & Key Achievements
-                </h4>
-                <p className="text-text-secondary whitespace-pre-line font-pret mb-6">
-                  {selectedProject.details.overview}
-                </p>
-                {selectedProject.details.achievements && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {selectedProject.details.achievements.map(
-                      (achievement, index) => (
-                        <div
-                          key={index}
-                          className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center"
-                        >
-                          <div className="text-2xl font-bold text-primary">
-                            {achievement.value}
+          <div className="max-w-7xl mx-auto px-8 py-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* First Column */}
+              <div className="space-y-8">
+                <div id="overview">
+                  <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora">
+                    Overview & Key Achievements
+                  </h4>
+                  <p className="text-lg text-text-secondary whitespace-pre-line font-pret mb-8 leading-relaxed">
+                    {selectedProject.details.overview}
+                  </p>
+                  {selectedProject.details.achievements && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                      {selectedProject.details.achievements.map(
+                        (achievement, index) => (
+                          <div
+                            key={index}
+                            className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl text-center transform hover:scale-105 transition-all duration-300"
+                          >
+                            <div className="text-3xl font-bold text-primary mb-2">
+                              {achievement.value}
+                            </div>
+                            <div className="text-sm text-text-secondary">
+                              {achievement.label}
+                            </div>
                           </div>
-                          <div className="text-sm text-text-secondary">
-                            {achievement.label}
-                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {selectedProject.details.demoVideo ||
+                selectedProject.details.demoGif ? (
+                  <div
+                    id="demo"
+                    className="aspect-video rounded-xl overflow-hidden shadow-lg"
+                  >
+                    <DemoMedia project={selectedProject} />
+                  </div>
+                ) : null}
+
+                {selectedProject.details.problemStatement && (
+                  <div id="problem-solution">
+                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
+                      Problem & Solution Statement
+                    </h4>
+                    <div className="space-y-4">
+                      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                        <h5 className="font-medium text-primary mb-2">
+                          Problem Statement
+                        </h5>
+                        <p className="text-text-secondary">
+                          {selectedProject.details.problemStatement}
+                        </p>
+                      </div>
+                      {selectedProject.details.solutionApproach && (
+                        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                          <h5 className="font-medium text-primary mb-2">
+                            Solution Approach
+                          </h5>
+                          <p className="text-text-secondary">
+                            {selectedProject.details.solutionApproach}
+                          </p>
                         </div>
-                      )
-                    )}
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {selectedProject.details.architecture && (
+                  <div id="architecture">
+                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
+                      Architecture
+                    </h4>
+                    <Image
+                      src={selectedProject.details.architecture}
+                      alt="System Architecture"
+                      width={800}
+                      height={400}
+                      className="rounded-lg"
+                    />
                   </div>
                 )}
               </div>
 
-              {(selectedProject.details.demoGif ||
-                selectedProject.details.demoVideo) && (
-                <div id="demo">
-                  <h4 className="text-lg font-semibold text-text-primary mb-2 font-sora">
-                    Demo
-                  </h4>
-                  <DemoMedia project={selectedProject} />
-                </div>
-              )}
-
-              {selectedProject.details.problemStatement && (
-                <div id="problem-solution">
+              {/* Second Column */}
+              <div className="space-y-8">
+                <div id="features">
                   <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                    Problem & Solution Statement
+                    Key Features & Implementation
                   </h4>
                   <div className="space-y-4">
-                    <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                      <h5 className="font-medium text-primary mb-2">
-                        Problem Statement
-                      </h5>
-                      <p className="text-text-secondary">
-                        {selectedProject.details.problemStatement}
-                      </p>
-                    </div>
-                    {selectedProject.details.solutionApproach && (
-                      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                        <h5 className="font-medium text-primary mb-2">
-                          Solution Approach
-                        </h5>
-                        <p className="text-text-secondary">
-                          {selectedProject.details.solutionApproach}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div id="features">
-                <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                  Key Features & Implementation
-                </h4>
-                <div className="space-y-4">
-                  {selectedProject.details.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                    >
-                      <h5 className="font-medium text-primary mb-2">
-                        {feature.name}
-                      </h5>
-                      <p className="text-text-secondary mb-2">
-                        {feature.description}
-                      </p>
-                      {feature.implementation && (
-                        <div className="text-sm text-text-secondary">
-                          <span className="font-medium">
-                            Technical Implementation:
-                          </span>{" "}
-                          {feature.implementation}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {selectedProject.details.architecture && (
-                <div id="architecture">
-                  <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                    Architecture
-                  </h4>
-                  <Image
-                    src={selectedProject.details.architecture}
-                    alt="System Architecture"
-                    width={800}
-                    height={400}
-                    className="rounded-lg"
-                  />
-                </div>
-              )}
-
-              <div id="tech-stack">
-                <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                  Tech Stack
-                </h4>
-                <div className="space-y-6">
-                  {selectedProject.details.techStack.map((category, index) => (
-                    <div key={index}>
-                      <h5 className="text-md font-medium text-primary mb-3 font-sora">
-                        {category.category}
-                      </h5>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {category.items.map((tech, techIndex) => (
-                          <div
-                            key={techIndex}
-                            className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg"
-                          >
-                            <h6 className="font-medium text-text-primary mb-2 font-sora">
-                              {tech.name}
-                            </h6>
-                            <p className="text-sm text-text-secondary font-pret whitespace-pre-line">
-                              {tech.description}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {selectedProject.details.performance && (
-                <div id="performance">
-                  <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                    Performance
-                  </h4>
-                  <div className="space-y-4">
-                    {selectedProject.details.performance.map(
-                      (metric, index) => (
-                        <div
-                          key={index}
-                          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                        >
-                          <h5 className="font-medium text-primary mb-2">
-                            {metric.name}
-                          </h5>
-                          <div className="flex items-center gap-4">
-                            <div className="text-2xl font-bold text-green-500">
-                              {metric.improvement}
-                            </div>
-                            <p className="text-text-secondary">
-                              {metric.description}
-                            </p>
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {selectedProject.details.testing && (
-                <div id="testing">
-                  <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                    Testing & Quality Assurance
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {selectedProject.details.testing.map((test, index) => (
+                    {selectedProject.details.features.map((feature, index) => (
                       <div
                         key={index}
                         className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
                       >
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-green-500">✓</span>
-                          <span className="font-medium">{test.name}</span>
-                        </div>
-                        <p className="text-sm text-text-secondary">
-                          {test.description}
+                        <h5 className="font-medium text-primary mb-2">
+                          {feature.name}
+                        </h5>
+                        <p className="text-text-secondary mb-2">
+                          {feature.description}
                         </p>
-                        {test.coverage && (
-                          <div className="mt-2">
-                            <div className="h-2 bg-gray-200 rounded-full">
-                              <div
-                                className="h-full bg-green-500 rounded-full"
-                                style={{ width: `${test.coverage}%` }}
-                              />
-                            </div>
-                            <span className="text-sm text-text-secondary">
-                              {test.coverage}% Coverage
-                            </span>
+                        {feature.implementation && (
+                          <div className="text-sm text-text-secondary">
+                            <span className="font-medium">
+                              Technical Implementation:
+                            </span>{" "}
+                            {feature.implementation}
                           </div>
                         )}
                       </div>
                     ))}
                   </div>
                 </div>
-              )}
 
-              <div id="learnings">
-                <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                  Key Learnings
-                </h4>
-                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                  <ul className="list-disc list-inside text-text-secondary space-y-2">
-                    {selectedProject.details.lessons.map((lesson, index) => (
-                      <li key={index}>{lesson}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {selectedProject.details.futureImprovements && (
-                <div id="future-improvements">
+                <div id="tech-stack">
                   <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                    Future Improvements
+                    Tech Stack
                   </h4>
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                    <ul className="list-disc list-inside text-text-secondary space-y-2">
-                      {selectedProject.details.futureImprovements.map(
-                        (improvement, index) => (
-                          <li key={index}>{improvement}</li>
-                        )
-                      )}
-                    </ul>
+                  <div className="space-y-6">
+                    {selectedProject.details.techStack.map(
+                      (category, index) => (
+                        <div key={index}>
+                          <h5 className="text-md font-medium text-primary mb-3 font-sora">
+                            {category.category}
+                          </h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {category.items.map((tech, techIndex) => (
+                              <div
+                                key={techIndex}
+                                className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg"
+                              >
+                                <h6 className="font-medium text-text-primary mb-2 font-sora">
+                                  {tech.name}
+                                </h6>
+                                <p className="text-sm text-text-secondary font-pret whitespace-pre-line">
+                                  {tech.description}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
-              )}
 
+                {selectedProject.details.performance && (
+                  <div id="performance">
+                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
+                      Performance
+                    </h4>
+                    <div className="space-y-4">
+                      {selectedProject.details.performance.map(
+                        (metric, index) => (
+                          <div
+                            key={index}
+                            className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
+                          >
+                            <h5 className="font-medium text-primary mb-2">
+                              {metric.name}
+                            </h5>
+                            <div className="flex items-center gap-4">
+                              <div className="text-2xl font-bold text-green-500">
+                                {metric.improvement}
+                              </div>
+                              <p className="text-text-secondary">
+                                {metric.description}
+                              </p>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {selectedProject.details.testing && (
+                  <div id="testing">
+                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
+                      Testing & Quality Assurance
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {selectedProject.details.testing.map((test, index) => (
+                        <div
+                          key={index}
+                          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-green-500">✓</span>
+                            <span className="font-medium">{test.name}</span>
+                          </div>
+                          <p className="text-sm text-text-secondary">
+                            {test.description}
+                          </p>
+                          {test.coverage && (
+                            <div className="mt-2">
+                              <div className="h-2 bg-gray-200 rounded-full">
+                                <div
+                                  className="h-full bg-green-500 rounded-full"
+                                  style={{ width: `${test.coverage}%` }}
+                                />
+                              </div>
+                              <span className="text-sm text-text-secondary">
+                                {test.coverage}% Coverage
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Screenshots section remains at full width */}
+            <div className="mt-16">
               <div id="screenshots">
-                <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
+                <h4 className="text-2xl font-semibold text-text-primary mb-8 font-sora">
                   Screenshots & Interface
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                   {selectedProject.details.images.map((image, index) => (
                     <div
                       key={index}
-                      className="group relative h-[360px] cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                      className="group relative h-[400px] cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
                       onClick={() => handleImageSelect(image, index)}
                     >
                       <Image
                         src={image.url}
                         alt={image.description || ""}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                         priority
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         quality={100}
                       />
-                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <svg
                           className="w-8 h-8 text-white"
                           fill="none"

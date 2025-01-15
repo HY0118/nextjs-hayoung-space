@@ -163,7 +163,7 @@ const TableOfContents = () => {
   }, []);
 
   return (
-    <nav className="fixed left-1/3 top-64 -translate-y-24 space-y-2 hidden xl:block">
+    <nav className="fixed right-8 top-64 -translate-y-24 space-y-2 hidden xl:block z-50">
       {availableSections.map((section) => (
         <button
           key={section.id}
