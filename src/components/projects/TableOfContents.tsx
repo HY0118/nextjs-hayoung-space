@@ -26,10 +26,7 @@ const TableOfContents = () => {
     }
 
     // Problem & Solution 체크
-    if (
-      selectedProject.details.problemStatement &&
-      selectedProject.details.solutionApproach
-    ) {
+    if (selectedProject.details.problemStatement && selectedProject.details.solutionApproach) {
       sections.push({ id: "problem-solution", label: "Problem & Solution" });
     }
 
@@ -49,34 +46,22 @@ const TableOfContents = () => {
     }
 
     // Performance 체크
-    if (
-      selectedProject.details.performance &&
-      selectedProject.details.performance.length > 0
-    ) {
+    if (selectedProject.details.performance && selectedProject.details.performance.length > 0) {
       sections.push({ id: "performance", label: "Performance" });
     }
 
     // Testing 체크
-    if (
-      selectedProject.details.testing &&
-      selectedProject.details.testing.length > 0
-    ) {
+    if (selectedProject.details.testing && selectedProject.details.testing.length > 0) {
       sections.push({ id: "testing", label: "Testing" });
     }
 
     // Key Learnings 체크
-    if (
-      selectedProject.details.lessons &&
-      selectedProject.details.lessons.length > 0
-    ) {
+    if (selectedProject.details.lessons && selectedProject.details.lessons.length > 0) {
       sections.push({ id: "learnings", label: "Key Learnings" });
     }
 
     // Future Improvements 체크
-    if (
-      selectedProject.details.futureImprovements &&
-      selectedProject.details.futureImprovements.length > 0
-    ) {
+    if (selectedProject.details.futureImprovements && selectedProject.details.futureImprovements.length > 0) {
       sections.push({
         id: "future-improvements",
         label: "Future Improvements",
@@ -84,10 +69,7 @@ const TableOfContents = () => {
     }
 
     // Screenshots 섹션 체크
-    if (
-      selectedProject.details.images &&
-      selectedProject.details.images.length > 0
-    ) {
+    if (selectedProject.details.images && selectedProject.details.images.length > 0) {
       sections.push({ id: "screenshots", label: "Screenshots" });
     }
 
@@ -95,9 +77,7 @@ const TableOfContents = () => {
   }, [selectedProject]);
 
   const scrollToSection = (sectionId: string) => {
-    const scrollContainer = document.querySelector(
-      ".project-detail-content .overflow-y-auto"
-    );
+    const scrollContainer = document.querySelector(".project-detail-content .overflow-y-auto");
     const element = document.getElementById(sectionId);
 
     if (scrollContainer && element) {
@@ -115,9 +95,7 @@ const TableOfContents = () => {
   };
 
   useEffect(() => {
-    const scrollContainer = document.querySelector(
-      ".project-detail-content .overflow-y-auto"
-    );
+    const scrollContainer = document.querySelector(".project-detail-content .overflow-y-auto");
 
     if (!scrollContainer) return;
 
@@ -134,9 +112,7 @@ const TableOfContents = () => {
             const rect = section.target.getBoundingClientRect();
             const containerRect = scrollContainer.getBoundingClientRect();
             const relativeTop = rect.top - containerRect.top;
-            const distance = Math.abs(
-              relativeTop + rect.height / 2 - middleOfContainer
-            );
+            const distance = Math.abs(relativeTop + rect.height / 2 - middleOfContainer);
 
             if (distance < minDistance) {
               minDistance = distance;
@@ -163,7 +139,7 @@ const TableOfContents = () => {
   }, []);
 
   return (
-    <nav className="fixed right-8 top-64 -translate-y-24 space-y-2 hidden xl:block z-50">
+    <nav className="fixed right-8 top-64 -translate-y-16 space-y-2 hidden xl:block z-50">
       {availableSections.map((section) => (
         <button
           key={section.id}
