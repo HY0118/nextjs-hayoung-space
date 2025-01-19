@@ -11,7 +11,9 @@ export const projects: Project[] = [
     demo: "https://demo.com",
     details: {
       overview: "프로젝트 상세 설명...",
-      demoGif: "/images/projects/project1/demo.gif",
+      demoVideo: {
+        mp4: "/images/projects/project_tools/tools_demo.mp4",
+      },
       features: [
         {
           name: "컴포넌트 라이브러리",
@@ -19,7 +21,28 @@ export const projects: Project[] = [
           implementation: "MUI 기반 컴포넌트 커스터마이징 및 새로운 컴포넌트 개발",
         },
       ],
-      images: [],
+      images: [
+        {
+          url: "/images/projects/project_tools/screenshots/tools_main.png",
+          description: "메인 페이지",
+        },
+        {
+          url: "/images/projects/project_tools/screenshots/tools_design_tool.png",
+          description: "Design Tool - Fundamental Basic Wind Velocity Map",
+        },
+        {
+          url: "/images/projects/project_tools/screenshots/tools_design_tool2.png",
+          description: "Design Tool - Concrete Material Suite for Eurocode",
+        },
+        {
+          url: "/images/projects/project_tools/screenshots/tools_desing_guide.png",
+          description: "Design guide - Peak Velocity Pressure for Wind and Traffic Leading Combinations",
+        },
+        {
+          url: "/images/projects/project_tools/screenshots/tools_desing_guide2.png",
+          description: "Design guide - Range of uniform bridge temperature component",
+        },
+      ],
       techStack: [
         {
           category: "Frontend",
