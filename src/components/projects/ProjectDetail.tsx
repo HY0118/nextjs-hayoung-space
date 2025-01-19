@@ -11,19 +11,9 @@ const DemoMedia = ({ project }: { project: Project }) => {
   if (project.details.demoVideo) {
     return (
       <div className="relative w-full h-[auto] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-contain"
-        >
-          {project.details.demoVideo.webm && (
-            <source src={project.details.demoVideo.webm} type="video/webm" />
-          )}
-          {project.details.demoVideo.mp4 && (
-            <source src={project.details.demoVideo.mp4} type="video/mp4" />
-          )}
+        <video autoPlay loop muted playsInline className="w-full h-full object-contain">
+          {project.details.demoVideo.webm && <source src={project.details.demoVideo.webm} type="video/webm" />}
+          {project.details.demoVideo.mp4 && <source src={project.details.demoVideo.mp4} type="video/mp4" />}
         </video>
       </div>
     );
@@ -55,9 +45,7 @@ const ProjectDetail = () => {
     description?: string;
     index: number;
   } | null>(null);
-  const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(
-    null
-  );
+  const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null);
 
   // 이전 이미지로 이동
   const handlePrevImage = () => {
@@ -69,22 +57,14 @@ const ProjectDetail = () => {
 
   // 다음 이미지로 이동
   const handleNextImage = () => {
-    if (
-      !selectedProject ||
-      !selectedImage ||
-      selectedImage.index >= selectedProject.details.images.length - 1
-    )
-      return;
+    if (!selectedProject || !selectedImage || selectedImage.index >= selectedProject.details.images.length - 1) return;
     setSlideDirection("left");
     const nextImage = selectedProject.details.images[selectedImage.index + 1];
     setSelectedImage({ ...nextImage, index: selectedImage.index + 1 });
   };
 
   // 이미지 선택 시 인덱스도 함께 저장
-  const handleImageSelect = (
-    image: { url: string; description?: string },
-    index: number
-  ) => {
+  const handleImageSelect = (image: { url: string; description?: string }, index: number) => {
     setSelectedImage({ ...image, index });
   };
 
@@ -107,19 +87,13 @@ const ProjectDetail = () => {
     <>
       <TableOfContents />
       <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: isDetailOpen ? 0 : "100%" }}
-        exit={{ x: "100%" }}
-        transition={{ type: "spring", damping: 20 }}
         className="fixed top-0 right-0 w-full h-screen bg-background border-l border-border flex flex-col project-detail-content overflow-y-auto"
         style={{ marginTop: "76px" }}
       >
         <div className="px-8 py-6 border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <h3 className="text-3xl font-bold text-text-primary font-sora">
-              {selectedProject.title}
-            </h3>
-            <div className="flex items-center gap-6">
+            <h3 className="text-3xl font-bold text-text-primary font-sora">{selectedProject.title}</h3>
+            <div className="flex items-center gap-4">
               {selectedProject.github ? (
                 <a
                   href={selectedProject.github}
@@ -129,11 +103,7 @@ const ProjectDetail = () => {
                     text-text-primary hover:text-text-primary-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   aria-label="GitHub Repository"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 98 96"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg className="w-6 h-6" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -142,8 +112,7 @@ const ProjectDetail = () => {
                     />
                   </svg>
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                    <span className="font-semibold text-primary">Public</span>{" "}
-                    GitHub Repository
+                    <span className="font-semibold text-primary">Public</span> GitHub Repository
                   </div>
                 </a>
               ) : (
@@ -151,21 +120,36 @@ const ProjectDetail = () => {
                   className="group relative p-2 rounded-lg flex items-center justify-center
                   text-text-secondary/70 cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <svg
-                    className="w-6 h-6 opacity-70"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg className="w-6 h-6 opacity-70" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M.778 1.213a.768.768 0 0 0-.768.892l3.263 19.81c.084.5.515.868 1.022.873H19.95a.772.772 0 0 0 .77-.646l3.27-20.03a.768.768 0 0 0-.768-.891H.778zM14.52 15.53H9.522L8.17 8.466h7.561l-1.211 7.064z"
                       fill="currentColor"
                     />
                   </svg>
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                    <span className="font-semibold text-gray-400">Private</span>{" "}
-                    Bitbucket Repository
+                    <span className="font-semibold text-gray-400">Private</span> Bitbucket Repository
                   </div>
                 </div>
+              )}
+              {selectedProject.npm && (
+                <a
+                  href={selectedProject.npm}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-2 rounded-lg flex items-center justify-center
+                    text-[#CB3837] hover:text-[#AB2B2A] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="NPM Package"
+                >
+                  <svg className="w-7 h-7" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                    <span className="font-semibold text-primary">NPM</span> Package
+                  </div>
+                </a>
               )}
               <a
                 href={selectedProject.demo}
@@ -205,12 +189,7 @@ const ProjectDetail = () => {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -231,31 +210,21 @@ const ProjectDetail = () => {
                   </p>
                   {selectedProject.details.achievements && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                      {selectedProject.details.achievements.map(
-                        (achievement, index) => (
-                          <div
-                            key={index}
-                            className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl text-center transform hover:scale-105 transition-all duration-300"
-                          >
-                            <div className="text-3xl font-bold text-primary mb-2">
-                              {achievement.value}
-                            </div>
-                            <div className="text-sm text-text-secondary">
-                              {achievement.label}
-                            </div>
-                          </div>
-                        )
-                      )}
+                      {selectedProject.details.achievements.map((achievement, index) => (
+                        <div
+                          key={index}
+                          className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl text-center transform hover:scale-105 transition-all duration-300"
+                        >
+                          <div className="text-3xl font-bold text-primary mb-2">{achievement.value}</div>
+                          <div className="text-sm text-text-secondary">{achievement.label}</div>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
 
-                {selectedProject.details.demoVideo ||
-                selectedProject.details.demoGif ? (
-                  <div
-                    id="demo"
-                    className="aspect-video rounded-xl overflow-hidden shadow-lg"
-                  >
+                {selectedProject.details.demoVideo || selectedProject.details.demoGif ? (
+                  <div id="demo" className="aspect-video rounded-xl overflow-hidden shadow-lg">
                     <DemoMedia project={selectedProject} />
                   </div>
                 ) : null}
@@ -267,21 +236,13 @@ const ProjectDetail = () => {
                     </h4>
                     <div className="space-y-4">
                       <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                        <h5 className="font-medium text-primary mb-2">
-                          Problem Statement
-                        </h5>
-                        <p className="text-text-secondary">
-                          {selectedProject.details.problemStatement}
-                        </p>
+                        <h5 className="font-medium text-primary mb-2">Problem Statement</h5>
+                        <p className="text-text-secondary">{selectedProject.details.problemStatement}</p>
                       </div>
                       {selectedProject.details.solutionApproach && (
                         <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                          <h5 className="font-medium text-primary mb-2">
-                            Solution Approach
-                          </h5>
-                          <p className="text-text-secondary">
-                            {selectedProject.details.solutionApproach}
-                          </p>
+                          <h5 className="font-medium text-primary mb-2">Solution Approach</h5>
+                          <p className="text-text-secondary">{selectedProject.details.solutionApproach}</p>
                         </div>
                       )}
                     </div>
@@ -290,9 +251,7 @@ const ProjectDetail = () => {
 
                 {selectedProject.details.architecture && (
                   <div id="architecture">
-                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                      Architecture
-                    </h4>
+                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">Architecture</h4>
                     <Image
                       src={selectedProject.details.architecture}
                       alt="System Architecture"
@@ -312,22 +271,12 @@ const ProjectDetail = () => {
                   </h4>
                   <div className="space-y-4">
                     {selectedProject.details.features.map((feature, index) => (
-                      <div
-                        key={index}
-                        className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                      >
-                        <h5 className="font-medium text-primary mb-2">
-                          {feature.name}
-                        </h5>
-                        <p className="text-text-secondary mb-2">
-                          {feature.description}
-                        </p>
+                      <div key={index} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                        <h5 className="font-medium text-primary mb-2">{feature.name}</h5>
+                        <p className="text-text-secondary mb-2">{feature.description}</p>
                         {feature.implementation && (
                           <div className="text-sm text-text-secondary">
-                            <span className="font-medium">
-                              Technical Implementation:
-                            </span>{" "}
-                            {feature.implementation}
+                            <span className="font-medium">Technical Implementation:</span> {feature.implementation}
                           </div>
                         )}
                       </div>
@@ -336,63 +285,39 @@ const ProjectDetail = () => {
                 </div>
 
                 <div id="tech-stack">
-                  <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                    Tech Stack
-                  </h4>
+                  <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">Tech Stack</h4>
                   <div className="space-y-6">
-                    {selectedProject.details.techStack.map(
-                      (category, index) => (
-                        <div key={index}>
-                          <h5 className="text-md font-medium text-primary mb-3 font-sora">
-                            {category.category}
-                          </h5>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {category.items.map((tech, techIndex) => (
-                              <div
-                                key={techIndex}
-                                className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg"
-                              >
-                                <h6 className="font-medium text-text-primary mb-2 font-sora">
-                                  {tech.name}
-                                </h6>
-                                <p className="text-sm text-text-secondary font-pret whitespace-pre-line">
-                                  {tech.description}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
+                    {selectedProject.details.techStack.map((category, index) => (
+                      <div key={index}>
+                        <h5 className="text-md font-medium text-primary mb-3 font-sora">{category.category}</h5>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {category.items.map((tech, techIndex) => (
+                            <div key={techIndex} className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                              <h6 className="font-medium text-text-primary mb-2 font-sora">{tech.name}</h6>
+                              <p className="text-sm text-text-secondary font-pret whitespace-pre-line">
+                                {tech.description}
+                              </p>
+                            </div>
+                          ))}
                         </div>
-                      )
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
                 {selectedProject.details.performance && (
                   <div id="performance">
-                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">
-                      Performance
-                    </h4>
+                    <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora">Performance</h4>
                     <div className="space-y-4">
-                      {selectedProject.details.performance.map(
-                        (metric, index) => (
-                          <div
-                            key={index}
-                            className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                          >
-                            <h5 className="font-medium text-primary mb-2">
-                              {metric.name}
-                            </h5>
-                            <div className="flex items-center gap-4">
-                              <div className="text-2xl font-bold text-green-500">
-                                {metric.improvement}
-                              </div>
-                              <p className="text-text-secondary">
-                                {metric.description}
-                              </p>
-                            </div>
+                      {selectedProject.details.performance.map((metric, index) => (
+                        <div key={index} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                          <h5 className="font-medium text-primary mb-2">{metric.name}</h5>
+                          <div className="flex items-center gap-4">
+                            <div className="text-2xl font-bold text-green-500">{metric.improvement}</div>
+                            <p className="text-text-secondary">{metric.description}</p>
                           </div>
-                        )
-                      )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -404,17 +329,12 @@ const ProjectDetail = () => {
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {selectedProject.details.testing.map((test, index) => (
-                        <div
-                          key={index}
-                          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                        >
+                        <div key={index} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-green-500">✓</span>
                             <span className="font-medium">{test.name}</span>
                           </div>
-                          <p className="text-sm text-text-secondary">
-                            {test.description}
-                          </p>
+                          <p className="text-sm text-text-secondary">{test.description}</p>
                           {test.coverage && (
                             <div className="mt-2">
                               <div className="h-2 bg-gray-200 rounded-full">
@@ -423,9 +343,7 @@ const ProjectDetail = () => {
                                   style={{ width: `${test.coverage}%` }}
                                 />
                               </div>
-                              <span className="text-sm text-text-secondary">
-                                {test.coverage}% Coverage
-                              </span>
+                              <span className="text-sm text-text-secondary">{test.coverage}% Coverage</span>
                             </div>
                           )}
                         </div>
@@ -439,9 +357,7 @@ const ProjectDetail = () => {
             {/* Screenshots section remains at full width */}
             <div className="mt-16">
               <div id="screenshots">
-                <h4 className="text-2xl font-semibold text-text-primary mb-8 font-sora">
-                  Screenshots & Interface
-                </h4>
+                <h4 className="text-2xl font-semibold text-text-primary mb-8 font-sora">Screenshots & Interface</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                   {selectedProject.details.images.map((image, index) => (
                     <div
@@ -503,11 +419,7 @@ const ProjectDetail = () => {
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
-                x: slideDirection
-                  ? slideDirection === "left"
-                    ? [200, 0]
-                    : [-200, 0]
-                  : 0,
+                x: slideDirection ? (slideDirection === "left" ? [200, 0] : [-200, 0]) : 0,
               }}
               transition={{
                 duration: 0.4,
@@ -526,9 +438,7 @@ const ProjectDetail = () => {
             </motion.div>
             {selectedImage.description && (
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 text-white">
-                <p className="text-sm text-center">
-                  {selectedImage.description}
-                </p>
+                <p className="text-sm text-center">{selectedImage.description}</p>
               </div>
             )}
             {selectedImage.index > 0 && (
@@ -541,23 +451,12 @@ const ProjectDetail = () => {
                   text-text-primary hover:text-primary hover:bg-background transition-all duration-300 z-10"
                 aria-label="Previous image"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
             )}
-            {selectedImage.index <
-              (selectedProject?.details.images.length ?? 0) - 1 && (
+            {selectedImage.index < (selectedProject?.details.images.length ?? 0) - 1 && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -567,18 +466,8 @@ const ProjectDetail = () => {
                   text-text-primary hover:text-primary hover:bg-background transition-all duration-300 z-10"
                 aria-label="Next image"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             )}
