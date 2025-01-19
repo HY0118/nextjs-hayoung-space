@@ -6,6 +6,7 @@ export interface Project {
   tech: string[];
   github: string;
   demo: string;
+  npm?: string;
   details: {
     overview: string;
     achievements?: {

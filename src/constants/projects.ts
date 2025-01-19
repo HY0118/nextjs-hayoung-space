@@ -136,7 +136,20 @@ export const projects: Project[] = [
           implementation: "MUI 기반 컴포넌트 커스터마이징 및 새로운 컴포넌트 개발",
         },
       ],
-      images: [],
+      images: [
+        {
+          url: "/images/projects/project_cra_template_moaui/screenshots/cra_template_moaui_npm.png",
+          description: "create-template-moaui - npm package 페이지",
+        },
+        {
+          url: "/images/projects/project_cra_template_moaui/screenshots/cra_template_moaui_github.png",
+          description: "create-template-moaui - github 페이지",
+        },
+        {
+          url: "/images/projects/project_cra_template_moaui/screenshots/cra_template_moaui_light.png",
+          description: "standard ver / light ver",
+        },
+      ],
       techStack: [],
       lessons: [],
     },
@@ -148,6 +161,7 @@ export const projects: Project[] = [
     image: "/images/projects/project_moaUI/screenshots/moaUI-design-system-thumbnail.png",
     tech: ["React", "TypeScript", "MUI", "NPM", "Storybook", "Chromatic", "Github"],
     github: "https://github.com/midasit-dev/moaui",
+    npm: "https://www.npmjs.com/package/@midasit-dev/moaui-components-v1",
     demo: "https://main--6556d17f924e868b000ddaf5.chromatic.com/?path=/docs/components-chip--explore",
     details: {
       overview: "건축/토목 엔지니어링 소프트웨어 내 Plugin 디자인 시스템 및 컴포넌트 라이브러리 제공",
@@ -184,7 +198,7 @@ export const projects: Project[] = [
       problemStatement: "Plugin 개발자들이 일관된 UI/UX를 구현하기 위한 표준화된 컴포넌트 시스템 부재",
       solutionApproach:
         "MUI를 기반으로 한 커스텀 디자인 시스템을 구축하고, Storybook을 통한 문서화 및 테스트 환경 제공",
-      architecture: "/images/projects/project_moaUI/architecture.png",
+      architecture: "",
       performance: [
         {
           name: "번들 크기 최적화",
