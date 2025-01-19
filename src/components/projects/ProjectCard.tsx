@@ -37,7 +37,7 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
         <h3 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-primary transition-colors font-sora">
           {project.title}
         </h3>
-        <p className="text-text-secondary mb-4 line-clamp-2 group-hover:text-text-primary/90 transition-colors font-pret">
+        <p className="text-text-secondary mb-4 line-clamp-2 group-hover:text-text-primary/90 transition-colors font-pret whitespace-pre-line">
           {project.description}
         </p>
         <div className="flex flex-wrap gap-2 mt-auto">
