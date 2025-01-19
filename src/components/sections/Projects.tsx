@@ -27,18 +27,16 @@ const Projects = () => {
     const card = document.querySelector(`#project-card-${project.id}`);
     if (!card) return;
 
-    // 먼저 프로젝트를 선택
     setSelectedProject(project);
 
-    // 스크롤 위치 계산
     const cardRect = card.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    const scrollTo = window.scrollY + cardRect.top - (windowHeight - cardRect.height) / 2;
+    const scrollTo =
+      window.scrollY + cardRect.top - (windowHeight - cardRect.height) / 2;
 
-    // requestAnimationFrame을 사용하여 더 부드러운 스크롤 구현
     const startPosition = window.scrollY;
     const distance = scrollTo - startPosition;
-    const duration = 400; // 스크롤 시간을 400ms로 단축
+    const duration = 400; // 지속 시간을 400ms로 줄임
     const startTime = performance.now();
 
     return new Promise<void>((resolve) => {
@@ -46,20 +44,21 @@ const Projects = () => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        // easeInOutCubic 이징 함수 사용
-        const easeProgress =
-          progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        // easeOutQuart 이징 함수 사용
+        const easeProgress = 1 - Math.pow(1 - progress, 4);
 
-        window.scrollTo(0, startPosition + distance * easeProgress);
+        window.scrollTo({
+          top: startPosition + distance * easeProgress,
+          behavior: "auto",
+        });
 
         if (progress < 1) {
           requestAnimationFrame(animateScroll);
         } else {
-          // 스크롤이 완료되면 약간의 지연 후 디테일 뷰 열기
           setTimeout(() => {
             openDetail();
             resolve();
-          }, 100); // 100ms 지연
+          }, 50); // 딜레이를 50ms로 줄임
         }
       };
 
@@ -67,10 +66,46 @@ const Projects = () => {
     });
   };
 
+  // bezier 이징 함수 구현
+  const bezierEasing = (x1: number, y1: number, x2: number, y2: number) => {
+    return (t: number): number => {
+      if (t === 0 || t === 1) {
+        return t;
+      }
+
+      let start = 0;
+      let end = 1;
+
+      for (let i = 0; i < 10; i++) {
+        const current = (start + end) / 2;
+        const x = calculateBezier(current, x1, x2);
+
+        if (Math.abs(x - t) < 0.001) {
+          return calculateBezier(current, y1, y2);
+        }
+
+        if (x < t) {
+          start = current;
+        } else {
+          end = current;
+        }
+      }
+
+      return calculateBezier((start + end) / 2, y1, y2);
+    };
+  };
+
+  const calculateBezier = (t: number, p1: number, p2: number): number => {
+    const mt = 1 - t;
+    return 3 * mt * mt * t * p1 + 3 * mt * t * t * p2 + t * t * t;
+  };
+
   return (
     <section
       id="projects"
-      className={`relative py-20 min-h-screen flex flex-col justify-center ${isDetailOpen ? "overflow-hidden" : ""}`}
+      className={`relative py-20 min-h-screen flex flex-col justify-center ${
+        isDetailOpen ? "overflow-hidden" : ""
+      }`}
     >
       <div className="mx-auto px-8">
         {!isDetailOpen && (
@@ -96,7 +131,10 @@ const Projects = () => {
                 pointerEvents: isDetailOpen ? "none" : "auto",
               }}
             >
-              <ProjectCard project={project} onSelect={() => handleProjectSelect(project)} />
+              <ProjectCard
+                project={project}
+                onSelect={() => handleProjectSelect(project)}
+              />
             </motion.div>
           ))}
         </div>

@@ -52,7 +52,6 @@ export const projects: Project[] = [
       overview:
         "MIDAS Tools는 엔지니어들을 위한 설계 참고 컨텐츠로, 신뢰할 수 있는 설계 기준과 인터랙티브 도구를 갖춘 무료 웹 기반 툴킷입니다.",
       demoGif: "",
-      overview: "프로젝트 상세 설명...",
       demoVideo: {
         mp4: "/images/projects/project_tools/tools_demo.mp4",
       },
@@ -78,11 +77,13 @@ export const projects: Project[] = [
         },
         {
           url: "/images/projects/project_tools/screenshots/tools_desing_guide.png",
-          description: "Design guide - Peak Velocity Pressure for Wind and Traffic Leading Combinations",
+          description:
+            "Design guide - Peak Velocity Pressure for Wind and Traffic Leading Combinations",
         },
         {
           url: "/images/projects/project_tools/screenshots/tools_desing_guide2.png",
-          description: "Design guide - Range of uniform bridge temperature component",
+          description:
+            "Design guide - Range of uniform bridge temperature component",
         },
       ],
       techStack: [
@@ -115,6 +116,20 @@ export const projects: Project[] = [
         "사용자 경험을 고려한 UI/UX 디자인 및 구현",
         "성능 최적화를 위한 다양한 기법 적용",
       ],
+      performance: [
+        {
+          name: "설계 계산 처리 속도",
+          improvement: "70%",
+          description:
+            "Python 기반 설계 계산 엔진 도입으로 복잡한 설계 계산 처리 속도 개선",
+        },
+        {
+          name: "페이지 로딩 시간",
+          improvement: "50%",
+          description:
+            "컴포넌트 레이지 로딩과 이미지 최적화로 초기 로딩 시간 단축",
+        },
+      ],
     },
   },
   {
@@ -139,6 +154,19 @@ export const projects: Project[] = [
       images: [],
       techStack: [],
       lessons: [],
+      performance: [
+        {
+          name: "워크플로우 실행 속도",
+          improvement: "65%",
+          description:
+            "병렬 처리 및 캐싱 전략 도입으로 복수 설계 컨텐츠 연결 실행 속도 개선",
+        },
+        {
+          name: "메모리 사용량",
+          improvement: "40%",
+          description: "대규모 모델링 데이터 처리 시 메모리 관리 최적화",
+        },
+      ],
     },
   },
   {
@@ -359,10 +387,16 @@ export const projects: Project[] = [
       ],
       performance: [
         {
-          name: "복잡한 설계 계산 로직을 빠르게 처리해야 하는 속도 문제",
-          improvement: "Python 함수와 HTML을 Pyscript로 연결하여 해결",
+          name: "플러그인 로딩 시간",
+          improvement: "55%",
           description:
-            "Python 함수 매개변수를 input으로 전달하여 복잡한 설계 계산 빠르게 처리",
+            "WebView 최적화 및 리소스 프리로딩으로 플러그인 실행 속도 개선",
+        },
+        {
+          name: "API 통신 속도",
+          improvement: "45%",
+          description:
+            "메시지 API 최적화 및 데이터 압축으로 네이티브-웹 통신 속도 향상",
         },
       ],
       images: [
@@ -498,10 +532,16 @@ export const projects: Project[] = [
       ],
       performance: [
         {
-          name: "API 응답 결과 파싱 크기가 큰 경우 페이지 로딩 속도 저하 문제",
-          improvement: "lazy loading 적용으로 초기 로딩 시간 단축",
+          name: "API 응답 처리 속도",
+          improvement: "65%",
           description:
-            "lazy loading 적용으로 초기 로딩 시간 단축 및 사용자 경험 개선",
+            "응답 데이터 파싱 최적화 및 지연 로딩 적용으로 대용량 데이터 처리 성능 개선",
+        },
+        {
+          name: "테스트 페이지 로딩",
+          improvement: "50%",
+          description:
+            "동적 UI 생성 로직 최적화 및 컴포넌트 캐싱으로 페이지 로딩 속도 향상",
         },
       ],
       images: [

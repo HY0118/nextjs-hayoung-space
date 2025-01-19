@@ -4,38 +4,36 @@ export interface Project {
   description: string;
   image: string;
   tech: string[];
-  github: string;
-  demo: string;
+  github?: string;
   npm?: string;
+  demo: string;
   details: {
+    // 1. Overview & Achievements
     overview: string;
-    achievements?: {
+    achievements?: Array<{
       value: string;
       label: string;
-    }[];
-    demoGif?: string;
+    }>;
+
+    // 2. Demo
     demoVideo?: {
-      webm?: string;
-      mp4?: string;
+      mp4: string;
     };
+    demoGif?: string;
+
+    // 3. Problem & Solution
     problemStatement?: string;
     solutionApproach?: string;
-    features: {
+
+    // 4. Key Features
+    features: Array<{
       name: string;
       description: string;
       implementation?: string;
-    }[];
-    architecture?: string;
-    performance?: {
-      name: string;
-      improvement: string;
-      description: string;
-    }[];
-    testing?: {
-      name: string;
-      description: string;
-      coverage?: number;
-    }[];
+    }>;
+
+    // 5. Architecture & Tech Stack
+    architecture?: string; // 시스템 구조 이미지 URL
     techStack: Array<{
       category: string;
       items: Array<{
@@ -43,12 +41,36 @@ export interface Project {
         description: string;
       }>;
     }>;
+
+    // 6. Performance
+    performance?: Array<{
+      name: string;
+      improvement: string;
+      description: string;
+    }>;
+
+    // 7. Testing
+    testing?: Array<{
+      name: string;
+      description: string;
+      coverage?: number;
+    }>;
+
+    // 8. Challenges
+    challenges?: Array<{
+      problem: string;
+      solution: string;
+    }>;
+
+    // 9. Learnings & Improvements
+    lessons: string[];
+    futureImprovements?: string[];
+
+    // 10. Screenshots
     images: Array<{
       url: string;
       description?: string;
     }>;
-    lessons: string[];
-    futureImprovements?: string[];
   };
 }
 
