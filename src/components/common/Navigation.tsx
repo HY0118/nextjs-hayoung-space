@@ -10,21 +10,33 @@ const Navigation = () => {
   const [currentSection, setCurrentSection] = useState(activeSection);
   const [isScrolling, setIsScrolling] = useState(false);
 
-  const handleClick = (section: string) => {
-    setIsScrolling(true);
-    setCurrentSection(section);
+  useEffect(() => {
+    const hash = window.location.hash;
+    const section = hash.split("/")[0].replace("#", "");
+    if (sections.includes(section)) {
+      setCurrentSection(section);
+      setIsScrolling(true);
 
-    // 스크롤 애니메이션이 완료되면 isScrolling을 false로 설정
-    setTimeout(() => {
-      setIsScrolling(false);
-    }, 1000); // 스크롤 애니메이션 예상 시간
-  };
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isScrolling) {
       setCurrentSection(activeSection);
     }
   }, [activeSection, isScrolling]);
+
+  const handleClick = (section: string) => {
+    setIsScrolling(true);
+    setCurrentSection(section);
+
+    setTimeout(() => {
+      setIsScrolling(false);
+    }, 1000);
+  };
 
   return (
     <nav>

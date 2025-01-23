@@ -27,24 +27,22 @@ const Projects = () => {
     const card = document.querySelector(`#project-card-${project.id}`);
     if (!card) return;
 
+    window.history.pushState({ projectId: project.id }, "", `/#projects/${project.id}`);
     setSelectedProject(project);
 
     const cardRect = card.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    const scrollTo =
-      window.scrollY + cardRect.top - (windowHeight - cardRect.height) / 2;
+    const scrollTo = window.scrollY + cardRect.top - (windowHeight - cardRect.height) / 2;
 
     const startPosition = window.scrollY;
     const distance = scrollTo - startPosition;
-    const duration = 400; // 지속 시간을 400ms로 줄임
+    const duration = 400;
     const startTime = performance.now();
 
     return new Promise<void>((resolve) => {
       const animateScroll = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-
-        // easeOutQuart 이징 함수 사용
         const easeProgress = 1 - Math.pow(1 - progress, 4);
 
         window.scrollTo({
@@ -58,7 +56,7 @@ const Projects = () => {
           setTimeout(() => {
             openDetail();
             resolve();
-          }, 50); // 딜레이를 50ms로 줄임
+          }, 50);
         }
       };
 
@@ -66,46 +64,31 @@ const Projects = () => {
     });
   };
 
-  // bezier 이징 함수 구현
-  const bezierEasing = (x1: number, y1: number, x2: number, y2: number) => {
-    return (t: number): number => {
-      if (t === 0 || t === 1) {
-        return t;
-      }
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const path = window.location.hash;
+      const projectMatch = path.match(/#projects\/(.+)/);
 
-      let start = 0;
-      let end = 1;
-
-      for (let i = 0; i < 10; i++) {
-        const current = (start + end) / 2;
-        const x = calculateBezier(current, x1, x2);
-
-        if (Math.abs(x - t) < 0.001) {
-          return calculateBezier(current, y1, y2);
-        }
-
-        if (x < t) {
-          start = current;
-        } else {
-          end = current;
+      if (!projectMatch) {
+        setSelectedProject(null);
+        document.body.style.overflow = "unset";
+      } else if (event.state?.projectId) {
+        const project = projects.find((p) => p.id === event.state.projectId);
+        if (project) {
+          setSelectedProject(project);
+          openDetail();
         }
       }
-
-      return calculateBezier((start + end) / 2, y1, y2);
     };
-  };
 
-  const calculateBezier = (t: number, p1: number, p2: number): number => {
-    const mt = 1 - t;
-    return 3 * mt * mt * t * p1 + 3 * mt * t * t * p2 + t * t * t;
-  };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [setSelectedProject, openDetail]);
 
   return (
     <section
       id="projects"
-      className={`relative py-20 min-h-screen flex flex-col justify-center ${
-        isDetailOpen ? "overflow-hidden" : ""
-      }`}
+      className={`relative py-20 min-h-screen flex flex-col justify-center ${isDetailOpen ? "overflow-hidden" : ""}`}
     >
       <div className="mx-auto px-8">
         {!isDetailOpen && (
@@ -131,10 +114,7 @@ const Projects = () => {
                 pointerEvents: isDetailOpen ? "none" : "auto",
               }}
             >
-              <ProjectCard
-                project={project}
-                onSelect={() => handleProjectSelect(project)}
-              />
+              <ProjectCard project={project} onSelect={() => handleProjectSelect(project)} />
             </motion.div>
           ))}
         </div>

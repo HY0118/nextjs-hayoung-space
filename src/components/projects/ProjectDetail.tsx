@@ -23,9 +23,7 @@ const DemoMedia = ({ project }: { project: Project }) => {
           playsInline
           className="w-full h-full object-cover transform hover:scale-[1.02] transition-transform duration-300"
         >
-          {project.details.demoVideo.mp4 && (
-            <source src={project.details.demoVideo.mp4} type="video/mp4" />
-          )}
+          {project.details.demoVideo.mp4 && <source src={project.details.demoVideo.mp4} type="video/mp4" />}
         </video>
       </motion.div>
     );
@@ -55,11 +53,7 @@ const DemoMedia = ({ project }: { project: Project }) => {
   return null;
 };
 
-const PerformanceBar = ({
-  metric,
-}: {
-  metric: { name: string; improvement: string; description: string };
-}) => {
+const PerformanceBar = ({ metric }: { metric: { name: string; improvement: string; description: string } }) => {
   const value = parseInt(metric.improvement.replace(/[^0-9]/g, ""));
 
   return (
@@ -78,18 +72,8 @@ const PerformanceBar = ({
             <span className="text-xl text-text-secondary">%</span>
           </div>
           <div className="flex justify-between items-center text-green-500 dark:text-green-400">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              />
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
           </div>
         </div>
@@ -108,15 +92,13 @@ const PerformanceBar = ({
 };
 
 const ProjectDetail = () => {
-  const { selectedProject, closeDetail } = useProjectStore();
+  const { selectedProject, closeDetail, setSelectedProject } = useProjectStore();
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
     description?: string;
     index: number;
   } | null>(null);
-  const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(
-    null
-  );
+  const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null);
 
   // 이전 이미지로 이동
   const handlePrevImage = () => {
@@ -128,22 +110,14 @@ const ProjectDetail = () => {
 
   // 다음 이미지로 이동
   const handleNextImage = () => {
-    if (
-      !selectedProject ||
-      !selectedImage ||
-      selectedImage.index >= selectedProject.details.images.length - 1
-    )
-      return;
+    if (!selectedProject || !selectedImage || selectedImage.index >= selectedProject.details.images.length - 1) return;
     setSlideDirection("left");
     const nextImage = selectedProject.details.images[selectedImage.index + 1];
     setSelectedImage({ ...nextImage, index: selectedImage.index + 1 });
   };
 
   // 이미지 선택 시 인덱스도 함께 저장
-  const handleImageSelect = (
-    image: { url: string; description?: string },
-    index: number
-  ) => {
+  const handleImageSelect = (image: { url: string; description?: string }, index: number) => {
     setSelectedImage({ ...image, index });
   };
 
@@ -159,6 +133,13 @@ const ProjectDetail = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedImage]);
+
+  const handleClose = () => {
+    window.history.pushState({}, "", "/#projects");
+    closeDetail();
+    setSelectedProject(null);
+    document.body.style.overflow = "unset";
+  };
 
   if (!selectedProject) return null;
 
@@ -180,7 +161,7 @@ const ProjectDetail = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-3xl font-bold text-text-primary font-sora bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent"
+                className="text-3xl font-bold text-text-primary font-sora bg-gradient-to-r from-primary to-primary-dark bg-clip-text"
               >
                 {selectedProject.title}
               </motion.h3>
@@ -192,14 +173,12 @@ const ProjectDetail = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative p-2 rounded-lg flex items-center justify-center
-                      text-text-primary hover:text-text-primary-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      text-text-primary hover:text-text-primary-dark border border-gray-200 dark:border-gray-700
+                      hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600
+                      transition-all duration-200"
                     aria-label="GitHub Repository"
                   >
-                    <svg
-                      className="w-6 h-6"
-                      viewBox="0 0 98 96"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         clipRule="evenodd"
@@ -208,30 +187,23 @@ const ProjectDetail = () => {
                       />
                     </svg>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                      <span className="font-semibold text-primary">Public</span>{" "}
-                      GitHub Repository
+                      <span className="font-semibold text-primary">Public</span> GitHub Repository
                     </div>
                   </a>
                 ) : (
                   <div
                     className="group relative p-2 rounded-lg flex items-center justify-center
-                    text-text-secondary/70 cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    text-text-secondary/70 cursor-not-allowed border border-gray-200 dark:border-gray-700
+                    hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
                   >
-                    <svg
-                      className="w-6 h-6 opacity-70"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6 opacity-70" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M.778 1.213a.768.768 0 0 0-.768.892l3.263 19.81c.084.5.515.868 1.022.873H19.95a.772.772 0 0 0 .77-.646l3.27-20.03a.768.768 0 0 0-.768-.891H.778zM14.52 15.53H9.522L8.17 8.466h7.561l-1.211 7.064z"
                         fill="currentColor"
                       />
                     </svg>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                      <span className="font-semibold text-gray-400">
-                        Private
-                      </span>{" "}
-                      Bitbucket Repository
+                      <span className="font-semibold text-gray-400">Private</span> Bitbucket Repository
                     </div>
                   </div>
                 )}
@@ -241,22 +213,19 @@ const ProjectDetail = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative p-2 rounded-lg flex items-center justify-center
-                      text-[#CB3837] hover:text-[#AB2B2A] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      text-[#CB3837] hover:text-[#AB2B2A] border border-gray-200 dark:border-gray-700
+                      hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600
+                      transition-all duration-200"
                     aria-label="NPM Package"
                   >
-                    <svg
-                      className="w-7 h-7"
-                      viewBox="0 0 576 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-7 h-7" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"
                         fill="currentColor"
                       />
                     </svg>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
-                      <span className="font-semibold text-red-400">NPM</span>{" "}
-                      Package
+                      <span className="font-semibold text-red-400">NPM</span> Package
                     </div>
                   </a>
                 )}
@@ -265,7 +234,9 @@ const ProjectDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative p-2 rounded-lg flex items-center justify-center
-                    text-primary hover:text-primary-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    text-primary hover:text-primary-dark border border-gray-200 dark:border-gray-700
+                    hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600
+                    transition-all duration-200"
                   aria-label="Try demo"
                 >
                   <svg
@@ -289,7 +260,7 @@ const ProjectDetail = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={closeDetail}
+                  onClick={handleClose}
                   className="p-2 rounded-lg text-text-secondary hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
                   aria-label="Close detail"
                 >
@@ -300,12 +271,7 @@ const ProjectDetail = () => {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </motion.button>
               </div>
@@ -332,20 +298,13 @@ const ProjectDetail = () => {
               {selectedProject.details.achievements && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   {selectedProject.details.achievements.map(
-                    (
-                      achievement: { value: string; label: string },
-                      index: number
-                    ) => (
+                    (achievement: { value: string; label: string }, index: number) => (
                       <div
                         key={index}
                         className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl text-center transform hover:scale-105 transition-all duration-300"
                       >
-                        <div className="text-3xl font-bold text-primary mb-2">
-                          {achievement.value}
-                        </div>
-                        <div className="text-sm text-text-secondary">
-                          {achievement.label}
-                        </div>
+                        <div className="text-3xl font-bold text-primary mb-2">{achievement.value}</div>
+                        <div className="text-sm text-text-secondary">{achievement.label}</div>
                       </div>
                     )
                   )}
@@ -354,8 +313,7 @@ const ProjectDetail = () => {
             </motion.div>
 
             {/* 2. Demo */}
-            {(selectedProject.details.demoVideo ||
-              selectedProject.details.demoGif) && (
+            {(selectedProject.details.demoVideo || selectedProject.details.demoGif) && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -373,8 +331,7 @@ const ProjectDetail = () => {
             )}
 
             {/* 3. Problem & Solution */}
-            {(selectedProject.details.problemStatement ||
-              selectedProject.details.solutionApproach) && (
+            {(selectedProject.details.problemStatement || selectedProject.details.solutionApproach) && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -383,27 +340,19 @@ const ProjectDetail = () => {
                 className="mb-16"
               >
                 <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
-                  Problem & Solution
+                  Project Background & Strategy
                 </h4>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {selectedProject.details.problemStatement && (
                     <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
-                      <h5 className="text-lg font-medium text-primary mb-4">
-                        Problem Statement
-                      </h5>
-                      <p className="text-text-secondary">
-                        {selectedProject.details.problemStatement}
-                      </p>
+                      <h5 className="text-lg font-medium text-primary mb-4">Project Context</h5>
+                      <p className="text-text-secondary">{selectedProject.details.problemStatement}</p>
                     </div>
                   )}
                   {selectedProject.details.solutionApproach && (
                     <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
-                      <h5 className="text-lg font-medium text-primary mb-4">
-                        Solution Approach
-                      </h5>
-                      <p className="text-text-secondary">
-                        {selectedProject.details.solutionApproach}
-                      </p>
+                      <h5 className="text-lg font-medium text-primary mb-4">Strategic Approach</h5>
+                      <p className="text-text-secondary">{selectedProject.details.solutionApproach}</p>
                     </div>
                   )}
                 </div>
@@ -431,22 +380,12 @@ const ProjectDetail = () => {
                     },
                     index: number
                   ) => (
-                    <div
-                      key={index}
-                      className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                    >
-                      <h5 className="font-medium text-primary mb-2">
-                        {feature.name}
-                      </h5>
-                      <p className="text-text-secondary mb-2">
-                        {feature.description}
-                      </p>
+                    <div key={index} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                      <h5 className="font-medium text-primary mb-2">{feature.name}</h5>
+                      <p className="text-text-secondary mb-2">{feature.description}</p>
                       {feature.implementation && (
                         <div className="text-sm text-text-secondary">
-                          <span className="font-medium">
-                            Technical Implementation:
-                          </span>{" "}
-                          {feature.implementation}
+                          <span className="font-medium">Technical Implementation:</span> {feature.implementation}
                         </div>
                       )}
                     </div>
@@ -465,9 +404,7 @@ const ProjectDetail = () => {
             >
               {selectedProject.details.architecture && (
                 <div className="mb-8">
-                  <h5 className="text-lg font-medium text-primary mb-4">
-                    System Architecture
-                  </h5>
+                  <h5 className="text-lg font-medium text-primary mb-4">System Architecture</h5>
                   <Image
                     src={selectedProject.details.architecture}
                     alt="System Architecture"
@@ -487,28 +424,16 @@ const ProjectDetail = () => {
                     index: number
                   ) => (
                     <div key={index}>
-                      <h5 className="text-md font-medium text-primary mb-3 font-sora">
-                        {category.category}
-                      </h5>
+                      <h5 className="text-md font-medium text-primary mb-3 font-sora">{category.category}</h5>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {category.items.map(
-                          (
-                            tech: { name: string; description: string },
-                            techIndex: number
-                          ) => (
-                            <div
-                              key={techIndex}
-                              className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg"
-                            >
-                              <h6 className="font-medium text-text-primary mb-2 font-sora">
-                                {tech.name}
-                              </h6>
-                              <p className="text-sm text-text-secondary font-pret whitespace-pre-line">
-                                {tech.description}
-                              </p>
-                            </div>
-                          )
-                        )}
+                        {category.items.map((tech: { name: string; description: string }, techIndex: number) => (
+                          <div key={techIndex} className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                            <h6 className="font-medium text-text-primary mb-2 font-sora">{tech.name}</h6>
+                            <p className="text-sm text-text-secondary font-pret whitespace-pre-line">
+                              {tech.description}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )
@@ -558,17 +483,12 @@ const ProjectDetail = () => {
                       },
                       index: number
                     ) => (
-                      <div
-                        key={index}
-                        className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg"
-                      >
+                      <div key={index} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
                         <div className="flex items-center gap-2 mb-2">
                           <span className="text-green-500">✓</span>
                           <span className="font-medium">{test.name}</span>
                         </div>
-                        <p className="text-sm text-text-secondary">
-                          {test.description}
-                        </p>
+                        <p className="text-sm text-text-secondary">{test.description}</p>
                         {test.coverage && (
                           <div className="mt-2">
                             <div className="h-2 bg-gray-200 rounded-full">
@@ -577,9 +497,7 @@ const ProjectDetail = () => {
                                 style={{ width: `${test.coverage}%` }}
                               />
                             </div>
-                            <span className="text-sm text-text-secondary">
-                              {test.coverage}% Coverage
-                            </span>
+                            <span className="text-sm text-text-secondary">{test.coverage}% Coverage</span>
                           </div>
                         )}
                       </div>
@@ -599,27 +517,34 @@ const ProjectDetail = () => {
                 className="mb-16"
               >
                 <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
-                  Challenges & Solutions
+                  Technical Challenges & Solutions
                 </h4>
                 <div className="space-y-6">
-                  {selectedProject.details.challenges.map(
-                    (
-                      challenge: { problem: string; solution: string },
-                      index: number
-                    ) => (
-                      <div
-                        key={index}
-                        className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl"
-                      >
-                        <h5 className="text-lg font-medium text-primary mb-4">
-                          {challenge.problem}
-                        </h5>
-                        <p className="text-text-secondary">
-                          {challenge.solution}
-                        </p>
+                  {selectedProject.details.challenges.map((challenge, index) => (
+                    <div
+                      key={index}
+                      className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-sm"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                        <div className="md:border-r md:border-gray-200/50 md:dark:border-gray-700/50 md:pr-8">
+                          <div className="flex items-center gap-2 mb-3">
+                            <span className="text-sm font-medium px-3 py-1 rounded-full bg-sky-100/50 dark:bg-sky-900/70 text-sky-600 dark:text-sky-300 border border-sky-200 dark:border-sky-700/50">
+                              Problem
+                            </span>
+                          </div>
+                          <p className="text-text-secondary leading-relaxed">{challenge.problem}</p>
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 mb-3">
+                            <span className="text-sm font-medium px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 dark:border-emerald-400/20">
+                              Solution
+                            </span>
+                          </div>
+                          <p className="text-text-secondary leading-relaxed">{challenge.solution}</p>
+                        </div>
                       </div>
-                    )
-                  )}
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             )}
@@ -633,27 +558,17 @@ const ProjectDetail = () => {
               className="mb-16"
             >
               <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
-                {selectedProject.details.futureImprovements
-                  ? "Learnings & Future Improvements"
-                  : "Key Learnings"}
+                {selectedProject.details.futureImprovements ? "Learnings & Future Improvements" : "Key Learnings"}
               </h4>
               <div
                 className={`grid grid-cols-1 ${
-                  selectedProject.details.futureImprovements
-                    ? "lg:grid-cols-2"
-                    : "w-full"
+                  selectedProject.details.futureImprovements ? "lg:grid-cols-2" : "w-full"
                 } gap-8`}
               >
-                <div
-                  className={`${
-                    !selectedProject.details.futureImprovements ? "w-full" : ""
-                  }`}
-                >
-                  <h5 className="text-lg font-medium text-primary mb-4 font-sora">
-                    Key Learnings
-                  </h5>
+                <div className={`${!selectedProject.details.futureImprovements ? "w-full" : ""}`}>
+                  <h5 className="text-lg font-medium text-primary mb-4 font-sora">Key Learnings</h5>
                   <div className="space-y-4">
-                    {selectedProject.details.lessons.map((lesson, index) => (
+                    {selectedProject.details.learnings.map((lesson, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, x: -20 }}
@@ -673,28 +588,24 @@ const ProjectDetail = () => {
                 </div>
                 {selectedProject.details.futureImprovements && (
                   <div>
-                    <h5 className="text-lg font-medium text-primary mb-4 font-sora">
-                      Future Improvements
-                    </h5>
+                    <h5 className="text-lg font-medium text-primary mb-4 font-sora">Future Improvements</h5>
                     <div className="space-y-4">
-                      {selectedProject.details.futureImprovements.map(
-                        (improvement, index) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1 * index }}
-                            className="flex items-start gap-3 group"
-                          >
-                            <div className="mt-1.5 flex-shrink-0">
-                              <div className="w-2 h-2 rounded-full bg-primary group-hover:scale-125 transition-transform duration-300" />
-                            </div>
-                            <p className="text-text-secondary font-pret group-hover:text-text-primary transition-colors duration-300">
-                              {improvement}
-                            </p>
-                          </motion.div>
-                        )
-                      )}
+                      {selectedProject.details.futureImprovements.map((improvement, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 * index }}
+                          className="flex items-start gap-3 group"
+                        >
+                          <div className="mt-1.5 flex-shrink-0">
+                            <div className="w-2 h-2 rounded-full bg-primary group-hover:scale-125 transition-transform duration-300" />
+                          </div>
+                          <p className="text-text-secondary font-pret group-hover:text-text-primary transition-colors duration-300">
+                            {improvement}
+                          </p>
+                        </motion.div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -712,44 +623,39 @@ const ProjectDetail = () => {
                 Screenshots & Interface
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                {selectedProject.details.images.map(
-                  (
-                    image: { url: string; description?: string },
-                    index: number
-                  ) => (
-                    <div
-                      key={index}
-                      className="group relative h-[400px] cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-                      onClick={() => handleImageSelect(image, index)}
-                    >
-                      <Image
-                        src={image.url}
-                        alt={image.description || ""}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        priority
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        quality={100}
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <svg
-                          className="w-8 h-8 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m4-3H6"
-                          />
-                        </svg>
-                      </div>
+                {selectedProject.details.images.map((image: { url: string; description?: string }, index: number) => (
+                  <div
+                    key={index}
+                    className="group relative h-[400px] cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                    onClick={() => handleImageSelect(image, index)}
+                  >
+                    <Image
+                      src={image.url}
+                      alt={image.description || ""}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={100}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <svg
+                        className="w-8 h-8 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m4-3H6"
+                        />
+                      </svg>
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -776,11 +682,7 @@ const ProjectDetail = () => {
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
-                x: slideDirection
-                  ? slideDirection === "left"
-                    ? [200, 0]
-                    : [-200, 0]
-                  : 0,
+                x: slideDirection ? (slideDirection === "left" ? [200, 0] : [-200, 0]) : 0,
               }}
               transition={{
                 duration: 0.4,
@@ -799,9 +701,7 @@ const ProjectDetail = () => {
             </motion.div>
             {selectedImage.description && (
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 text-white">
-                <p className="text-sm text-center">
-                  {selectedImage.description}
-                </p>
+                <p className="text-sm text-center">{selectedImage.description}</p>
               </div>
             )}
             {selectedImage.index > 0 && (
@@ -814,23 +714,12 @@ const ProjectDetail = () => {
                   text-text-primary hover:text-primary hover:bg-background transition-all duration-300 z-10"
                 aria-label="Previous image"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
             )}
-            {selectedImage.index <
-              (selectedProject?.details.images.length ?? 0) - 1 && (
+            {selectedImage.index < (selectedProject?.details.images.length ?? 0) - 1 && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -840,18 +729,8 @@ const ProjectDetail = () => {
                   text-text-primary hover:text-primary hover:bg-background transition-all duration-300 z-10"
                 aria-label="Next image"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             )}
