@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 const Navigation = () => {
   const sections = ["about", "skills", "projects", "contact"];
   const activeSection = useScrollSpy(sections);
-  const [currentSection, setCurrentSection] = useState(activeSection);
+  const [currentSection, setCurrentSection] = useState("about");
   const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
-    const section = hash.split("/")[0].replace("#", "");
+    const section = hash ? hash.split("/")[0].replace("#", "") : "about";
+
     if (sections.includes(section)) {
       setCurrentSection(section);
       setIsScrolling(true);
@@ -24,7 +25,7 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    if (!isScrolling) {
+    if (!isScrolling && activeSection) {
       setCurrentSection(activeSection);
     }
   }, [activeSection, isScrolling]);

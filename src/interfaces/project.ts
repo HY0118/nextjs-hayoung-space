@@ -63,7 +63,7 @@ export interface Project {
     }>;
 
     // 9. Learnings & Improvements
-    lessons: string[];
+    learnings: string[];
     futureImprovements?: string[];
 
     // 10. Screenshots

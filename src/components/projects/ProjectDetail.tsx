@@ -287,16 +287,16 @@ const ProjectDetail = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               id="overview"
-              className="mb-16"
+              className="mb-8"
             >
               <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
                 Overview & Achievements
               </h4>
-              <p className="text-lg text-text-secondary whitespace-pre-line font-pret mb-8 leading-relaxed">
+              <p className="text-lg text-text-secondary whitespace-pre-line font-pret leading-relaxed">
                 {selectedProject.details.overview}
               </p>
-              {selectedProject.details.achievements && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {selectedProject.details.achievements && selectedProject.details.achievements.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 mt-8 gap-6">
                   {selectedProject.details.achievements.map(
                     (achievement: { value: string; label: string }, index: number) => (
                       <div
@@ -313,7 +313,7 @@ const ProjectDetail = () => {
             </motion.div>
 
             {/* 2. Demo */}
-            {(selectedProject.details.demoVideo || selectedProject.details.demoGif) && (
+            {(selectedProject.details.demoVideo?.mp4 || selectedProject.details.demoGif) && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -367,7 +367,7 @@ const ProjectDetail = () => {
               id="features"
               className="mb-16"
             >
-              <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
+              <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
                 Key Features & Implementation
               </h4>
               <div className="space-y-4">
@@ -402,6 +402,9 @@ const ProjectDetail = () => {
               id="tech-stack"
               className="mb-16"
             >
+              <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
+                Architecture & Tech Stack
+              </h4>
               {selectedProject.details.architecture && (
                 <div className="mb-8">
                   <h5 className="text-lg font-medium text-primary mb-4">System Architecture</h5>
@@ -470,7 +473,7 @@ const ProjectDetail = () => {
                 id="testing"
                 className="mb-16"
               >
-                <h4 className="text-lg font-semibold text-text-primary mb-4 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
+                <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
                   Testing & Quality Assurance
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -618,6 +621,7 @@ const ProjectDetail = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 }}
               id="screenshots"
+              className="mb-16"
             >
               <h4 className="text-2xl font-semibold text-text-primary mb-8 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
                 Screenshots & Interface
