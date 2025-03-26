@@ -1,5 +1,5 @@
 import { motiveTools } from "@constants/projects/motive-tools";
-import { motiveFlow } from "@constants/projects/motive-flow";
+import { motiveDesignEditor } from "@constants/projects/motive-designeditor";
 import { moauiPlayground } from "@constants/projects/moaui-playground";
 import { moauiCRATemplate } from "@constants/projects/moaui-cra-template";
 import { moauiDesignSystem } from "@constants/projects/moaui-design-system";
@@ -8,7 +8,7 @@ import { apiBeta } from "@constants/projects/api-beta";
 
 export const projects = [
   motiveTools,
-  motiveFlow,
+  motiveDesignEditor,
   moauiPlayground,
   moauiCRATemplate,
   moauiDesignSystem,
@@ -16,4 +16,4 @@ export const projects = [
   apiBeta,
 ];
 
-export { motiveTools, motiveFlow, moauiPlayground, moauiCRATemplate, moauiDesignSystem, inAppPlugin, apiBeta };
+export { motiveTools, motiveDesignEditor, moauiPlayground, moauiCRATemplate, moauiDesignSystem, inAppPlugin, apiBeta };

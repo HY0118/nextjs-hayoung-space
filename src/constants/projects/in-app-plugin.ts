@@ -16,7 +16,12 @@ export const inAppPlugin: Project = {
     //    - 프로젝트 개요
     //    - 주요 성과 지표 (수치화된 데이터)
     overview: "건축/토목 엔지니어링 소프트웨어 내 웹 기반 플러그인 플랫폼 및 컨텐츠 제공",
-    achievements: [],
+    achievements: [
+      {
+        value: "",
+        label: ""
+      }
+    ],
 
     // 2. Demo
     //    - 데모 비디오 또는 GIF

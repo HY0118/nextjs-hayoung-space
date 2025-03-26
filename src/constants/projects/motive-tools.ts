@@ -1,135 +1,120 @@
 import type { Project } from "@interfaces/project";
 
 export const motiveTools: Project = {
-  // Project Card:
   id: "motive-tools",
   title: "Tools (고객 유입 설계 컨텐츠 페이지)",
-  description: "무료 설계 컨텐츠 제공 페이지 \n - 국가별 지진·온도 하중 등 설계 컨텐츠 제공",
+  description:
+    "엔지니어를 위한 인터랙티브 설계 컨텐츠 플랫폼\n- 국가별 지진·온도 하중 등 전문 설계 기준 제공",
   image: "/images/projects/project_tools/screenshots/tools_thumbnail.png",
-  tech: ["Next.js", "React", "TypeScript", "RJSF", "Zustand", "Framer Motion", "Bitbucket"],
+  tech: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "RJSF",
+    "Zustand",
+    "Framer Motion",
+    "Bitbucket",
+  ],
   github: "",
   demo: "https://tools.midasuser.com/ko",
 
-  // Project Structure:
   details: {
-    // 1. Overview & Achievements
-    //    - 프로젝트 개요
-    //    - 주요 성과 지표 (수치화된 데이터)
     overview:
-      "MIDAS Tools는 엔지니어들을 위한 설계 참고 컨텐츠로, 신뢰할 수 있는 설계 기준과 인터랙티브 도구를 갖춘 무료 웹 기반 툴킷입니다.",
+      "MIDAS Tools는 다양한 국가별 설계 기준을 인터랙티브하게 제공하는 웹 기반의 설계 컨텐츠 플랫폼입니다.",
     achievements: [
-      {
-        value: "100,000+",
-        label: "사용자 수",
-      },
+      { value: "2,000+", label: "월 활성 사용자(MAU)" },
+      { value: "50%", label: "Google Organic 유입 비율" },
     ],
 
-    // 2. Demo
-    //    - 데모 비디오 또는 GIF
     demoGif: "",
-    demoVideo: {
-      mp4: "/images/projects/project_tools/tools_demo.mp4",
-    },
+    demoVideo: { mp4: "/images/projects/project_tools/tools_demo.mp4" },
 
-    // 3. Problem & Solution
-    //    - 문제 정의
-    //    - 해결 방안
-    problemStatement: "신규 고객 유입 수가 정체됨과 동시에 기존 고객 유지 비용이 증가하고 있음",
-    solutionApproach: "설계 컨텐츠 제공을 통한 고객 유지 및 신규 고객 유입 증대",
+    problemStatement:
+      "기존 설계 컨텐츠의 비효율적인 수작업 관리 및 신규 고객 유입의 정체 현상",
+    solutionApproach:
+      "웹 기반의 인터랙티브 설계 컨텐츠 제공과 SEO 최적화를 통한 신규 고객 확보 및 유지",
 
-    // 4. Key Features
-    //    - 주요 기능
-    //    - 구현 방식
     features: [
       {
-        name: "국가별 지진·온도 하중 등 설계 컨텐츠 제공",
-        description: "설계 기준에 필요한 국가별 지진·온도 하중 등 설계 컨텐츠",
+        name: "인터랙티브 설계 컨텐츠 제공",
+        description: "국가별 지진, 온도 하중 등의 설계 기준을 인터랙티브하게 제공",
         implementation:
-          "설계 기준에 필요한 국가별 지진·온도 하중 등 설계 컨텐츠를 제공하여 고객 유지 및 신규 고객 유입 증대",
+          "Next.js의 SSR/SSG 혼합 전략으로 성능과 SEO를 최적화하고 JSON Schema와 RJSF로 데이터 기반의 동적 폼 구현",
       },
     ],
 
-    // 5. Architecture & Tech Stack
-    //    - 시스템 구조
-    //    - 기술 스택 및 선택 이유
     techStack: [
       {
         category: "Frontend",
         items: [
-          {
-            name: "React",
-            description: "컴포넌트 기반 UI 개발 및 상태 관리",
-          },
-          {
-            name: "TypeScript",
-            description: "타입 안정성 확보 및 개발 생산성 향상",
-          },
+          { name: "Next.js", description: "SSR 및 SSG를 통한 성능 및 SEO 최적화" },
+          { name: "React", description: "컴포넌트 기반 UI 설계 및 상태 관리" },
+          { name: "TypeScript", description: "정적 타입 지정을 통한 코드 안정성 강화" },
         ],
       },
       {
-        category: "State Management",
+        category: "Data & State Management",
         items: [
-          {
-            name: "Zustand",
-            description: "간단하고 효적인 전역 상태 관리",
-          },
+          { name: "TanStack Query", description: "API 관련 서버 데이터 캐싱 및 관리, 로딩 상태 최적화" },
+          { name: "Zustand", description: "컴포넌트 간의 간결한 전역 상태 관리" },
+          { name: "RJSF(react-jsonschema-form)", description: "JSON Schema 기반의 데이터 중심 UI 설계" },
+        ],
+      },
+      {
+        category: "Optimization & Animation",
+        items: [
+          { name: "Framer Motion && CSS", description: "사용자 경험을 위한 인터랙티브 애니메이션" },
+          { name: "Web 성능 최적화", description: "컴포넌트 렌더링 및 이미지 지연 로딩 전략을 통한 웹 페이지 성능 최적화" }
         ],
       },
     ],
 
-    // 6. Performance
-    //    - 성능 개선 사항
-    //    - 최적화 결과
     performance: [
       {
-        name: "설계 계산 처리 속도",
-        improvement: "70%",
-        description: "Python 기반 설계 계산 엔진 도입으로 복잡한 설계 계산 처리 속도 개선",
+        name: "렌더링 속도",
+        improvement: "57%",
+        description: "Next.js SSR/SSG 전략을 적용해 LCP 3.5초 → 1.5초로 단축",
       },
       {
-        name: "페이지 로딩 시간",
+        name: "페이지 로딩 성능",
         improvement: "50%",
-        description: "컴포넌트 레이지 로딩과 이미지 최적화로 초기 로딩 시간 단축",
+        description:
+          "컴포넌트 레이지 로딩과 이미지 최적화 및 React.memo를 통한 렌더링 최적화로 성능 향상",
       },
     ],
 
-    // 7. Testing
-    //    - 테스트 전략
-    //    - 커버리지
     testing: [
       {
-        name: "카드 페이지 렌더링",
-        description: "카드 페이지 렌더링 테스트",
+        name: "렌더링 안정성",
+        description: "주요 컴포넌트 렌더링 유닛 테스트",
         coverage: 90,
       },
     ],
 
-    // 8. Challenges
-    //    - 직면한 문제
-    //    - 해결 과정
     challenges: [
       {
-        problem: "monorepo 환경에서 tools 프로젝트 개발 시 빌드 속도 저하",
-        solution: "build 속도 개선을 위한 빌드 파이프라인 최적화",
+        problem: "Monorepo 환경 내 프로젝트 빌드 속도 저하",
+        solution: "번들 분석 / 불필요 패키지 정리 / Tree shaking 최적화 / 코드 스플릿 / 빌드 캐싱 / Docker 메모리 조정으로 빌드 속도 개선",
       },
+      {
+        problem: "다양한 설계 컨텐츠 기획에 대한 개별 UI 개발 리소스 부족",
+        solution: "데이터 기반 Schema 형식을 기반으로 기획서 작성 및 json schema 기반 웹 UI 생성 자동화 구축"
+      }
     ],
-    // 9. Learnings & Improvements
-    //    - 학습한 점
-    //    - 향후 개선 사항
+
     learnings: [
-      "TypeScript를 활용한 타입 안정성 확보로 런타임 에러 감소",
-      "컴포넌트 재사용성을 고려한 설계로 개발 생산성 향상",
-      "사용자 경험을 고려한 UI/UX 디자인 및 구현",
-      "성능 최적화를 위한 다양한 기법 적용",
+      "SSR/SSG 혼합 전략을 통한 웹 성능 및 SEO 향상 방법",
+      "TypeScript를 활용한 유지보수성과 코드 품질 개선",
+      "Component 추상화를 통한 컨텐츠 UI 패널 재사용성 개선",
+      "메타 태그 최적화, 구조화 데이터(JSON-LD) 등 Technical SEO 개선"
     ],
+
     futureImprovements: [
-      "설계 계산 엔진 최적화 및 확장성 향상",
-      "다국어 지원 및 현지화 기능 추가",
-      "사용자 피드백 수집 및 분석을 통한 기능 개선",
+      "다국어 지원을 통한 글로벌 사용자 확장",
+      "사용자 피드백을 기반으로 한 지속적인 UI/UX 개선",
+      "유닛 테스트를 통한 지속적인 리커버리 상승"
     ],
-    // 10. Screenshots
-    //    - 주요 화면 캡처
-    //    - 설명
+
     images: [
       {
         url: "/images/projects/project_tools/screenshots/tools_main.png",
