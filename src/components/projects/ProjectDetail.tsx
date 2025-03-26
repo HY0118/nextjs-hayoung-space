@@ -292,12 +292,12 @@ const ProjectDetail = () => {
               <h4 className="text-2xl font-semibold text-text-primary mb-6 font-sora relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:bg-primary after:transform after:scale-x-0 after:hover:scale-x-100 after:transition-transform after:duration-300">
                 Overview & Achievements
               </h4>
-              <p className="text-lg text-text-secondary whitespace-pre-line font-pret leading-relaxed">
+              <p className="text-lg whitespace-pre-line font-pret leading-relaxed">
                 {selectedProject.details.overview}
               </p>
               {selectedProject.details.achievements && selectedProject.details.achievements.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 mt-8 gap-6">
-                  {selectedProject.details.achievements.map(
+                  {selectedProject.details.achievements?.map(
                     (achievement: { value: string; label: string }, index: number) => (
                       <div
                         key={index}
@@ -345,14 +345,14 @@ const ProjectDetail = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {selectedProject.details.problemStatement && (
                     <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
-                      <h5 className="text-lg font-medium text-primary mb-4">Project Context</h5>
-                      <p className="text-text-secondary">{selectedProject.details.problemStatement}</p>
+                      <h5 className="text-lg font-medium text-primary mb-4">Background</h5>
+                      <p>{selectedProject.details.problemStatement}</p>
                     </div>
                   )}
                   {selectedProject.details.solutionApproach && (
                     <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
                       <h5 className="text-lg font-medium text-primary mb-4">Strategic Approach</h5>
-                      <p className="text-text-secondary">{selectedProject.details.solutionApproach}</p>
+                      <p>{selectedProject.details.solutionApproach}</p>
                     </div>
                   )}
                 </div>
@@ -385,7 +385,7 @@ const ProjectDetail = () => {
                       <p className="text-text-secondary mb-2">{feature.description}</p>
                       {feature.implementation && (
                         <div className="text-sm text-text-secondary">
-                          <span className="font-medium">Technical Implementation:</span> {feature.implementation}
+                          <span className="font-bold">Implementation - </span> {feature.implementation}
                         </div>
                       )}
                     </div>
@@ -564,9 +564,8 @@ const ProjectDetail = () => {
                 {selectedProject.details.futureImprovements ? "Learnings & Future Improvements" : "Key Learnings"}
               </h4>
               <div
-                className={`grid grid-cols-1 ${
-                  selectedProject.details.futureImprovements ? "lg:grid-cols-2" : "w-full"
-                } gap-8`}
+                className={`grid grid-cols-1 ${selectedProject.details.futureImprovements ? "lg:grid-cols-2" : "w-full"
+                  } gap-8`}
               >
                 <div className={`${!selectedProject.details.futureImprovements ? "w-full" : ""}`}>
                   <h5 className="text-lg font-medium text-primary mb-4 font-sora">Key Learnings</h5>
@@ -582,7 +581,7 @@ const ProjectDetail = () => {
                         <div className="mt-1.5 flex-shrink-0">
                           <div className="w-2 h-2 rounded-full bg-primary group-hover:scale-125 transition-transform duration-300" />
                         </div>
-                        <p className="text-text-secondary font-pret group-hover:text-text-primary transition-colors duration-300">
+                        <p className="font-pret group-hover:text-text-primary transition-colors duration-300">
                           {lesson}
                         </p>
                       </motion.div>
@@ -604,7 +603,7 @@ const ProjectDetail = () => {
                           <div className="mt-1.5 flex-shrink-0">
                             <div className="w-2 h-2 rounded-full bg-primary group-hover:scale-125 transition-transform duration-300" />
                           </div>
-                          <p className="text-text-secondary font-pret group-hover:text-text-primary transition-colors duration-300">
+                          <p className="font-pret group-hover:text-text-primary transition-colors duration-300">
                             {improvement}
                           </p>
                         </motion.div>

@@ -1,9 +1,9 @@
 import type { Project } from "@interfaces/project";
 
-export const motiveFlow: Project = {
+export const motiveDesignEditor: Project = {
   // Project Card:
   id: "motive-flow",
-  title: "Flow (설계 컨텐츠 간 연결 실행)",
+  title: "Design Editor (설계 컨텐츠 제작 앱)",
   description: "단일·복수 설계 컨텐츠를 연결해 통합 모델링을 제공하는 사용자 페이지",
   image: "/images/Project_Thumbnail.webp",
   tech: ["Next.js", "React", "TypeScript", "ReactFlow", "RJSF", "Recoil", "Framer Motion", "Bitbucket"],
