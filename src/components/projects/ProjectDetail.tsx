@@ -42,7 +42,6 @@ const DemoMedia = ({ project }: { project: Project }) => {
           alt={`${project.title} Demo`}
           fill
           className="object-cover transform hover:scale-[1.02] transition-transform duration-300"
-          priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           quality={100}
         />
@@ -637,7 +636,6 @@ const ProjectDetail = () => {
                       alt={image.description || ""}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      priority
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       quality={100}
                     />

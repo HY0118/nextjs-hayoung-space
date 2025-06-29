@@ -3,32 +3,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useIntroStore } from "@store/introStore";
 import TypeWriter from "@components/common/TypeWriter";
-import { Suspense, useEffect } from "react";
-import dynamic from "next/dynamic";
+import { Suspense, useEffect, lazy } from "react";
 import Spinner from "@components/common/Spinner";
 import { useProjectStore } from "@store/projectStore";
 import { projects } from "@constants/projects";
 
-// 각 섹션을 서버 컴포넌트로 동적 임포트
-const About = dynamic(() => import("@components/sections/About"), {
-  ssr: true,
-  loading: () => <Spinner />,
-});
-
-const Skills = dynamic(() => import("@components/sections/Skills"), {
-  ssr: true,
-  loading: () => <Spinner />,
-});
-
-const Projects = dynamic(() => import("@components/sections/Projects"), {
-  ssr: true,
-  loading: () => <Spinner />,
-});
-
-const Contact = dynamic(() => import("@components/sections/Contact"), {
-  ssr: true,
-  loading: () => <Spinner />,
-});
+// 조건부 lazy import - 인트로 완료 후에만 로드
+const About = lazy(() => import("@components/sections/About"));
+const Skills = lazy(() => import("@components/sections/Skills"));
+const Projects = lazy(() => import("@components/sections/Projects"));
+const Contact = lazy(() => import("@components/sections/Contact"));
 
 export default function MainContent() {
   const { isIntroComplete, setIntroComplete, initializeIntroState } = useIntroStore();
@@ -37,6 +21,11 @@ export default function MainContent() {
   // 초기 상태 설정 및 URL 처리
   useEffect(() => {
     initializeIntroState();
+
+    // 개발 환경에서는 인트로 건너뛰기
+    if (process.env.NODE_ENV === 'development') {
+      setIntroComplete(true);
+    }
 
     const hash = window.location.hash;
     if (!hash) return;
@@ -57,7 +46,7 @@ export default function MainContent() {
         }
       }
     }
-  }, [initializeIntroState, setSelectedProject, openDetail]);
+  }, [initializeIntroState, setSelectedProject, openDetail, setIntroComplete]);
 
   return (
     <AnimatePresence mode="wait">
