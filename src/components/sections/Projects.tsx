@@ -88,7 +88,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className={`relative py-20 min-h-screen flex flex-col justify-center ${isDetailOpen ? "overflow-hidden" : ""}`}
+      className={`relative py-20 min-h-screen flex flex-col justify-center bg-background ${isDetailOpen ? "overflow-hidden" : ""}`}
     >
       <div className="mx-auto px-8">
         {!isDetailOpen && (

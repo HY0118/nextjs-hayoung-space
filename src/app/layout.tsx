@@ -8,12 +8,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const outfit = Outfit({ 
   subsets: ["latin"],
-  variable: "--font-outfit" 
+  variable: "--font-outfit",
+  display: "swap",
 });
 
 const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-sora"
+  variable: "--font-sora",
+  display: "swap",
 });
 
 export const metadata = {

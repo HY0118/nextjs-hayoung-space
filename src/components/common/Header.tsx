@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import ThemeToggle from "@components/common/ThemeToggle";
-import Navigation from "@components/common/Navigation";
 import { useIntroStore } from "@store/introStore";
 import { motion, AnimatePresence } from "framer-motion";
+import { lazy, Suspense } from "react";
+
+const ThemeToggle = lazy(() => import("@components/common/ThemeToggle"));
+const Navigation = lazy(() => import("@components/common/Navigation"));
 
 const Header = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);
@@ -24,8 +26,12 @@ const Header = () => {
               <span className="text-primary">Space</span> 🚀
             </Link>
             <div className="flex items-center gap-4">
-              <Navigation />
-              <ThemeToggle />
+              <Suspense fallback={<div className="w-[120px] h-[40px]" />}>
+                <Navigation />
+              </Suspense>
+              <Suspense fallback={<div className="w-[40px] h-[40px]" />}>
+                <ThemeToggle />
+              </Suspense>
             </div>
           </div>
         </motion.header>

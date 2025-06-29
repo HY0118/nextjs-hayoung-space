@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-20 min-h-screen flex flex-col justify-center">
+    <section id="contact" className="py-20 min-h-screen flex flex-col justify-center bg-gray-100 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-8">
         <h2 className="text-4xl text-text-primary mb-8 relative inline-block font-sora after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
           Contact
