@@ -20,9 +20,8 @@ const Skills = () => {
     <section id="skills" className="py-20 min-h-screen flex flex-col justify-center bg-gray-100 dark:bg-gray-800">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h2 className="text-4xl font-bold text-text-primary mb-2 relative font-sora inline-block">
+          <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
             Skills
-            <div className="absolute -bottom-4 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-light"></div>
           </h2>
           <div className="mt-8 flex items-center gap-2 text-sm">
             <span className="text-text-primary font-pret">level :</span>
