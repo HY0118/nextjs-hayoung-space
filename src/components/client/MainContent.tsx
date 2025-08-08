@@ -7,6 +7,7 @@ import { Suspense, useEffect, lazy } from "react";
 import Spinner from "@components/common/Spinner";
 import { useProjectStore } from "@store/projectStore";
 import { projects } from "@constants/projects";
+import LandingSelector from "@/components/client/LandingSelector";
 
 // 조건부 lazy import - 인트로 완료 후에만 로드
 const About = lazy(() => import("@components/sections/About"));
@@ -49,43 +50,46 @@ export default function MainContent() {
   }, [initializeIntroState, setSelectedProject, openDetail, setIntroComplete]);
 
   return (
-    <AnimatePresence mode="wait">
-      {!isIntroComplete ? (
-        <motion.div
-          key="intro"
-          className="min-h-screen flex items-center justify-center"
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-        >
-          <TypeWriter
-            onComplete={() => {
-              setTimeout(() => {
-                setIntroComplete(true);
-              }, 500);
-            }}
-          />
-        </motion.div>
-      ) : (
-        <motion.main
-          key="content"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Suspense fallback={<Spinner />}>
-            <About />
-          </Suspense>
-          <Suspense fallback={<Spinner />}>
-            <Skills />
-          </Suspense>
-          <Suspense fallback={<Spinner />}>
-            <Projects />
-          </Suspense>
-          <Suspense fallback={<Spinner />}>
-            <Contact />
-          </Suspense>
-        </motion.main>
-      )}
-    </AnimatePresence>
+    <>
+      <LandingSelector />
+      <AnimatePresence mode="wait">
+        {!isIntroComplete ? (
+          <motion.div
+            key="intro"
+            className="min-h-screen flex items-center justify-center"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            <TypeWriter
+              onComplete={() => {
+                setTimeout(() => {
+                  setIntroComplete(true);
+                }, 500);
+              }}
+            />
+          </motion.div>
+        ) : (
+          <motion.main
+            key="content"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Suspense fallback={<Spinner />}>
+              <About />
+            </Suspense>
+            <Suspense fallback={<Spinner />}>
+              <Skills />
+            </Suspense>
+            <Suspense fallback={<Spinner />}>
+              <Projects />
+            </Suspense>
+            <Suspense fallback={<Spinner />}>
+              <Contact />
+            </Suspense>
+          </motion.main>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
