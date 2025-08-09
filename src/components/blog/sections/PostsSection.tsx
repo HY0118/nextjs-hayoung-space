@@ -1,3 +1,5 @@
+"use client";
+
 import BlogCard from "@/components/blog/BlogCard";
 import { BlogPost } from "@/lib/notion";
 

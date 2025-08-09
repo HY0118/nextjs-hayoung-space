@@ -151,10 +151,10 @@ const ProjectDetail = () => {
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 100 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="fixed top-0 right-0 w-full h-screen bg-background/80 dark:bg-gray-900/80 backdrop-blur-2xl border-l border-border flex flex-col project-detail-content overflow-y-auto"
+        className="fixed top-0 right-0 w-full h-screen bg-white border-l border-border flex flex-col project-detail-content overflow-y-auto"
         style={{ marginTop: "73px" }}
       >
-        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="sticky top-0 z-10 bg-white border-b border-border">
           <div className="max-w-7xl mx-auto px-8 py-6">
             <div className="flex justify-between items-center">
               <motion.h3
@@ -656,7 +656,7 @@ const ProjectDetail = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/95 dark:bg-black/98 z-50 flex items-center justify-center p-4 backdrop-blur-2xl"
+          className="fixed inset-0 bg-black/95 dark:bg-black/98 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <motion.div
