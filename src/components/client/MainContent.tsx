@@ -6,6 +6,7 @@ import TypeWriter from "@components/common/TypeWriter";
 import { Suspense, useEffect, lazy } from "react";
 import Spinner from "@components/common/Spinner";
 import { useProjectStore } from "@store/projectStore";
+import { useLandingStore } from "@/store/landingStore";
 import { projects } from "@constants/projects";
 import LandingSelector from "@/components/client/LandingSelector";
 
@@ -18,6 +19,7 @@ const Contact = lazy(() => import("@components/sections/Contact"));
 export default function MainContent() {
   const { isIntroComplete, setIntroComplete, initializeIntroState } = useIntroStore();
   const { setSelectedProject, openDetail } = useProjectStore();
+  const { isOpen: isLandingOpen } = useLandingStore();
 
   // 초기 상태 설정 및 URL 처리
   useEffect(() => {
@@ -49,11 +51,13 @@ export default function MainContent() {
     }
   }, [initializeIntroState, setSelectedProject, openDetail, setIntroComplete]);
 
+  const shouldShowTypeWriter = !isIntroComplete && !isLandingOpen;
+
   return (
     <>
       <LandingSelector />
       <AnimatePresence mode="wait">
-        {!isIntroComplete ? (
+        {shouldShowTypeWriter ? (
           <motion.div
             key="intro"
             className="min-h-screen flex items-center justify-center"
@@ -68,7 +72,7 @@ export default function MainContent() {
               }}
             />
           </motion.div>
-        ) : (
+        ) : isIntroComplete ? (
           <motion.main
             key="content"
             initial={{ opacity: 0, y: 20 }}
@@ -88,6 +92,14 @@ export default function MainContent() {
               <Contact />
             </Suspense>
           </motion.main>
+        ) : (
+          // 랜딩 선택이 열려있는 동안에는 인트로를 시작하지 않고 대기
+          <motion.div
+            key="intro-wait"
+            className="min-h-screen"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          />
         )}
       </AnimatePresence>
     </>
