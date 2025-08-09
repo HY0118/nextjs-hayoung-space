@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useScrollSpy } from "@hooks/useScrollSpy";
 import { useEffect, useState } from "react";
+import { SECTIONS, type SectionId } from "@/interfaces/navigation";
 
 const Navigation = () => {
   const pathname = usePathname();
-  const sections = ["about", "skills", "projects", "contact"];
-  const activeSection = useScrollSpy(sections);
+  const activeSection = useScrollSpy(SECTIONS as unknown as string[]);
   const [currentSection, setCurrentSection] = useState("about");
   const [isScrolling, setIsScrolling] = useState(false);
   
@@ -17,9 +17,9 @@ const Navigation = () => {
 
   useEffect(() => {
     const hash = window.location.hash;
-    const section = hash ? hash.split("/")[0].replace("#", "") : "about";
+    const section = (hash ? hash.split("/")[0].replace("#", "") : "about") as SectionId;
 
-    if (sections.includes(section)) {
+    if ((SECTIONS as readonly SectionId[]).includes(section)) {
       setCurrentSection(section);
       setIsScrolling(true);
 
@@ -32,8 +32,18 @@ const Navigation = () => {
   useEffect(() => {
     if (!isScrolling && activeSection) {
       setCurrentSection(activeSection);
+      // 홈에서만 URL 해시를 섹션에 맞춰 갱신 (블로그/기타 페이지 제외)
+      if (!isBlogPage && typeof window !== "undefined") {
+        const currentHash = window.location.hash;
+        // 프로젝트 상세 중(#projects/...)일 때는 해시를 보존
+        const isProjectDetailHash = currentHash.startsWith("#projects/");
+        const nextHash = `#${activeSection}`;
+        if (!isProjectDetailHash && currentHash !== nextHash) {
+          history.replaceState(null, "", `/${nextHash}`);
+        }
+      }
     }
-  }, [activeSection, isScrolling]);
+  }, [activeSection, isScrolling, isBlogPage]);
 
   const handleClick = (section: string) => {
     setIsScrolling(true);
@@ -54,7 +64,7 @@ const Navigation = () => {
   return (
     <nav>
       <ul className="flex gap-8">
-        {sections.map((section) => (
+        {(SECTIONS as readonly SectionId[]).map((section) => (
           <li key={section}>
             <Link
               href={`/#${section}`}
