@@ -1,0 +1,25 @@
+{
+  "header.title": "HaYoung Space",
+  "header.nav.about": "소개",
+  "header.nav.skills": "기술",
+  "header.nav.projects": "프로젝트",
+  "header.nav.contact": "연락처",
+
+  "about.title": "About Me",
+  "about.role": "프론트엔드 개발자",
+  "about.tmi": "직업병처럼 화면의 작은 결함도 빠르게 찾아내는 눈을 가졌습니다.",
+
+  "blog.title": "Blog",
+  "blog.description": "개발과 일상에 대한 생각들을 기록하고 공유합니다.",
+
+  "quick.title": "포트폴리오 하이라이트",
+  "quick.left.nameRole": "이하영 · 프론트엔드 개발자",
+  "quick.left.subtitle": "사용자 경험 중심 · React, TypeScript",
+  "quick.left.employment": "이력",
+  "quick.left.recentRoles": "RECENT ROLES",
+  "quick.left.whatIBring": "WHAT I BRING",
+  "quick.left.impact": "IMPACT (METRICS)",
+  "quick.right.featured": "대표 프로젝트",
+  "quick.right.stack": "핵심 기술 스택",
+  "quick.cta.home": "홈으로"
+}

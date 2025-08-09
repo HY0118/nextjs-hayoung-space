@@ -5,6 +5,7 @@ import Footer from "@components/common/Footer";
 import { ThemeProvider } from "@contexts/ThemeContext";
 import { Outfit, Sora } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import I18nProvider from "@/app/providers/I18nProvider";
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -46,12 +47,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ThemeProvider>
-          <Header />
-          <main>
-            {children}
-            <SpeedInsights />
-          </main>
-          <Footer />
+          <I18nProvider>
+            <Header />
+            <main>
+              {children}
+              <SpeedInsights />
+            </main>
+            <Footer />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

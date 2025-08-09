@@ -33,11 +33,16 @@ module.exports = {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0 },
         },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
       },
       animation: {
         blink: 'blink 1s step-end infinite',
         'spin-slow': 'spin 1.5s linear infinite',
         'spin-reverse': 'spin 2s linear infinite reverse',
+        fadeIn: 'fadeIn 0.3s ease-in-out',
       },
       fontFamily: {
         sans: ['var(--font-outfit)', 'system-ui', 'sans-serif'],

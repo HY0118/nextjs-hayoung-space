@@ -2,9 +2,16 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useIntroStore } from "@store/introStore";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);
+  const pathname = usePathname();
+
+  // quick-portfolio 페이지에서는 헤더 숨김
+  if (pathname?.startsWith("/quick-portfolio")) {
+    return null;
+  }
 
   return (
     <AnimatePresence>

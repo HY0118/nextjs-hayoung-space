@@ -4,12 +4,19 @@ import Link from "next/link";
 import { useIntroStore } from "@store/introStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { lazy, Suspense } from "react";
+import { usePathname } from "next/navigation";
 
 const ThemeToggle = lazy(() => import("@components/common/ThemeToggle"));
 const Navigation = lazy(() => import("@components/common/Navigation"));
 
 const Header = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);
+  const pathname = usePathname();
+
+  // quick-portfolio 페이지에서는 헤더 숨김
+  if (pathname?.startsWith("/quick-portfolio")) {
+    return null;
+  }
 
   return (
     <AnimatePresence>

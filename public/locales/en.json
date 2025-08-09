@@ -1,0 +1,25 @@
+{
+  "header.title": "HaYoung Space",
+  "header.nav.about": "About",
+  "header.nav.skills": "Skills",
+  "header.nav.projects": "Projects",
+  "header.nav.contact": "Contact",
+
+  "about.title": "About Me",
+  "about.role": "Frontend Developer",
+  "about.tmi": "I spot tiny UI issues quickly – a little occupational hazard.",
+
+  "blog.title": "Blog",
+  "blog.description": "Sharing thoughts on development and life.",
+
+  "quick.title": "Portfolio Highlights",
+  "quick.left.nameRole": "Hayoung Lee · Frontend Developer",
+  "quick.left.subtitle": "UX-focused · React, TypeScript",
+  "quick.left.employment": "EMPLOYMENT",
+  "quick.left.recentRoles": "RECENT ROLES",
+  "quick.left.whatIBring": "WHAT I BRING",
+  "quick.left.impact": "IMPACT (METRICS)",
+  "quick.right.featured": "Featured Projects",
+  "quick.right.stack": "Core Tech Stack",
+  "quick.cta.home": "Back to Home"
+}
