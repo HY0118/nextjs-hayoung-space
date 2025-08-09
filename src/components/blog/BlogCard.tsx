@@ -34,17 +34,21 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
 
         {/* Title */}
         <h3
-          className={`font-bold text-text-primary group-hover:text-primary transition-colors line-clamp-2 mb-3
-            ${featured ? "text-xl" : "text-lg"}`}
+          className={`font-bold text-text-primary group-hover:text-primary transition-colors truncate mb-2
+            ${featured ? "text-lg" : "text-base"}`}
         >
           {post.title}
         </h3>
 
-        {/* Summary */}
+        {/* Summary (카테고리 컨테이너 hover 시 전체 카드 동시 표시) */}
         {post.summary && (
-          <p className="text-text-secondary text-sm line-clamp-3 mb-4">
-            {post.summary}
-          </p>
+          <div
+            className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover/zone:max-h-24 group-hover/zone:opacity-100 mb-0 group-hover/zone:mb-4"
+          >
+            <p className="text-text-secondary text-sm line-clamp-3">
+              {post.summary}
+            </p>
+          </div>
         )}
 
         {/* Tags */}

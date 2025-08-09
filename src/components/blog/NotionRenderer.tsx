@@ -126,6 +126,34 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
           </div>
         );
 
+      case "child_page": {
+        const title = value?.title || "Untitled";
+        const notionUrl = `https://www.notion.so/${id.replace(/-/g, "")}`;
+        return (
+          <div key={id} className="my-3">
+            <a
+              href={notionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 px-4 py-3 transition-colors"
+            >
+              <span className="font-medium text-text-primary">{title}</span>
+              <span className="ml-2 text-sm text-primary">↗</span>
+            </a>
+          </div>
+        );
+      }
+
+      case "child_database": {
+        const title = value?.title || "Database";
+        return (
+          <div key={id} className="my-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
+            <span className="font-medium text-text-primary">{title}</span>
+            <span className="ml-2 text-xs text-gray-500">(데이터베이스)</span>
+          </div>
+        );
+      }
+
       case "table":
         return (
           <div key={id} className="my-8 overflow-x-auto">
