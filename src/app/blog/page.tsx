@@ -14,14 +14,15 @@ export const revalidate = 60;
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: { tag?: string; tags?: string };
+  searchParams: Promise<{ tag?: string; tags?: string }>;
 }) {
   const generationTime = new Date().toISOString();
   console.log(`🔄 [ISR] Blog 페이지 생성 시간: ${generationTime}`);
 
+  const resolved = await searchParams;
   const [posts, allTags] = await Promise.all([getBlogPosts(), getAllTags()]);
-  const selectedTags = (searchParams.tags || "").split(",").map((s) => s.trim()).filter(Boolean);
-  const selectedTag = searchParams.tag;
+  const selectedTags = (resolved.tags || "").split(",").map((s) => s.trim()).filter(Boolean);
+  const selectedTag = resolved.tag;
   const effectiveSelected = selectedTags.length > 0 ? selectedTags : (selectedTag ? [selectedTag] : []);
 
   return (

@@ -1,19 +1,13 @@
 import React from "react";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  return (
-    <div data-locale={params.locale}>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </div>
-  );
+  const { locale } = await params;
+
+  return <div data-locale={locale}>{children}</div>;
 }

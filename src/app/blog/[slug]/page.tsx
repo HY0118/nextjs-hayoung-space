@@ -7,9 +7,9 @@ import BlogPageWrapper from "@/components/blog/BlogPageWrapper";
 import Link from "next/link";
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // ISR 설정: 60초마다 재생성 (더 빠른 업데이트)
@@ -38,7 +38,8 @@ export async function generateStaticParams() {
 
 // 메타데이터 생성
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = await getCachedBlogPost(params.slug);
+  const { slug } = await params;
+  const post = await getCachedBlogPost(slug);
   
   if (!post) {
     return {
@@ -53,7 +54,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await getCachedBlogPost(params.slug);
+  const { slug } = await params;
+  const post = await getCachedBlogPost(slug);
 
   if (!post) {
     notFound();

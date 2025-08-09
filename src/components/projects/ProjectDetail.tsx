@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useProjectStore } from "@store/projectStore";
 import type { Project } from "@interfaces/project";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ExternalLinkIcon from "@/components/icons/ExternalLinkIcon";
 import TableOfContents from "@components/projects/TableOfContents";
 
@@ -101,20 +101,20 @@ const ProjectDetail = () => {
   const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null);
 
   // 이전 이미지로 이동
-  const handlePrevImage = () => {
+  const handlePrevImage = useCallback(() => {
     if (!selectedProject || !selectedImage || selectedImage.index <= 0) return;
     setSlideDirection("right");
     const prevImage = selectedProject.details.images[selectedImage.index - 1];
     setSelectedImage({ ...prevImage, index: selectedImage.index - 1 });
-  };
+  }, [selectedProject, selectedImage]);
 
   // 다음 이미지로 이동
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
     if (!selectedProject || !selectedImage || selectedImage.index >= selectedProject.details.images.length - 1) return;
     setSlideDirection("left");
     const nextImage = selectedProject.details.images[selectedImage.index + 1];
     setSelectedImage({ ...nextImage, index: selectedImage.index + 1 });
-  };
+  }, [selectedProject, selectedImage]);
 
   // 이미지 선택 시 인덱스도 함께 저장
   const handleImageSelect = (image: { url: string; description?: string }, index: number) => {
@@ -132,7 +132,7 @@ const ProjectDetail = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage]);
+  }, [selectedImage, handlePrevImage, handleNextImage]);
 
   const handleClose = () => {
     window.history.pushState({}, "", "/#projects");
