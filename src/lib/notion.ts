@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client } from "@notionhq/client";
+import { EXTRA_NOTION_PAGE_URLS } from "@constants/extraNotionPageUrls";
 
 // 환경 변수 확인
 if (!process.env.NOTION_TOKEN) {
@@ -27,10 +28,7 @@ const extraPageIdsFromIds: string[] = (process.env.NOTION_EXTRA_PAGE_IDS || "")
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
-const extraPageIdsFromUrls: string[] = (process.env.NOTION_EXTRA_PAGE_URLS || "")
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean)
+const extraPageIdsFromUrls: string[] = EXTRA_NOTION_PAGE_URLS
   .map((url) => extractNotionId(url))
   .filter(Boolean) as string[];
 const extraPageIds: string[] = Array.from(new Set([...extraPageIdsFromIds, ...extraPageIdsFromUrls]));
