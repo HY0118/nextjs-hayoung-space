@@ -160,7 +160,7 @@ const TableOfContents = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [availableSections]);
 
   return (
     <nav className="fixed right-8 top-64 -translate-y-16 space-y-2 hidden xl:block z-50">

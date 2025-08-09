@@ -4,6 +4,8 @@ interface NotionRendererProps {
   blocks: any[];
 }
 
+import Image from "next/image";
+
 export default function NotionRenderer({ blocks }: NotionRendererProps) {
   const renderBlock = (block: any) => {
     const { type, id } = block;
@@ -102,10 +104,15 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
         const imageUrl = value.type === "external" ? value.external.url : value.file.url;
         return (
           <div key={id} className="my-8">
-            <img
+            <Image
               src={imageUrl}
               alt={value.caption?.[0]?.plain_text || ""}
-              className="w-full rounded-lg shadow-lg"
+              width={1600}
+              height={900}
+              sizes="100vw"
+              unoptimized
+              style={{ width: "100%", height: "auto" }}
+              className="rounded-lg shadow-lg"
             />
             {value.caption && value.caption.length > 0 && (
               <p className="text-center text-sm text-gray-600 mt-2">
