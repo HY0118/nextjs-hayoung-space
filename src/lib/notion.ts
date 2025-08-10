@@ -181,6 +181,26 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   const startTime = Date.now();
   console.log(`🔍 [Notion API] ${slug} 포스트 조회 시작`);
   try {
+    // 자식 블록 전체 수집(페이지네이션 + 재귀)
+    const listAllBlocks = async (blockId: string): Promise<any[]> => {
+      const all: any[] = [];
+      let cursor: string | undefined = undefined;
+      do {
+        const res = await notion.blocks.children.list({ block_id: blockId, start_cursor: cursor });
+        for (const b of res.results as any[]) {
+          if (b.has_children) {
+            try {
+              (b as any).children = await listAllBlocks(b.id);
+            } catch {
+              (b as any).children = [];
+            }
+          }
+          all.push(b);
+        }
+        cursor = (res as any).next_cursor ?? undefined;
+      } while (cursor);
+      return all;
+    };
     // 1) 모든 DB에서 slug로 조회
     for (const dbId of databaseIds) {
       const resp = await notion.databases.query({
@@ -190,8 +210,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       if (resp.results.length > 0) {
         const page = resp.results[0] as any;
         const props = mapDbPageToPost(page);
-        const blocks = await notion.blocks.children.list({ block_id: page.id });
-        return { ...props, content: blocks.results } as BlogPost;
+        const blocks = await listAllBlocks(page.id);
+        return { ...props, content: blocks } as BlogPost;
       }
     }
 
@@ -199,8 +219,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     for (const pid of extraPageIds) {
       const post = await mapExtraPageToPost(pid);
       if (post && post.slug === slug) {
-        const blocks = await notion.blocks.children.list({ block_id: pid });
-        return { ...post, content: blocks.results } as BlogPost;
+        const blocks = await listAllBlocks(pid);
+        return { ...post, content: blocks } as BlogPost;
       }
     }
 

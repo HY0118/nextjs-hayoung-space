@@ -7,44 +7,36 @@ interface NotionRendererProps {
 import Image from "next/image";
 
 export default function NotionRenderer({ blocks }: NotionRendererProps) {
+  const renderRichTexts = (rich: any[] = []) =>
+    rich.map((text: any, index: number) => (
+      <span
+        key={index}
+        className={`
+          ${text.annotations?.bold ? "font-bold" : ""}
+          ${text.annotations?.italic ? "italic" : ""}
+          ${text.annotations?.strikethrough ? "line-through" : ""}
+          ${text.annotations?.underline ? "underline" : ""}
+          ${text.annotations?.code ? "bg-gray-100 px-2 py-1 rounded font-mono text-sm" : ""}
+        `}
+        style={{ color: text.annotations?.color && text.annotations.color !== "default" ? text.annotations.color : undefined }}
+      >
+        {text.href ? (
+          <a href={text.href} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+            {text.plain_text}
+          </a>
+        ) : (
+          text.plain_text
+        )}
+      </span>
+    ));
+
   const renderBlock = (block: any) => {
     const { type, id } = block;
     const value = block[type];
 
     switch (type) {
       case "paragraph":
-        return (
-          <p key={id} className="mb-4">
-            {value.rich_text.map((text: any, index: number) => (
-              <span
-                key={index}
-                className={`
-                  ${text.annotations.bold ? "font-bold" : ""}
-                  ${text.annotations.italic ? "italic" : ""}
-                  ${text.annotations.strikethrough ? "line-through" : ""}
-                  ${text.annotations.underline ? "underline" : ""}
-                  ${text.annotations.code ? "bg-gray-100 px-2 py-1 rounded font-mono text-sm" : ""}
-                `}
-                style={{
-                  color: text.annotations.color !== "default" ? text.annotations.color : undefined,
-                }}
-              >
-                {text.href ? (
-                  <a
-                    href={text.href}
-                    className="text-primary hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {text.plain_text}
-                  </a>
-                ) : (
-                  text.plain_text
-                )}
-              </span>
-            ))}
-          </p>
-        );
+        return <p key={id} className="mb-4">{renderRichTexts(value.rich_text)}</p>;
 
       case "heading_1":
         return (
@@ -68,17 +60,27 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
         );
 
       case "bulleted_list_item":
-        return (
-          <li key={id} className="mb-2">
-            {value.rich_text.map((text: any) => text.plain_text).join("")}
-          </li>
-        );
+        return <li key={id} className="mb-2">{renderRichTexts(value.rich_text)}</li>;
 
       case "numbered_list_item":
+        return <li key={id} className="mb-2">{renderRichTexts(value.rich_text)}</li>;
+
+      case "to_do":
         return (
-          <li key={id} className="mb-2">
-            {value.rich_text.map((text: any) => text.plain_text).join("")}
-          </li>
+          <div key={id} className="flex items-start gap-2 mb-2">
+            <input type="checkbox" checked={value?.checked} readOnly className="mt-1" />
+            <div>{renderRichTexts(value?.rich_text)}</div>
+          </div>
+        );
+
+      case "toggle":
+        return (
+          <details key={id} className="mb-2">
+            <summary className="cursor-pointer">{renderRichTexts(value?.rich_text)}</summary>
+            <div className="ml-4 mt-2">
+              {(block.children || []).map((child: any) => renderBlock(child))}
+            </div>
+          </details>
         );
 
       case "code":
@@ -186,9 +188,13 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
       default:
         return (
           <div key={id} className="mb-4 p-4 bg-gray-100 rounded">
-            <p className="text-sm text-gray-600">
-              지원되지 않는 블록 타입: {type}
-            </p>
+            <p className="text-sm text-gray-600">지원되지 않는 블록 타입: {type}</p>
+            {/* 자식이 있으면 최대 한 단계까지 보조 렌더링 */}
+            {Array.isArray(block.children) && block.children.length > 0 && (
+              <div className="mt-2 ml-4">
+                {block.children.map((child: any) => renderBlock(child))}
+              </div>
+            )}
           </div>
         );
     }
