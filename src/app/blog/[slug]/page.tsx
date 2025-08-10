@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
+import { Suspense, cache } from "react";
 import { getBlogPost, getBlogPosts } from "@lib/notion";
 import NotionRenderer from "@/components/blog/NotionRenderer";
 import BlogPageWrapper from "@/components/blog/BlogPageWrapper";
 import Link from "next/link";
+import RouteDone from "@/components/blog/RouteDone";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -53,10 +54,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
+async function PostArticle({ slug }: { slug: string }) {
   const post = await getCachedBlogPost(slug);
-
   if (!post) {
     notFound();
   }
@@ -70,78 +69,89 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   return (
+    <article className="max-w-5xl mx-auto px-8 pt-32 pb-20">
+      {/* Back Button */}
+      <div className="mb-12">
+        <Link
+          href="/blog"
+          className="inline-flex items-center text-text-secondary hover:text-primary transition-colors font-medium"
+        >
+          ← 블로그로 돌아가기
+        </Link>
+      </div>
+
+      {/* Header */}
+      <header className="mb-12">
+        <div className="mb-6">
+          {post.tags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/blog?tag=${encodeURIComponent(tag)}`}
+              className="inline-block bg-primary/10 text-primary text-sm px-3 py-1 rounded-full mr-2 mb-2 hover:bg-primary/20 transition-colors"
+            >
+              #{tag}
+            </Link>
+          ))}
+        </div>
+        
+        <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
+          {post.title}
+        </h1>
+        
+        {post.summary && (
+          <p className="text-xl text-text-secondary mb-6">
+            {post.summary}
+          </p>
+        )}
+        
+        <div className="flex items-center gap-4 text-text-secondary">
+          <time className="flex items-center gap-2">
+            <span>📅</span>
+            {formatDate(post.publishedDate)}
+          </time>
+          {post.featured && (
+            <span className="bg-primary/10 text-primary text-sm px-2 py-1 rounded">
+              추천 글
+            </span>
+          )}
+        </div>
+      </header>
+
+      {/* Content */}
+      <div className="prose prose-lg max-w-none">
+        {post.content && <NotionRenderer blocks={post.content} />}
+      </div>
+
+      {/* Footer */}
+      <footer className="mt-16 pt-8 border-t border-border">
+        <div className="flex justify-between items-center">
+          <Link
+            href="/blog"
+            className="text-primary hover:text-primary/80 transition-colors"
+          >
+            ← 더 많은 글 보기
+          </Link>
+          
+          <div className="text-text-secondary text-sm">
+            마지막 수정: {formatDate(post.publishedDate)}
+          </div>
+        </div>
+      </footer>
+    </article>
+  );
+}
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  return (
     <BlogPageWrapper animationType="fade">
       <div className="min-h-screen bg-background">
-        <article className="max-w-4xl mx-auto px-8 pt-32 pb-20">
-          {/* Back Button */}
-          <div className="mb-12">
-            <Link
-              href="/blog"
-              className="inline-flex items-center text-text-secondary hover:text-primary transition-colors font-medium"
-            >
-              ← 블로그로 돌아가기
-            </Link>
-          </div>
-
-          {/* Header */}
-          <header className="mb-12">
-            <div className="mb-6">
-              {post.tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/blog?tag=${encodeURIComponent(tag)}`}
-                  className="inline-block bg-primary/10 text-primary text-sm px-3 py-1 rounded-full mr-2 mb-2 hover:bg-primary/20 transition-colors"
-                >
-                  #{tag}
-                </Link>
-              ))}
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-              {post.title}
-            </h1>
-            
-            {post.summary && (
-              <p className="text-xl text-text-secondary mb-6">
-                {post.summary}
-              </p>
-            )}
-            
-            <div className="flex items-center gap-4 text-text-secondary">
-              <time className="flex items-center gap-2">
-                <span>📅</span>
-                {formatDate(post.publishedDate)}
-              </time>
-              {post.featured && (
-                <span className="bg-primary/10 text-primary text-sm px-2 py-1 rounded">
-                  추천 글
-                </span>
-              )}
-            </div>
-          </header>
-
-          {/* Content */}
-          <div className="prose prose-lg max-w-none">
-            {post.content && <NotionRenderer blocks={post.content} />}
-          </div>
-
-          {/* Footer */}
-          <footer className="mt-16 pt-8 border-t border-border">
-            <div className="flex justify-between items-center">
-              <Link
-                href="/blog"
-                className="text-primary hover:text-primary/80 transition-colors"
-              >
-                ← 더 많은 글 보기
-              </Link>
-              
-              <div className="text-text-secondary text-sm">
-                마지막 수정: {formatDate(post.publishedDate)}
-              </div>
-            </div>
-          </footer>
-        </article>
+        {/* 상세 페이지가 마운트되면 네비게이션 상태 해제 */}
+        <RouteDone />
+        <Suspense fallback={<div className="max-w-5xl mx-auto px-8 pt-32 pb-20"><div className="h-6 w-32 rounded bg-gray-200 animate-pulse mb-8" /><div className="h-12 w-3/4 rounded bg-gray-200 animate-pulse mb-6" /><div className="space-y-3"><div className="h-4 w-full rounded bg-gray-200 animate-pulse" /><div className="h-4 w-5/6 rounded bg-gray-200 animate-pulse" /><div className="h-4 w-4/5 rounded bg-gray-200 animate-pulse" /></div></div>}>
+          <PostArticle slug={slug} />
+        </Suspense>
       </div>
     </BlogPageWrapper>
   );
-} 
+}

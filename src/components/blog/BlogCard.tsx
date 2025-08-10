@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
+import { useRouteStore } from "@/store/routeStore";
 import { BlogPost } from "@lib/notion";
 
 interface BlogCardProps {
@@ -7,6 +12,13 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ post, featured = false }: BlogCardProps) {
+  const router = useRouter();
+  const prefetchedRef = useRef(false);
+  const startNavigating = useRouteStore((s) => s.start);
+  const stopNavigating = useRouteStore((s) => s.stop);
+  const isNavigatingGlobal = useRouteStore((s) => s.isNavigating);
+  const localNavigatingRef = useRef(false);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -16,13 +28,47 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
   };
 
   return (
-    <Link href={`/blog/${post.slug}`} prefetch={true}>
+    <Link
+      href={`/blog/${post.slug}`}
+      prefetch={true}
+      onClick={() => {
+        localNavigatingRef.current = true;
+        startNavigating();
+        // 안전장치: 혹시 라우팅 실패/취소 시 자동 해제
+        setTimeout(() => {
+          localNavigatingRef.current = false;
+          stopNavigating();
+        }, 5000);
+      }}
+      onMouseEnter={() => {
+        if (prefetchedRef.current) return;
+        prefetchedRef.current = true;
+        router.prefetch(`/blog/${post.slug}`);
+      }}
+      onFocus={() => {
+        if (prefetchedRef.current) return;
+        prefetchedRef.current = true;
+        router.prefetch(`/blog/${post.slug}`);
+      }}
+      onTouchStart={() => {
+        if (prefetchedRef.current) return;
+        prefetchedRef.current = true;
+        router.prefetch(`/blog/${post.slug}`);
+      }}
+      aria-disabled={isNavigatingGlobal && localNavigatingRef.current}
+    >
       <article
-        className={`group cursor-pointer h-full bg-surface rounded-xl p-6 
+        className={`group relative cursor-pointer h-full bg-surface rounded-xl p-6 
           transition-all duration-300 hover:shadow-lg hover:-translate-y-1
           border border-border hover:border-primary/30
           ${featured ? "ring-2 ring-primary/20" : ""}`}
       >
+        {/* 클릭된 카드 로컬 스피너 오버레이 */}
+        {isNavigatingGlobal && localNavigatingRef.current && (
+          <div className="absolute inset-0 z-10 rounded-xl bg-background/70 flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
         {/* Featured Badge */}
         {featured && (
           <div className="mb-4">

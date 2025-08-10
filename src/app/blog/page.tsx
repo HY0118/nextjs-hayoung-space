@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getBlogPosts, getAllTags } from "@lib/notion";
 import BlogPageWrapper from "@/components/blog/BlogPageWrapper";
+import Link from "next/link";
 import BlogHero from "@/components/blog/sections/BlogHero";
 import BlogFilteredSections from "@/components/blog/sections/BlogFilteredSections";
 
@@ -32,6 +33,12 @@ export default async function BlogPage({
           <div className="max-w-7xl mx-auto px-8">
             <BlogHero />
             <BlogFilteredSections posts={posts} allTags={allTags} selectedTagsInit={effectiveSelected} />
+            {/* 프리로딩: 최초 접속 시 첫 포스트 몇 개의 상세 경로를 미리 워밍업 */}
+            <div className="sr-only" aria-hidden>
+              {posts.slice(0, 4).map((p) => (
+                <Link key={p.id} href={`/blog/${p.slug}`} prefetch />
+              ))}
+            </div>
             <div className="mt-16 pt-8 border-t border-border/30">
               <p className="text-xs text-text-secondary/60 text-center">
                 📅 페이지 생성 시간: {new Date(generationTime).toLocaleString('ko-KR')}
