@@ -24,6 +24,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: 'Asia/Seoul',
     });
   };
 

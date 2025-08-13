@@ -65,6 +65,7 @@ async function PostArticle({ slug }: { slug: string }) {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: 'Asia/Seoul',
     });
   };
 

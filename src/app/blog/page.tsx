@@ -40,8 +40,8 @@ export default async function BlogPage({
               ))}
             </div>
             <div className="mt-16 pt-8 border-t border-border/30">
-              <p className="text-xs text-text-secondary/60 text-center">
-                📅 페이지 생성 시간: {new Date(generationTime).toLocaleString('ko-KR')}
+              <p className="text-xs text-text-secondary/60 text-center" suppressHydrationWarning>
+                📅 페이지 생성 시간: {new Date(generationTime).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}
               </p>
             </div>
           </div>

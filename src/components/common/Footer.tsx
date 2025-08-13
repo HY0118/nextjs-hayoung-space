@@ -23,7 +23,7 @@ const Footer = () => {
           className="py-8 border-t border-border"
         >
           <div className="max-w-7xl mx-auto px-8 text-center text-text-secondary">
-            <p>&copy; {new Date().getFullYear()} hayoung. All rights reserved.</p>
+            <p suppressHydrationWarning>&copy; {new Date().toLocaleDateString('ko-KR', { year: 'numeric', timeZone: 'Asia/Seoul' })} hayoung. All rights reserved.</p>
           </div>
         </motion.footer>
       )}
