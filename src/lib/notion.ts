@@ -58,9 +58,15 @@ async function queryAll(dbId: string, args: Omit<Parameters<typeof notion.databa
   let cursor: string | undefined;
   const results: any[] = [];
   do {
-    const resp = await notion.databases.query({ ...args, database_id: dbId, start_cursor: cursor });
-    results.push(...resp.results);
-    cursor = resp.next_cursor ?? undefined;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    try {
+      const resp = await notion.databases.query({ ...args, database_id: dbId, start_cursor: cursor } as any);
+      results.push(...resp.results);
+      cursor = (resp.next_cursor ?? undefined) as string | undefined;
+    } finally {
+      clearTimeout(timeout);
+    }
   } while (cursor);
   return results;
 }
@@ -78,6 +84,7 @@ export interface BlogPost {
   projectName?: string; // 프로젝트명(있으면 project로 분류)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any; // Notion 블록 컨텐츠
+  source?: "db" | "extra";
 }
 
 // DB 속성 키
@@ -118,7 +125,7 @@ function mapDbPageToPost(page: any): Omit<BlogPost, "content"> {
     ? (/project|issue|프로젝트|이슈/i.test(postTypeRaw) ? "project" : "note")
     : (projectName ? "project" : "note");
 
-  return { id: page.id, title, slug, summary, publishedDate, tags, featured, postType, projectName };
+  return { id: page.id, title, slug, summary, publishedDate, tags, featured, postType, projectName, source: "db" };
 }
 
 async function mapExtraPageToPost(pageId: string): Promise<Omit<BlogPost, "content"> | null> {
@@ -134,7 +141,7 @@ async function mapExtraPageToPost(pageId: string): Promise<Omit<BlogPost, "conte
     const tags: string[] = [];
     const featured = false;
     const postType: "note" = "note" as const;
-    return { id: pageId, title, slug, summary, publishedDate, tags, featured, postType };
+    return { id: pageId, title, slug, summary, publishedDate, tags, featured, postType, source: "extra" };
   } catch (e) {
     console.error("개별 페이지 조회 실패: ", pageId, e);
     return null;

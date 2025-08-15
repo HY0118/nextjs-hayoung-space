@@ -25,17 +25,19 @@ const getCachedBlogPost = cache(async (slug: string) => {
 export async function generateStaticParams() {
   try {
     const posts = await getBlogPosts();
-    
-    // 모든 포스트의 경로를 미리 생성
-    return posts.map((post) => ({
-      slug: post.slug,
-    }));
+    // 빌드 타임아웃 방지: DB 기반 포스트만 정적 생성 대상으로 포함
+    const dbOnly = posts.filter((p) => p.source !== "extra");
+    // 상위 N개만 정적 생성, 나머지는 요청 시 생성
+    const TOP_N = 30;
+    return dbOnly.slice(0, TOP_N).map((post) => ({ slug: post.slug }));
   } catch (error) {
     console.error("정적 경로 생성 중 오류:", error);
-    // 에러 시 빈 배열 반환 (동적 생성으로 폴백)
     return [];
   }
 }
+
+// 나머지 슬러그는 런타임에 동적 생성 허용
+export const dynamicParams = true;
 
 // 메타데이터 생성
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
@@ -113,6 +115,11 @@ async function PostArticle({ slug }: { slug: string }) {
           {post.featured && (
             <span className="bg-primary/10 text-primary text-sm px-2 py-1 rounded">
               추천 글
+            </span>
+          )}
+          {post.source === "extra" && (
+            <span className="bg-amber-100 text-amber-700 text-xs px-2 py-1 rounded">
+              Notion Page
             </span>
           )}
         </div>
