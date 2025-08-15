@@ -12,6 +12,7 @@ import Stack from "@/components/quick-portfolio/Stack";
 import Culture from "@/components/quick-portfolio/Culture";
 import Talks from "@/components/quick-portfolio/Talks";
 import OSS from "@/components/quick-portfolio/OSS";
+import LanguageDropdown from "@/components/common/LanguageDropdown";
 
 export const revalidate = 60;
 
@@ -60,11 +61,12 @@ export default function QuickPortfolioPage() {
           {/* 고정형 CTA 버튼 */}
         </div>
 
-        {/* 고정형 CTA */}
-        <div className="fixed bottom-6 right-6 z-10">
-            <Link href="/#about" className="px-4 py-2 rounded-lg border border-border/40 bg-background/80 backdrop-blur text-text-primary hover:bg-gray-50/50 dark:hover:bg-gray-900/20 transition-colors font-sora shadow">
-                홈으로
-            </Link>
+        {/* 고정형 CTA + Language */}
+        <div className="fixed top-6 right-6 z-10 flex items-center gap-3">
+          <LanguageDropdown />
+          <Link href="/#about" className="px-4 py-2 rounded-lg border border-border/40 bg-background/80 backdrop-blur text-text-primary hover:bg-gray-50/50 dark:hover:bg-gray-900/20 transition-colors font-sora shadow">
+            홈으로
+          </Link>
         </div>
       </section>
     </main>

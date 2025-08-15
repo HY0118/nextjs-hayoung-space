@@ -189,7 +189,7 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
       </div>
 
       {/* Controls */}
-      <div className="absolute bottom-6 right-6 z-10 flex items-center gap-2">
+      <div className="absolute bottom-0 right-6 z-10 flex items-center gap-2">
         <button
           onClick={handlePrev}
           disabled={!canPrev}

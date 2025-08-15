@@ -12,8 +12,9 @@ const Navigation = () => {
   const [currentSection, setCurrentSection] = useState("about");
   const [isScrolling, setIsScrolling] = useState(false);
   
-  // 블로그 페이지인지 확인
-  const isBlogPage = pathname.startsWith("/blog");
+  // 페이지 타입 판별 (로케일 접두사 고려)
+  const isBlogPage = /^\/(blog|(ko|en)\/blog)(\/|$)/.test(pathname);
+  const isHomePage = pathname === "/" || /^\/(ko|en)\/?$/.test(pathname);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -32,8 +33,8 @@ const Navigation = () => {
   useEffect(() => {
     if (!isScrolling && activeSection) {
       setCurrentSection(activeSection);
-      // 홈에서만 URL 해시를 섹션에 맞춰 갱신 (블로그/기타 페이지 제외)
-      if (!isBlogPage && typeof window !== "undefined") {
+      // 홈에서만 URL 해시를 섹션에 맞춰 갱신
+      if (isHomePage && typeof window !== "undefined") {
         const currentHash = window.location.hash;
         // 프로젝트 상세 중(#projects/...)일 때는 해시를 보존
         const isProjectDetailHash = currentHash.startsWith("#projects/");
@@ -44,7 +45,7 @@ const Navigation = () => {
         }
       }
     }
-  }, [activeSection, isScrolling, isBlogPage]);
+  }, [activeSection, isScrolling, isHomePage]);
 
   const handleClick = (section: string) => {
     setIsScrolling(true);

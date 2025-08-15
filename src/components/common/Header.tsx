@@ -13,8 +13,8 @@ const Header = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);
   const pathname = usePathname();
 
-  // quick-portfolio 페이지에서는 헤더 숨김
-  if (pathname?.startsWith("/quick-portfolio")) {
+  // quick-portfolio 페이지에서는 헤더 숨김 (로케일 접두사 포함)
+  if (pathname && (/^\/quick-portfolio(\/|$)/.test(pathname) || /^\/(ko|en)\/quick-portfolio(\/|$)/.test(pathname))) {
     return null;
   }
 
