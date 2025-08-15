@@ -39,7 +39,8 @@ const Navigation = () => {
         const isProjectDetailHash = currentHash.startsWith("#projects/");
         const nextHash = `#${activeSection}`;
         if (!isProjectDetailHash && currentHash !== nextHash) {
-          history.replaceState(null, "", `/${nextHash}`);
+          // 현재 경로를 보존하고 해시만 업데이트
+          history.replaceState(null, "", `${window.location.pathname}${nextHash}`);
         }
       }
     }
@@ -67,7 +68,7 @@ const Navigation = () => {
         {(SECTIONS as readonly SectionId[]).map((section) => (
           <li key={section}>
             <Link
-              href={`/#${section}`}
+              href={`#${section}`}
               onClick={() => handleClick(section)}
               className={`relative text-text-secondary hover:text-primary transition-colors
                 ${currentSection === section && !isBlogPage ? "text-primary" : ""}
