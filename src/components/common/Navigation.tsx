@@ -5,12 +5,15 @@ import { usePathname } from "next/navigation";
 import { useScrollSpy } from "@hooks/useScrollSpy";
 import { useEffect, useState } from "react";
 import { SECTIONS, type SectionId } from "@/interfaces/navigation";
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from "@/i18n/constants";
+import { buildHomeBase } from "@/lib/urlUtils";
 
 const Navigation = () => {
   const pathname = usePathname();
   const activeSection = useScrollSpy(SECTIONS as unknown as string[]);
   const [currentSection, setCurrentSection] = useState("about");
   const [isScrolling, setIsScrolling] = useState(false);
+  const homeBase = buildHomeBase(pathname);
   
   // 페이지 타입 판별 (로케일 접두사 고려)
   const isBlogPage = /^\/(blog|(ko|en)\/blog)(\/|$)/.test(pathname);
@@ -41,7 +44,8 @@ const Navigation = () => {
         const nextHash = `#${activeSection}`;
         if (!isProjectDetailHash && currentHash !== nextHash) {
           // 현재 경로를 보존하고 해시만 업데이트
-          history.replaceState(null, "", `${window.location.pathname}${nextHash}`);
+          const base = window.location.pathname.endsWith("/") ? window.location.pathname : `${window.location.pathname}/`;
+          history.replaceState(null, "", `${base}${nextHash}`);
         }
       }
     }
@@ -65,14 +69,14 @@ const Navigation = () => {
 
   return (
     <nav>
-      <ul className="flex gap-8">
+      <ul className="flex gap-8 font-sora">
         {(SECTIONS as readonly SectionId[]).map((section) => (
           <li key={section}>
             <Link
-              href={`#${section}`}
+              href={`${homeBase}#${section}`}
               onClick={() => handleClick(section)}
-              className={`relative text-text-secondary hover:text-primary transition-colors
-                ${currentSection === section && !isBlogPage ? "text-primary" : ""}
+              className={`relative transition-colors hover:text-primary
+                ${currentSection === section && !isBlogPage ? "text-black dark:text-white" : "text-text-secondary"}
                 after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 
                 after:h-0.5 after:bg-primary after:origin-left
                 after:transition-transform after:duration-300 after:ease-out
@@ -85,10 +89,15 @@ const Navigation = () => {
         {/* Blog Link */}
         <li>
           <Link
-            href="/blog"
+            href={`${(() => {
+              const first = pathname.split("/")[1];
+              const supported = SUPPORTED_LOCALES as readonly string[];
+              const locale = supported.includes(first) ? first : DEFAULT_LOCALE;
+              return `/${locale}/blog`;
+            })()}`}
             onClick={handleBlogClick}
-            className={`relative text-text-secondary hover:text-primary transition-colors
-              ${isBlogPage ? "text-primary" : ""}
+            className={`relative transition-colors hover:text-primary 
+              ${isBlogPage ? "text-black dark:text-white" : "text-text-secondary"}
               after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 
               after:h-0.5 after:bg-primary after:origin-left
               after:transition-transform after:duration-300 after:ease-out

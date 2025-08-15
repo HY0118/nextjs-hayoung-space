@@ -1,4 +1,6 @@
 import React from "react";
+import EnsureTrailingSlash from "@/components/common/EnsureTrailingSlash";
+import { isSupportedLocale } from "@/i18n/constants";
 
 export default async function LocaleLayout({
   children,
@@ -8,6 +10,11 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
-  return <div data-locale={locale}>{children}</div>;
+  const effectiveLocale = isSupportedLocale(locale) ? locale : "ko";
+  return (
+    <div data-locale={effectiveLocale}>
+      <EnsureTrailingSlash />
+      {children}
+    </div>
+  );
 }

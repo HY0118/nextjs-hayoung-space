@@ -74,7 +74,7 @@ async function PostArticle({ slug }: { slug: string }) {
       {/* Back Button */}
       <div className="mb-12">
         <Link
-          href="/blog"
+          href="../"
           className="inline-flex items-center text-text-secondary hover:text-primary transition-colors font-medium"
         >
           ← 블로그로 돌아가기
@@ -87,7 +87,7 @@ async function PostArticle({ slug }: { slug: string }) {
           {post.tags.map((tag) => (
             <Link
               key={tag}
-              href={`/blog?tag=${encodeURIComponent(tag)}`}
+              href={`../?tag=${encodeURIComponent(tag)}`}
               className="inline-block bg-primary/10 text-primary text-sm px-3 py-1 rounded-full mr-2 mb-2 hover:bg-primary/20 transition-colors"
             >
               #{tag}
@@ -127,7 +127,7 @@ async function PostArticle({ slug }: { slug: string }) {
       <footer className="mt-16 pt-8 border-t border-border">
         <div className="flex justify-between items-center">
           <Link
-            href="/blog"
+            href="../"
             className="text-primary hover:text-primary/80 transition-colors"
           >
             ← 더 많은 글 보기

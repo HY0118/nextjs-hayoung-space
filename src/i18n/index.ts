@@ -4,9 +4,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/constants";
 
-export const DEFAULT_LOCALE = "ko";
-export const SUPPORTED_LOCALES = ["ko", "en"] as const;
 
 if (!i18n.isInitialized) {
   i18n

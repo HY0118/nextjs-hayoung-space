@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import LocaleLink from "@/components/common/LocaleLink";
 import ExternalLinkIcon from "@/components/icons/ExternalLinkIcon";
 
 const About = () => {
@@ -17,6 +17,7 @@ const About = () => {
                 alt="Profile"
                 fill
                 sizes="250px"
+                priority
                 className="rounded-full object-cover"
               />
             </div>
@@ -41,15 +42,15 @@ const About = () => {
               <span className="font-medium">TMI</span> 🔍 직업병처럼 화면의 작은 결함도 빠르게 찾아내는 눈을 가졌습니다.
             </div>
             <div className="mt-20 flex justify-end">
-              <Link
-                href="/quick-portfolio"
+              <LocaleLink
+                to="/quick-portfolio"
                 className="mt-3 inline-flex items-center gap-2 text-primary font-sora text-base md:text-lg font-medium group"
               >
                 <span className="relative inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-0.5 after:h-[2px] after:bg-current after:origin-left after:w-full after:scale-x-0 after:transform after:transition-transform after:duration-300 after:ease-out group-hover:after:scale-x-100">
                   한장으로 정리된 간단 포트폴리오 보기
                 </span>
                 <ExternalLinkIcon className="w-4 h-4" />
-              </Link>
+              </LocaleLink>
             </div>
           </div>
         </div>

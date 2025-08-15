@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useMemo, useRef } from "react";
 import { useRouteStore } from "@/store/routeStore";
 import { BlogPost } from "@lib/notion";
+import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -13,11 +14,24 @@ interface BlogCardProps {
 
 export default function BlogCard({ post, featured = false }: BlogCardProps) {
   const router = useRouter();
+  const pathname = usePathname() || "/";
   const prefetchedRef = useRef(false);
   const startNavigating = useRouteStore((s) => s.start);
   const stopNavigating = useRouteStore((s) => s.stop);
   const isNavigatingGlobal = useRouteStore((s) => s.isNavigating);
   const localNavigatingRef = useRef(false);
+
+  const targetHref = useMemo(() => {
+    const locale = getLocaleFromPathname(pathname);
+    const base = locale ? `/${locale}` : "";
+    return withTrailingSlash(`${base}/blog/${post.slug}`);
+  }, [pathname, post.slug]);
+
+  const prefetchTarget = () => {
+    if (prefetchedRef.current) return;
+    prefetchedRef.current = true;
+    router.prefetch(targetHref);
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("ko-KR", {
@@ -30,7 +44,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
 
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={targetHref}
       prefetch={true}
       onClick={() => {
         localNavigatingRef.current = true;
@@ -42,19 +56,13 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         }, 5000);
       }}
       onMouseEnter={() => {
-        if (prefetchedRef.current) return;
-        prefetchedRef.current = true;
-        router.prefetch(`/blog/${post.slug}`);
+        prefetchTarget();
       }}
       onFocus={() => {
-        if (prefetchedRef.current) return;
-        prefetchedRef.current = true;
-        router.prefetch(`/blog/${post.slug}`);
+        prefetchTarget();
       }}
       onTouchStart={() => {
-        if (prefetchedRef.current) return;
-        prefetchedRef.current = true;
-        router.prefetch(`/blog/${post.slug}`);
+        prefetchTarget();
       }}
       aria-disabled={isNavigatingGlobal && localNavigatingRef.current}
     >

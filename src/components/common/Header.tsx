@@ -5,9 +5,11 @@ import { useIntroStore } from "@store/introStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { usePathname } from "next/navigation";
+import { withTrailingSlash } from "@/lib/urlUtils";
 
 const ThemeToggle = lazy(() => import("@components/common/ThemeToggle"));
 const Navigation = lazy(() => import("@components/common/Navigation"));
+const LanguageDropdown = lazy(() => import("@components/common/LanguageDropdown"));
 
 const Header = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);
@@ -28,7 +30,12 @@ const Header = () => {
           className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur border-b border-border z-50"
         >
           <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
-            <Link href={pathname?.startsWith("/ko") || pathname?.startsWith("/en") ? pathname.split("#")[0].split("/").slice(0,2).join("/") || "/" : "/"} className="text-2xl font-bold">
+            <Link href={(() => {
+              const base = pathname?.startsWith("/ko") || pathname?.startsWith("/en")
+                ? pathname.split("#")[0].split("/").slice(0,2).join("/") || "/"
+                : "/";
+              return withTrailingSlash(base);
+            })()} className="text-2xl font-bold">
               <span className="text-text-primary">HaYoung</span>{" "}
               <span className="text-primary">Space</span> 🚀
             </Link>
@@ -37,7 +44,10 @@ const Header = () => {
                 <Navigation />
               </Suspense>
               <Suspense fallback={<div className="w-[40px] h-[40px]" />}>
-                <ThemeToggle />
+                <div className="flex items-center">
+                  <LanguageDropdown />
+                  <ThemeToggle />
+                </div>
               </Suspense>
             </div>
           </div>

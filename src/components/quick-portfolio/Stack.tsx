@@ -1,5 +1,7 @@
+import { coreStacks } from "@/constants/quick-portfolio/stack";
+
 export default function Stack() {
-  const stacks = ["React", "TypeScript", "Next.js", "Zustand", "Framer Motion", "TailwindCSS"];
+  const stacks = coreStacks;
   return (
     <div className="mt-10">
       <h3 className="text-xl md:text-2xl font-semibold text-text-primary font-sora">핵심 기술 스택</h3>

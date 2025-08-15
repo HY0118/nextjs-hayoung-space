@@ -1,5 +1,6 @@
 import "./globals.css";
 import React from "react";
+import { cookies } from "next/headers";
 import Header from "@components/common/Header";
 import Footer from "@components/common/Footer";
 import { ThemeProvider } from "@contexts/ThemeContext";
@@ -38,9 +39,12 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const raw = (cookieStore.get("NEXT_LOCALE")?.value || "ko").split("-")[0];
+  const locale = raw === "en" ? "en" : "ko";
   return (
-    <html lang="ko" className={`${outfit.variable} ${sora.variable}`}>
+    <html lang={locale} className={`${outfit.variable} ${sora.variable}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

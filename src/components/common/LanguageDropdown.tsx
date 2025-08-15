@@ -2,35 +2,62 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
-import i18n, { SUPPORTED_LOCALES } from "@/i18n";
+import i18n from "@/i18n";
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from "@/i18n/constants";
+import { withTrailingSlash } from "@/lib/urlUtils";
 
 export default function LanguageDropdown() {
   const router = useRouter();
   const pathname = usePathname() || "/";
   const [, startTransition] = useTransition();
 
-  const supported = SUPPORTED_LOCALES as unknown as string[];
+  const supported = SUPPORTED_LOCALES as readonly string[];
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
 
   const currentLocale = useMemo(() => {
     const firstSegment = pathname.split("/")[1];
     if (supported.includes(firstSegment)) return firstSegment;
-    return (i18n.language || "ko").split("-")[0];
+    return (i18n.language || DEFAULT_LOCALE).split("-")[0];
   }, [pathname, supported]);
+
+  // 로케일이 경로에 없으면 기본 로케일을 자동 삽입
+  useEffect(() => {
+    const firstSegment = pathname.split("/")[1];
+    const hasLocalePrefix = supported.includes(firstSegment);
+    if (!hasLocalePrefix) {
+      const basePath = pathname === "/" ? "" : pathname;
+      const search = typeof window !== "undefined" ? window.location.search : "";
+      const hash = typeof window !== "undefined" ? window.location.hash : "";
+      const normalizedBase = basePath.startsWith("/") ? basePath : `/${basePath}`;
+      const nextPath = `/${DEFAULT_LOCALE}${withTrailingSlash(normalizedBase)}${search}${hash}`;
+      // replace로 히스토리 오염 방지
+      router.replace(nextPath);
+      // i18n 상태도 동기화
+      i18n.changeLanguage(DEFAULT_LOCALE);
+    }
+  }, [pathname, router, supported]);
 
   const buildPathWithLocale = (targetLocale: string) => {
     const firstSegment = pathname.split("/")[1];
     const hasLocalePrefix = supported.includes(firstSegment);
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
     if (hasLocalePrefix) {
       const rest = pathname.split("/").slice(2).join("/");
-      return `/${targetLocale}${rest ? `/${rest}` : ""}`;
+      const restWithSlash = rest ? withTrailingSlash(`/${rest}`) : "/";
+      return `/${targetLocale}${restWithSlash}${search}${hash}`;
     }
-    if (pathname === "/") return `/${targetLocale}`;
-    return `/${targetLocale}${pathname}`;
+    if (pathname === "/") return `/${targetLocale}/${search}${hash}`;
+    const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
+    return `/${targetLocale}${normalized}${search}${hash}`;
   };
 
   const switchLocale = (nextLocale: string) => {
+    if (nextLocale === currentLocale) {
+      setOpen(false);
+      return;
+    }
     const nextPath = buildPathWithLocale(nextLocale);
     startTransition(() => {
       i18n.changeLanguage(nextLocale);
@@ -67,7 +94,7 @@ export default function LanguageDropdown() {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-background/80 backdrop-blur text-text-primary hover:bg-gray-50/50 dark:hover:bg-gray-900/20 transition-colors font-sora shadow"
+        className="inline-flex items-center gap-2 px-2 py-2 rounded-lg bg-background/70 backdrop-blur text-text-primary hover:bg-gray-50/50 dark:hover:bg-gray-900/20 transition-colors font-sora"
       >
         <span className="text-base leading-none">{flag}</span>
         <span className="text-sm tracking-wide">{label}</span>
@@ -84,7 +111,7 @@ export default function LanguageDropdown() {
       {/* Menu */}
       <div
         role="menu"
-        className={`absolute right-0 mt-2 w-36 rounded-xl border border-border/40 bg-background/95 backdrop-blur p-1 shadow-xl transition-all duration-150 origin-top-right ${
+        className={`absolute left-0 mt-2 w-36 z-50 rounded-xl border border-border/40 bg-white dark:bg-white p-1 transition-all duration-150 origin-top-right ${
           open ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-95"
         }`}
       >

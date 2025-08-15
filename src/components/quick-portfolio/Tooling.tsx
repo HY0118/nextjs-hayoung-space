@@ -1,18 +1,7 @@
+import { toolingList } from "@/constants/quick-portfolio/tooling";
+
 export default function Tooling() {
-  const tools = [
-    "pnpm",
-    "turbo",
-    "Vite",
-    "Next Image",
-    "Zustand",
-    "Jotai",
-    "Storybook",
-    "Jest",
-    "Playwright",
-    "ESLint",
-    "Prettier",
-    "Zod",
-  ];
+  const tools = toolingList;
 
   return (
     <div className="mt-6">

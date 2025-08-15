@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocaleLink from "@/components/common/LocaleLink";
 import BookPaginator from "@/components/client/BookPaginator";
 import Profile from "@/components/quick-portfolio/Profile";
 import RecentRoles from "@/components/quick-portfolio/RecentRoles";
@@ -64,9 +64,9 @@ export default function QuickPortfolioPage() {
         {/* 고정형 CTA + Language */}
         <div className="fixed top-6 right-6 z-10 flex items-center gap-3">
           <LanguageDropdown />
-          <Link href="/#about" className="px-4 py-2 rounded-lg border border-border/40 bg-background/80 backdrop-blur text-text-primary hover:bg-gray-50/50 dark:hover:bg-gray-900/20 transition-colors font-sora shadow">
+          <LocaleLink to="/#about" className="px-4 py-2 rounded-lg border border-border/40 bg-background/80 backdrop-blur text-text-primary hover:bg-gray-50/50 dark:hover:bg-gray-900/20 transition-colors font-sora shadow">
             홈으로
-          </Link>
+          </LocaleLink>
         </div>
       </section>
     </main>

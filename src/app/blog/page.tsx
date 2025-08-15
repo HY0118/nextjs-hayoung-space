@@ -36,7 +36,7 @@ export default async function BlogPage({
             {/* 프리로딩: 최초 접속 시 첫 포스트 몇 개의 상세 경로를 미리 워밍업 */}
             <div className="sr-only" aria-hidden>
               {posts.slice(0, 4).map((p) => (
-                <Link key={p.id} href={`/blog/${p.slug}`} prefetch />
+                <Link key={p.id} href={`./blog/${p.slug}`} prefetch />
               ))}
             </div>
             <div className="mt-16 pt-8 border-t border-border/30">

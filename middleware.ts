@@ -44,17 +44,31 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 이미 locale 접두사가 있으면 통과
+  // 이미 locale 접두사가 있으면 루트 형태(/ko 또는 /en)라면 슬래시를 붙여 정규화
+  const localeRootRegex = new RegExp(`^/(?:${SUPPORTED.join("|")})(?:/)?$`);
   const hasLocalePrefix = new RegExp(`^/(?:${SUPPORTED.join("|")})(/|$)`).test(pathname);
   if (hasLocalePrefix) {
-    return NextResponse.next();
+    const match = pathname.match(new RegExp(`^/(${SUPPORTED.join("|")})(?:/|$)`));
+    const currentLocale = (match?.[1] || "") as "ko" | "en" | "";
+    if (localeRootRegex.test(pathname) && !pathname.endsWith("/")) {
+      const url = nextUrl.clone();
+      url.pathname = `${pathname}/`;
+      const res = NextResponse.redirect(url);
+      if (currentLocale) res.cookies.set("NEXT_LOCALE", currentLocale, { path: "/", sameSite: "lax" });
+      return res;
+    }
+    const res = NextResponse.next();
+    if (currentLocale) res.cookies.set("NEXT_LOCALE", currentLocale, { path: "/", sameSite: "lax" });
+    return res;
   }
 
   const locale = detectLocale(req);
 
   const url = nextUrl.clone();
   url.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(url);
+  const res = NextResponse.redirect(url);
+  res.cookies.set("NEXT_LOCALE", locale, { path: "/", sameSite: "lax" });
+  return res;
 }
 
 export const config = {
