@@ -4,6 +4,33 @@ import type { NextRequest } from "next/server";
 const PUBLIC_FILE = /\.(.*)$/;
 const SUPPORTED = ["ko", "en"] as const;
 
+function detectLocale(req: NextRequest): "ko" | "en" {
+  // 1) 사용자 선택 쿠키 우선
+  const cookieLocale =
+    req.cookies.get("locale")?.value ||
+    req.cookies.get("NEXT_LOCALE")?.value ||
+    req.cookies.get("i18next")?.value;
+  if (cookieLocale && (SUPPORTED as unknown as string[]).includes(cookieLocale)) {
+    return cookieLocale as "ko" | "en";
+  }
+
+  // 2) Vercel Geo (Edge Runtime)
+  // NextRequest의 비공식 geo 속성 접근 (Edge Runtime 제공)
+  const geoCountry = (req as unknown as { geo?: { country?: string } }).geo?.country;
+  if (geoCountry === "KR") return "ko";
+
+  // 3) 헤더 (프록시/로컬 테스트)
+  const headerCountry = req.headers.get("x-vercel-ip-country");
+  if (headerCountry === "KR") return "ko";
+
+  // 4) 브라우저 선호 언어
+  const acceptLanguage = req.headers.get("accept-language") || "";
+  if (/\bko\b/i.test(acceptLanguage)) return "ko";
+
+  // 5) 기본값
+  return "en";
+}
+
 export function middleware(req: NextRequest) {
   const { nextUrl } = req;
   const { pathname } = nextUrl;
@@ -23,9 +50,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Vercel Geo 헤더 기반 국가 판단
-  const country = req.headers.get("x-vercel-ip-country") || "";
-  const locale = country === "KR" ? "ko" : "en";
+  const locale = detectLocale(req);
 
   const url = nextUrl.clone();
   url.pathname = `/${locale}${pathname}`;
