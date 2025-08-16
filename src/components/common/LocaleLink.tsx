@@ -26,7 +26,8 @@ export default function LocaleLink({ to, children, ...rest }: Props) {
     // '/#section' → anchor on home
     if (to.startsWith('/#')) {
       const base = locale ? `/${locale}/` : '/';
-      return `${base}${to.slice(2)}`;
+      // Keep hash prefix when joining (/#about → /ko/#about)
+      return `${base}${to.slice(1)}`;
     }
     // Absolute app path
     if (to.startsWith('/')) {
@@ -41,10 +42,7 @@ export default function LocaleLink({ to, children, ...rest }: Props) {
 
   const href = computeHref();
   return (
-    <Link
-      href={href as LinkProps['href']}
-      {...rest}
-    >
+    <Link href={href as LinkProps['href']} {...rest}>
       {children}
     </Link>
   );
