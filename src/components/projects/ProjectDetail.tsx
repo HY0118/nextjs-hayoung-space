@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useProjectStore } from "@store/projectStore";
 import type { Project } from "@interfaces/project";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import ExternalLinkIcon from "@/components/icons/ExternalLinkIcon";
 import TableOfContents from "@components/projects/TableOfContents";
+import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
+import Spinner from "@/components/common/Spinner";
 
 const DemoMedia = ({ project }: { project: Project }) => {
   if (project.details.demoVideo) {
@@ -99,6 +101,17 @@ const ProjectDetail = () => {
     index: number;
   } | null>(null);
   const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const preloadedSrcSet = useRef<Set<string>>(new Set());
+  const [isImageLoading, setIsImageLoading] = useState(false);
+
+  const preloadImage = useCallback((url: string) => {
+    if (!url || preloadedSrcSet.current.has(url)) return;
+    const img = new window.Image();
+    img.src = url;
+    preloadedSrcSet.current.add(url);
+  }, []);
 
   // 이전 이미지로 이동
   const handlePrevImage = useCallback(() => {
@@ -128,14 +141,67 @@ const ProjectDetail = () => {
       if (e.key === "ArrowLeft") handlePrevImage();
       if (e.key === "ArrowRight") handleNextImage();
       if (e.key === "Escape") setSelectedImage(null);
+      if (e.key === "Tab") {
+        // Focus trap within modal
+        const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedImage, handlePrevImage, handleNextImage]);
 
+  // Body scroll lock + focus management
+  useEffect(() => {
+    if (selectedImage) {
+      previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
+      document.body.style.overflow = "hidden";
+      // move focus to modal
+      setTimeout(() => modalRef.current?.focus(), 0);
+    } else {
+      document.body.style.overflow = "unset";
+      previouslyFocusedRef.current?.focus?.();
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedImage]);
+
+  // Preload neighbor images for faster next/prev transitions
+  useEffect(() => {
+    if (!selectedProject || selectedImage == null) return;
+    setIsImageLoading(true);
+    const total = selectedProject.details.images.length;
+    const indicesToPreload = [
+      selectedImage.index - 2,
+      selectedImage.index - 1,
+      selectedImage.index + 1,
+      selectedImage.index + 2,
+    ].filter((i) => i >= 0 && i < total);
+    indicesToPreload.forEach((i) => preloadImage(selectedProject.details.images[i].url));
+  }, [selectedProject, selectedImage, preloadImage]);
+
   const handleClose = () => {
-    window.history.pushState({}, "", "/#projects");
+    const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+    const locale = getLocaleFromPathname(pathname);
+    const base = withTrailingSlash(locale ? `/${locale}` : "/");
+    window.history.pushState({}, "", `${base}#projects`);
     closeDetail();
     setSelectedProject(null);
     document.body.style.overflow = "unset";
@@ -618,6 +684,7 @@ const ProjectDetail = () => {
                     key={index}
                     className="group relative h-[400px] cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
                     onClick={() => handleImageSelect(image, index)}
+                    onMouseEnter={() => preloadImage(image.url)}
                   >
                     <Image
                       src={image.url}
@@ -665,7 +732,22 @@ const ProjectDetail = () => {
             exit={{ scale: 0.9, opacity: 0 }}
             className="relative max-w-5xl w-full h-[80vh] bg-background rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Screenshot viewer"
+            tabIndex={-1}
+            ref={modalRef}
           >
+            <button
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close image viewer"
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
             <motion.div
               key={selectedImage.url}
               initial={{ opacity: 0 }}
@@ -684,9 +766,15 @@ const ProjectDetail = () => {
                 alt={selectedImage.description || ""}
                 fill
                 className="object-contain"
-                quality={100}
+                quality={90}
                 sizes="(max-width: 1024px) 100vw, 80vw"
+                onLoadingComplete={() => setIsImageLoading(false)}
               />
+              {isImageLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/40">
+                  <Spinner size={48} full={false} />
+                </div>
+              )}
             </motion.div>
             {selectedImage.description && (
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 text-white">
