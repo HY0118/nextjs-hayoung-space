@@ -1,7 +1,7 @@
 "use client";
 
 // import { motion } from "framer-motion";
-import { useProjectStore } from "@store/projectStore";
+import { useProjectStore } from "@/store/projectStore";
 import { useState, useEffect, useCallback } from "react";
 // import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
 import Overview from "@/components/projects/detail/Overview";
@@ -19,7 +19,7 @@ import { useModalVisibility } from "@/hooks/useModalVisibility";
 import DetailShell from "@/components/projects/detail/DetailShell";
 import { createCloseProjectDetailHandler } from "@/lib/detailHandlers";
 import { PROJECT_DETAIL_CONFIG } from "@/constants/projectDetailConfig";
-import type { MediaTab } from "@interfaces/projectDetail";
+import type { MediaTab } from "@/interfaces/projectDetail";
 
 const ProjectDetail = () => {
   const { selectedProject, closeDetail, setSelectedProject } = useProjectStore();
@@ -56,7 +56,7 @@ const ProjectDetail = () => {
         marginTop={PROJECT_DETAIL_CONFIG.layout.marginTop}
         backgroundClassName={PROJECT_DETAIL_CONFIG.layout.backgroundClassName}
         headerPaddingClassName={PROJECT_DETAIL_CONFIG.layout.headerPaddingClassName}
-        contentPaddingClassName={PROJECT_DETAIL_CONFIG.layout.contentPaddingClassName}
+        contentPaddingClassName={`${PROJECT_DETAIL_CONFIG.layout.contentPaddingClassName} `}
         maxWidthClassName={PROJECT_DETAIL_CONFIG.layout.maxWidthClassName}
       > 
         {/* Essentials: Overview */}

@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import VideoGifMedia from "@/components/projects/detail/VideoGifMedia";
-import type { MediaTabsProps } from "@interfaces/projectDetail";
+import ScreenshotGrid from "@/components/projects/detail/ScreenshotGrid";
+import type { MediaTabsProps } from "@/interfaces/projectDetail";
 
 const MediaTabs = ({ project, screenshots, hasVideoOrGif, activeTab, onChangeTab, onOpenViewer, onPreload }: MediaTabsProps) => {
   return (
@@ -44,30 +44,7 @@ const MediaTabs = ({ project, screenshots, hasVideoOrGif, activeTab, onChangeTab
 
       {/* Tab Panels */}
       {activeTab === "screenshots" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {screenshots.map((image, index) => (
-            <div
-              key={index}
-              className="group relative h-[360px] cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-              onClick={() => onOpenViewer(index)}
-              onMouseEnter={() => onPreload(image.url)}
-            >
-              <Image
-                src={image.url}
-                alt={image.description || ""}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                quality={100}
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m4-3H6" />
-                </svg>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ScreenshotGrid screenshots={screenshots} onOpenViewer={onOpenViewer} onPreload={onPreload} />
       )}
       {activeTab === "video" && hasVideoOrGif && (
         <div className="aspect-video w-full h-full rounded-xl overflow-hidden shadow-lg">

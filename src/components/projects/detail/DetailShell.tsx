@@ -20,14 +20,14 @@ const DetailShell = ({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 100 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`fixed top-0 right-0 w-full h-screen ${backgroundClassName} ${borderClassName} flex flex-col project-detail-content overflow-y-auto ${className ?? ""}`}
+      className={`fixed top-0 right-0 w-full h-screen ${backgroundClassName} ${borderClassName} flex flex-col project-detail-content overflow-y-auto overscroll-contain touch-pan-y ${className ?? ""}`}
       style={{ marginTop }}
     >
       <div className={`sticky top-0 z-10 ${backgroundClassName} border-b border-border`}>
         <div className={`${maxWidthClassName} mx-auto ${headerPaddingClassName}`}>{header}</div>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto overscroll-contain">
         <div className={`${maxWidthClassName} mx-auto ${contentPaddingClassName}`}>{children}</div>
       </div>
     </motion.div>

@@ -58,6 +58,12 @@ export interface MediaTabsProps {
   onPreload: (url: string) => void;
 }
 
+export interface ScreenshotGridProps {
+  screenshots: ProjectImage[];
+  onOpenViewer: (index: number) => void;
+  onPreload: (url: string) => void;
+}
+
 export interface DividerToggleProps {
   expanded: boolean;
   onToggle: () => void;

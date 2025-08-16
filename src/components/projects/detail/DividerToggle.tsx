@@ -1,6 +1,6 @@
 "use client";
 
-import type { DividerToggleProps } from "@interfaces/projectDetail";
+import type { DividerToggleProps } from "@/interfaces/projectDetail";
 
 const DividerToggle = ({ expanded, onToggle }: DividerToggleProps) => {
   const lineClass = expanded
@@ -14,9 +14,12 @@ const DividerToggle = ({ expanded, onToggle }: DividerToggleProps) => {
         type="button"
         aria-expanded={expanded}
         onClick={onToggle}
-        className="px-4 py-1.5 rounded-full text-xs uppercase tracking-wider font-medium text-primary dark:text-primary bg-primary/10 dark:bg-primary/10 border border-primary/30 hover:bg-primary/15 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        className={`group px-5 py-2 rounded-full text-xs uppercase tracking-wider font-semibold border transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-gray-900
+        ${expanded ? "text-primary bg-primary/10 border-primary/30 hover:bg-primary/15" : "text-white bg-primary border-primary hover:bg-primary/90"}`}
       >
-        {expanded ? "hide" : "more"}
+        <span className="inline-flex items-center gap-2 font-sora">
+          {expanded ? "hide" : "more"}
+        </span>
       </button>
       <div className={lineClass} />
     </div>

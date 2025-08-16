@@ -1,11 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useProjectStore } from "@store/projectStore";
-import type { Project } from "@interfaces/project";
-import ProjectCard from "@components/projects/ProjectCard";
-import ProjectDetail from "@components/projects/ProjectDetail";
-import { projects } from "@constants/projects";
+import { useProjectStore } from "@/store/projectStore";
+import type { Project } from "@/interfaces/project";
+import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectDetail from "@/components/projects/ProjectDetail";
+import { projects } from "@/constants/projects";
 import { useEffect } from "react";
 
 const Projects = () => {
@@ -88,7 +88,9 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className={`relative py-20 min-h-screen flex flex-col justify-center bg-background ${isDetailOpen ? "overflow-hidden" : ""}`}
+      className={`relative py-20 min-h-screen flex flex-col justify-center bg-background ${
+        isDetailOpen ? "overflow-hidden" : ""
+      }`}
     >
       <div className="mx-auto px-8">
         {!isDetailOpen && (
@@ -136,7 +138,7 @@ const Projects = () => {
               duration: 0.5,
               ease: "easeInOut",
             }}
-            className="fixed inset-0 z-50 bg-background/80 "
+            className="fixed inset-0 z-50 bg-background/80 overflow-hidden"
             style={{ pointerEvents: isDetailOpen ? "auto" : "none" }}
           >
             <ProjectDetail />
