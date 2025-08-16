@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import type { PerformanceMetric } from "@interfaces/projectDetail";
+import type { PerformanceMetric } from '@interfaces/projectDetail';
+import { motion } from 'framer-motion';
 
 const PerformanceBar = ({ metric }: { metric: PerformanceMetric }) => {
-  const value = parseInt(metric.improvement.replace(/[^0-9]/g, ""));
+  const value = parseInt(metric.improvement.replace(/[^0-9]/g, ''));
 
   return (
     <motion.div
@@ -22,16 +22,26 @@ const PerformanceBar = ({ metric }: { metric: PerformanceMetric }) => {
             <span className="text-xl text-text-secondary">%</span>
           </div>
           <div className="flex justify-between items-center text-green-500 dark:text-green-400">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            <svg
+              className="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+              />
             </svg>
           </div>
         </div>
         <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 1, ease: 'easeOut' }}
             className="h-full bg-gradient-to-r from-green-400 to-primary group-hover:from-green-500 group-hover:to-primary-dark transition-colors duration-300"
           />
         </div>
@@ -42,5 +52,3 @@ const PerformanceBar = ({ metric }: { metric: PerformanceMetric }) => {
 };
 
 export default PerformanceBar;
-
-

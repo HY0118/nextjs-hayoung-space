@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-export const usePreloadScreenshots = (images: Array<{ url: string }>, count: number = 2) => {
+export const usePreloadScreenshots = (
+  images: Array<{ url: string }>,
+  count: number = 2,
+) => {
   useEffect(() => {
     if (!images || images.length === 0) return;
     images.slice(0, count).forEach((img) => {
@@ -9,5 +12,3 @@ export const usePreloadScreenshots = (images: Array<{ url: string }>, count: num
     });
   }, [images, count]);
 };
-
-

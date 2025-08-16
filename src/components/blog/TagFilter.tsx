@@ -1,19 +1,27 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import ModeSwitch from "@/components/common/ModeSwitch";
-import ResetIcon from "@/components/icons/ResetIcon";
+import { useMemo } from 'react';
+
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import ModeSwitch from '@/components/common/ModeSwitch';
+import ResetIcon from '@/components/icons/ResetIcon';
 
 interface TagFilterProps {
   tags: string[];
   selectedTags?: string[];
   onChange?: (next: string[]) => void;
-  mode?: "and" | "or";
-  onModeChange?: (mode: "and" | "or") => void;
+  mode?: 'and' | 'or';
+  onModeChange?: (mode: 'and' | 'or') => void;
 }
 
-export default function TagFilter({ tags, selectedTags = [], onChange, mode = "and", onModeChange }: TagFilterProps) {
+export default function TagFilter({
+  tags,
+  selectedTags = [],
+  onChange,
+  mode = 'and',
+  onModeChange,
+}: TagFilterProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -23,18 +31,18 @@ export default function TagFilter({ tags, selectedTags = [], onChange, mode = "a
   const applySelected = (nextSelected: string[]) => {
     if (onChange) {
       onChange(nextSelected);
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         const params = new URLSearchParams(searchParams?.toString());
-        if (nextSelected.length > 0) params.set("tags", nextSelected.join(","));
-        else params.delete("tags");
+        if (nextSelected.length > 0) params.set('tags', nextSelected.join(','));
+        else params.delete('tags');
         const url = `${pathname}?${params.toString()}`;
-        window.history.replaceState(null, "", url);
+        window.history.replaceState(null, '', url);
       }
       return;
     }
     const params = new URLSearchParams(searchParams?.toString());
-    if (nextSelected.length > 0) params.set("tags", nextSelected.join(","));
-    else params.delete("tags");
+    if (nextSelected.length > 0) params.set('tags', nextSelected.join(','));
+    else params.delete('tags');
     router.replace(`${pathname}?${params.toString()}`);
   };
 
@@ -47,13 +55,13 @@ export default function TagFilter({ tags, selectedTags = [], onChange, mode = "a
 
   const clearAll = () => applySelected([]);
 
-  const changeMode = (next: "and" | "or") => {
+  const changeMode = (next: 'and' | 'or') => {
     if (onModeChange) onModeChange(next);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const params = new URLSearchParams(searchParams?.toString());
-      params.set("mode", next);
+      params.set('mode', next);
       const url = `${pathname}?${params.toString()}`;
-      window.history.replaceState(null, "", url);
+      window.history.replaceState(null, '', url);
     }
   };
 
@@ -79,7 +87,7 @@ export default function TagFilter({ tags, selectedTags = [], onChange, mode = "a
                 key={tag}
                 onClick={() => toggleTag(tag)}
                 className={`px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-all border
-                  ${active ? "bg-primary text-white border-primary shadow" : "bg-surface text-text-secondary hover:bg-primary/10 hover:text-primary border-border"}`}
+                  ${active ? 'bg-primary text-white border-primary shadow' : 'bg-surface text-text-secondary hover:bg-primary/10 hover:text-primary border-border'}`}
               >
                 #{tag}
               </button>
@@ -90,8 +98,13 @@ export default function TagFilter({ tags, selectedTags = [], onChange, mode = "a
 
       {/* AND/OR Switch */}
       <div className="shrink-0">
-        {selectedSet.size > 0 && <ModeSwitch value={mode} onChange={changeMode} />}
+        {selectedSet.size > 0 && (
+          <ModeSwitch
+            value={mode}
+            onChange={changeMode}
+          />
+        )}
       </div>
     </div>
   );
-} 
+}

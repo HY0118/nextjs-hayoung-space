@@ -1,4 +1,4 @@
-import { SKILL_LEVELS } from "@constants/skillLevels";
+import { SKILL_LEVELS } from '@constants/skillLevels';
 
 export type SkillLevel = (typeof SKILL_LEVELS)[keyof typeof SKILL_LEVELS];
 

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const Title = ({ text }: { text: string }) => (
   <motion.h3
@@ -14,5 +14,3 @@ const Title = ({ text }: { text: string }) => (
 );
 
 export default Title;
-
-

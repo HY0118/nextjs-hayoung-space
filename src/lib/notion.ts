@@ -1,37 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Client } from "@notionhq/client";
-import { EXTRA_NOTION_PAGE_URLS } from "@constants/extraNotionPageUrls";
+import { EXTRA_NOTION_PAGE_URLS } from '@constants/extraNotionPageUrls';
+import { Client } from '@notionhq/client';
 
 // 환경 변수 확인
 if (!process.env.NOTION_TOKEN) {
-  throw new Error("NOTION_TOKEN 환경 변수가 설정되지 않았습니다.");
+  throw new Error('NOTION_TOKEN 환경 변수가 설정되지 않았습니다.');
 }
 
 // DB ID는 다중 지원: NOTION_DATABASE_IDS(콤마), 없으면 NOTION_DATABASE_ID + NOTION_ADDITIONAL_DATABASE_IDS
 const databaseIds: string[] = (() => {
   const idsEnv = process.env.NOTION_DATABASE_IDS;
   if (idsEnv && idsEnv.trim().length > 0) {
-    return idsEnv.split(",").map((s) => s.trim()).filter(Boolean);
+    return idsEnv
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
   }
   const base = process.env.NOTION_DATABASE_ID ? [process.env.NOTION_DATABASE_ID] : [];
   const more = process.env.NOTION_ADDITIONAL_DATABASE_IDS
-    ? process.env.NOTION_ADDITIONAL_DATABASE_IDS.split(",").map((s) => s.trim()).filter(Boolean)
+    ? process.env.NOTION_ADDITIONAL_DATABASE_IDS.split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
     : [];
   if (base.length === 0 && more.length === 0) {
-    throw new Error("NOTION_DATABASE_ID 또는 NOTION_DATABASE_IDS 환경 변수가 필요합니다.");
+    throw new Error(
+      'NOTION_DATABASE_ID 또는 NOTION_DATABASE_IDS 환경 변수가 필요합니다.',
+    );
   }
   return [...base, ...more] as string[];
 })();
 
 // 개별 페이지 포함(비-DB). ID 또는 URL을 환경 변수로 관리
-const extraPageIdsFromIds: string[] = (process.env.NOTION_EXTRA_PAGE_IDS || "")
-  .split(",")
+const extraPageIdsFromIds: string[] = (process.env.NOTION_EXTRA_PAGE_IDS || '')
+  .split(',')
   .map((s) => s.trim())
   .filter(Boolean);
-const extraPageIdsFromUrls: string[] = EXTRA_NOTION_PAGE_URLS
-  .map((url) => extractNotionId(url))
-  .filter(Boolean) as string[];
-const extraPageIds: string[] = Array.from(new Set([...extraPageIdsFromIds, ...extraPageIdsFromUrls]));
+const extraPageIdsFromUrls: string[] = EXTRA_NOTION_PAGE_URLS.map((url) =>
+  extractNotionId(url),
+).filter(Boolean) as string[];
+const extraPageIds: string[] = Array.from(
+  new Set([...extraPageIdsFromIds, ...extraPageIdsFromUrls]),
+);
 
 // Notion 클라이언트 초기화
 const notion = new Client({
@@ -48,20 +57,27 @@ function extractNotionId(input: string): string | null {
 function slugify(input: string): string {
   return input
     .toLowerCase()
-    .replace(/[^a-z0-9\uAC00-\uD7AF\s-]/g, "") // 한글 허용
+    .replace(/[^a-z0-9\uAC00-\uD7AF\s-]/g, '') // 한글 허용
     .trim()
-    .replace(/\s+/g, "-");
+    .replace(/\s+/g, '-');
 }
 
 // 유틸: DB query 전체 페이지네이션 수집
-async function queryAll(dbId: string, args: Omit<Parameters<typeof notion.databases.query>[0], "database_id">) {
+async function queryAll(
+  dbId: string,
+  args: Omit<Parameters<typeof notion.databases.query>[0], 'database_id'>,
+) {
   let cursor: string | undefined;
   const results: any[] = [];
   do {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const resp = await notion.databases.query({ ...args, database_id: dbId, start_cursor: cursor } as any);
+      const resp = await notion.databases.query({
+        ...args,
+        database_id: dbId,
+        start_cursor: cursor,
+      } as any);
       results.push(...resp.results);
       cursor = (resp.next_cursor ?? undefined) as string | undefined;
     } finally {
@@ -80,24 +96,28 @@ export interface BlogPost {
   publishedDate: string;
   tags: string[];
   featured: boolean;
-  postType?: "note" | "project"; // 글 유형
+  postType?: 'note' | 'project'; // 글 유형
   projectName?: string; // 프로젝트명(있으면 project로 분류)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any; // Notion 블록 컨텐츠
-  source?: "db" | "extra";
+  source?: 'db' | 'extra';
 }
 
 // DB 속성 키
-const TITLE_KEYS = ["Title", "이름", "Name", "title"]; // 다양성 고려
-const SLUG_KEYS = ["Slug", "slug"]; 
-const SUMMARY_KEYS = ["Summary", "요약"]; 
-const TAG_KEYS = ["Tags", "태그"]; 
-const FEATURED_KEYS = ["Featured"]; 
-const DATE_KEYS = ["Published Date", "발행일", "Date"]; 
-const POST_TYPE_KEYS = ["Type", "Post Type", "포스트 유형", "게시글 유형"]; 
-const PROJECT_NAME_KEYS = ["Project", "프로젝트명", "프로젝트"];
+const TITLE_KEYS = ['Title', '이름', 'Name', 'title']; // 다양성 고려
+const SLUG_KEYS = ['Slug', 'slug'];
+const SUMMARY_KEYS = ['Summary', '요약'];
+const TAG_KEYS = ['Tags', '태그'];
+const FEATURED_KEYS = ['Featured'];
+const DATE_KEYS = ['Published Date', '발행일', 'Date'];
+const POST_TYPE_KEYS = ['Type', 'Post Type', '포스트 유형', '게시글 유형'];
+const PROJECT_NAME_KEYS = ['Project', '프로젝트명', '프로젝트'];
 
-function pickFirst<T = any>(obj: any, keys: string[], picker: (val: any) => T | undefined): T | undefined {
+function pickFirst<T = any>(
+  obj: any,
+  keys: string[],
+  picker: (val: any) => T | undefined,
+): T | undefined {
   for (const k of keys) {
     if (obj?.[k] !== undefined) {
       const v = picker(obj[k]);
@@ -107,43 +127,81 @@ function pickFirst<T = any>(obj: any, keys: string[], picker: (val: any) => T | 
   return undefined;
 }
 
-function mapDbPageToPost(page: any): Omit<BlogPost, "content"> {
+function mapDbPageToPost(page: any): Omit<BlogPost, 'content'> {
   const p = page.properties || {};
   const title =
-    pickFirst<string>(p, TITLE_KEYS, (v) => v?.title?.[0]?.plain_text) || "제목 없음";
+    pickFirst<string>(p, TITLE_KEYS, (v) => v?.title?.[0]?.plain_text) || '제목 없음';
   const slug =
-    pickFirst<string>(p, SLUG_KEYS, (v) => v?.rich_text?.[0]?.plain_text) || slugify(title) || page.id;
-  const summary = pickFirst<string>(p, SUMMARY_KEYS, (v) => v?.rich_text?.[0]?.plain_text) || "";
-  const publishedDate = pickFirst<string>(p, DATE_KEYS, (v) => v?.date?.start) || page.created_time || "";
+    pickFirst<string>(p, SLUG_KEYS, (v) => v?.rich_text?.[0]?.plain_text) ||
+    slugify(title) ||
+    page.id;
+  const summary =
+    pickFirst<string>(p, SUMMARY_KEYS, (v) => v?.rich_text?.[0]?.plain_text) || '';
+  const publishedDate =
+    pickFirst<string>(p, DATE_KEYS, (v) => v?.date?.start) || page.created_time || '';
   const tags =
-    pickFirst<string[]>(p, TAG_KEYS, (v) => v?.multi_select?.map((t: any) => t.name)) || [];
+    pickFirst<string[]>(p, TAG_KEYS, (v) => v?.multi_select?.map((t: any) => t.name)) ||
+    [];
   const featured = pickFirst<boolean>(p, FEATURED_KEYS, (v) => v?.checkbox) || false;
 
   const postTypeRaw = pickFirst<string>(p, POST_TYPE_KEYS, (v) => v?.select?.name);
-  const projectName = pickFirst<string>(p, PROJECT_NAME_KEYS, (v) => v?.select?.name || v?.rich_text?.[0]?.plain_text);
-  const postType: "note" | "project" | undefined = postTypeRaw
-    ? (/project|issue|프로젝트|이슈/i.test(postTypeRaw) ? "project" : "note")
-    : (projectName ? "project" : "note");
+  const projectName = pickFirst<string>(
+    p,
+    PROJECT_NAME_KEYS,
+    (v) => v?.select?.name || v?.rich_text?.[0]?.plain_text,
+  );
+  const postType: 'note' | 'project' | undefined = postTypeRaw
+    ? /project|issue|프로젝트|이슈/i.test(postTypeRaw)
+      ? 'project'
+      : 'note'
+    : projectName
+      ? 'project'
+      : 'note';
 
-  return { id: page.id, title, slug, summary, publishedDate, tags, featured, postType, projectName, source: "db" };
+  return {
+    id: page.id,
+    title,
+    slug,
+    summary,
+    publishedDate,
+    tags,
+    featured,
+    postType,
+    projectName,
+    source: 'db',
+  };
 }
 
-async function mapExtraPageToPost(pageId: string): Promise<Omit<BlogPost, "content"> | null> {
+async function mapExtraPageToPost(
+  pageId: string,
+): Promise<Omit<BlogPost, 'content'> | null> {
   try {
     const page = await notion.pages.retrieve({ page_id: pageId });
     const p: any = (page as any).properties || {};
     // 비-DB 페이지의 제목은 일반적으로 'title' 속성에 들어있음
     const title =
-      pickFirst<string>(p, TITLE_KEYS, (v) => v?.title?.[0]?.plain_text) || (page as any).url || "Untitled";
+      pickFirst<string>(p, TITLE_KEYS, (v) => v?.title?.[0]?.plain_text) ||
+      (page as any).url ||
+      'Untitled';
     const slug = slugify(title);
-    const summary = "";
-    const publishedDate = (page as any).created_time || "";
+    const summary = '';
+    const publishedDate = (page as any).created_time || '';
     const tags: string[] = [];
     const featured = false;
-    const postType: "note" = "note" as const;
-    return { id: pageId, title, slug, summary, publishedDate, tags, featured, postType, source: "extra" };
+    const postType: 'note' = 'note' as const;
+    return {
+      id: pageId,
+      title,
+      slug,
+      summary,
+      publishedDate,
+      tags,
+      featured,
+      postType,
+      source: 'extra',
+    };
   } catch (e) {
-    console.error("개별 페이지 조회 실패: ", pageId, e);
+    console.error('개별 페이지 조회 실패: ', pageId, e);
     return null;
   }
 }
@@ -151,33 +209,38 @@ async function mapExtraPageToPost(pageId: string): Promise<Omit<BlogPost, "conte
 // 데이터베이스에서 모든 블로그 포스트 가져오기 (다중 DB + 페이지네이션 + 추가 페이지)
 export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
-    const publishedFilter = { property: "Published", checkbox: { equals: true } } as const;
-    const sorts = [{ property: "Published Date", direction: "descending" as const }];
+    const publishedFilter = {
+      property: 'Published',
+      checkbox: { equals: true },
+    } as const;
+    const sorts = [{ property: 'Published Date', direction: 'descending' as const }];
 
     const dbPagesArrays = await Promise.all(
-      databaseIds.map((id) => queryAll(id, { filter: publishedFilter, sorts }))
+      databaseIds.map((id) => queryAll(id, { filter: publishedFilter, sorts })),
     );
     const dbPages = dbPagesArrays.flat();
 
     const dbPosts = dbPages.map(mapDbPageToPost);
 
     const extraPostsRaw = await Promise.all(extraPageIds.map(mapExtraPageToPost));
-    const extraPosts = extraPostsRaw.filter(Boolean) as Omit<BlogPost, "content">[];
+    const extraPosts = extraPostsRaw.filter(Boolean) as Omit<BlogPost, 'content'>[];
 
-    const all = [...dbPosts, ...extraPosts].sort((a, b) => (b.publishedDate || "").localeCompare(a.publishedDate || ""));
+    const all = [...dbPosts, ...extraPosts].sort((a, b) =>
+      (b.publishedDate || '').localeCompare(a.publishedDate || ''),
+    );
     return all;
   } catch (error) {
-    console.error("블로그 포스트를 가져오는 중 오류 발생:", error);
+    console.error('블로그 포스트를 가져오는 중 오류 발생:', error);
     return [
       {
-        id: "dummy-1",
-        title: "블로그 설정이 필요합니다",
-        slug: "setup-required",
-        summary: "Notion API 설정을 완료하면 실제 블로그 포스트를 볼 수 있습니다.",
+        id: 'dummy-1',
+        title: '블로그 설정이 필요합니다',
+        slug: 'setup-required',
+        summary: 'Notion API 설정을 완료하면 실제 블로그 포스트를 볼 수 있습니다.',
         publishedDate: new Date().toISOString(),
-        tags: ["설정"],
+        tags: ['설정'],
         featured: true,
-        postType: "note",
+        postType: 'note',
       },
     ];
   }
@@ -193,7 +256,10 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       const all: any[] = [];
       let cursor: string | undefined = undefined;
       do {
-        const res = await notion.blocks.children.list({ block_id: blockId, start_cursor: cursor });
+        const res = await notion.blocks.children.list({
+          block_id: blockId,
+          start_cursor: cursor,
+        });
         for (const b of res.results as any[]) {
           if (b.has_children) {
             try {
@@ -212,7 +278,12 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     for (const dbId of databaseIds) {
       const resp = await notion.databases.query({
         database_id: dbId,
-        filter: { and: [ { property: "Slug", rich_text: { equals: slug } }, { property: "Published", checkbox: { equals: true } } ] },
+        filter: {
+          and: [
+            { property: 'Slug', rich_text: { equals: slug } },
+            { property: 'Published', checkbox: { equals: true } },
+          ],
+        },
       });
       if (resp.results.length > 0) {
         const page = resp.results[0] as any;
@@ -249,19 +320,19 @@ export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
           database_id: id,
           filter: {
             and: [
-              { property: "Tags", multi_select: { contains: tag } },
-              { property: "Published", checkbox: { equals: true } },
+              { property: 'Tags', multi_select: { contains: tag } },
+              { property: 'Published', checkbox: { equals: true } },
             ],
           },
-          sorts: [{ property: "Published Date", direction: "descending" }],
-        })
-      )
+          sorts: [{ property: 'Published Date', direction: 'descending' }],
+        }),
+      ),
     );
 
     const pages = pagesArrays.flatMap((r) => r.results);
     return pages.map(mapDbPageToPost);
   } catch (error) {
-    console.error("태그별 블로그 포스트를 가져오는 중 오류 발생:", error);
+    console.error('태그별 블로그 포스트를 가져오는 중 오류 발생:', error);
     return [];
   }
 }
@@ -274,7 +345,7 @@ export async function getAllTags(): Promise<string[]> {
     for (const id of databaseIds) {
       // Published=true인 페이지 전체 수집 (페이지네이션)
       const pages = await queryAll(id, {
-        filter: { property: "Published", checkbox: { equals: true } },
+        filter: { property: 'Published', checkbox: { equals: true } },
       });
 
       pages.forEach((page: any) => {
@@ -293,7 +364,7 @@ export async function getAllTags(): Promise<string[]> {
 
     return Array.from(allTags).sort();
   } catch (error) {
-    console.error("태그를 가져오는 중 오류 발생:", error);
-    return ["설정"];
+    console.error('태그를 가져오는 중 오류 발생:', error);
+    return ['설정'];
   }
-} 
+}

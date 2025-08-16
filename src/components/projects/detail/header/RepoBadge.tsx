@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 const RepoBadge = ({ github }: { github?: string }) => {
   if (github) {
@@ -13,7 +13,11 @@ const RepoBadge = ({ github }: { github?: string }) => {
           transition-all duration-200"
         aria-label="GitHub Repository"
       >
-        <svg className="w-6 h-6" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          className="w-6 h-6"
+          viewBox="0 0 98 96"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -34,7 +38,11 @@ const RepoBadge = ({ github }: { github?: string }) => {
       text-text-secondary/70 cursor-not-allowed border border-gray-200 dark:border-gray-700
       hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
     >
-      <svg className="w-6 h-6 opacity-70" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className="w-6 h-6 opacity-70"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M.778 1.213a.768.768 0 0 0-.768.892l3.263 19.81c.084.5.515.868 1.022.873H19.95a.772.772 0 0 0 .77-.646l3.27-20.03a.768.768 0 0 0-.768-.891H.778zM14.52 15.53H9.522L8.17 8.466h7.561l-1.211 7.064z"
           fill="currentColor"
@@ -48,5 +56,3 @@ const RepoBadge = ({ github }: { github?: string }) => {
 };
 
 export default RepoBadge;
-
-

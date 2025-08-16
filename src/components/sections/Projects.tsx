@@ -1,25 +1,30 @@
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useProjectStore } from "@/store/projectStore";
-import type { Project } from "@/interfaces/project";
-import ProjectCard from "@/components/projects/ProjectCard";
-import ProjectDetail from "@/components/projects/ProjectDetail";
-import { projects } from "@/constants/projects";
-import { useEffect } from "react";
+import { useEffect } from 'react';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
+import ProjectCard from '@/components/projects/ProjectCard';
+import ProjectDetail from '@/components/projects/ProjectDetail';
+
+import { useProjectStore } from '@/store/projectStore';
+
+import { projects } from '@/constants/projects';
+
+import type { Project } from '@/interfaces/project';
 
 const Projects = () => {
   const { setSelectedProject, openDetail, isDetailOpen } = useProjectStore();
 
   useEffect(() => {
     if (isDetailOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     };
   }, [isDetailOpen]);
 
@@ -27,7 +32,7 @@ const Projects = () => {
     const card = document.querySelector(`#project-card-${project.id}`);
     if (!card) return;
 
-    window.history.pushState({ projectId: project.id }, "", `/#projects/${project.id}`);
+    window.history.pushState({ projectId: project.id }, '', `/#projects/${project.id}`);
     setSelectedProject(project);
 
     const cardRect = card.getBoundingClientRect();
@@ -47,7 +52,7 @@ const Projects = () => {
 
         window.scrollTo({
           top: startPosition + distance * easeProgress,
-          behavior: "auto",
+          behavior: 'auto',
         });
 
         if (progress < 1) {
@@ -71,7 +76,7 @@ const Projects = () => {
 
       if (!projectMatch) {
         setSelectedProject(null);
-        document.body.style.overflow = "unset";
+        document.body.style.overflow = 'unset';
       } else if (event.state?.projectId) {
         const project = projects.find((p) => p.id === event.state.projectId);
         if (project) {
@@ -81,15 +86,15 @@ const Projects = () => {
       }
     };
 
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, [setSelectedProject, openDetail]);
 
   return (
     <section
       id="projects"
       className={`relative py-20 min-h-screen flex flex-col justify-center bg-background ${
-        isDetailOpen ? "overflow-hidden" : ""
+        isDetailOpen ? 'overflow-hidden' : ''
       }`}
     >
       <div className="mx-auto px-8">
@@ -110,13 +115,16 @@ const Projects = () => {
               }}
               transition={{
                 duration: 0.3,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
               style={{
-                pointerEvents: isDetailOpen ? "none" : "auto",
+                pointerEvents: isDetailOpen ? 'none' : 'auto',
               }}
             >
-              <ProjectCard project={project} onSelect={() => handleProjectSelect(project)} />
+              <ProjectCard
+                project={project}
+                onSelect={() => handleProjectSelect(project)}
+              />
             </motion.div>
           ))}
         </div>
@@ -125,21 +133,21 @@ const Projects = () => {
         {isDetailOpen && (
           <motion.div
             key="project-detail-motion-div"
-            initial={{ opacity: 0, x: "100%" }}
+            initial={{ opacity: 0, x: '100%' }}
             animate={{
               opacity: isDetailOpen ? 1 : 0,
-              x: isDetailOpen ? 0 : "100%",
+              x: isDetailOpen ? 0 : '100%',
             }}
             exit={{
               opacity: 0,
-              x: "100%",
+              x: '100%',
             }}
             transition={{
               duration: 0.5,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
             className="fixed inset-0 z-50 bg-background/80 overflow-hidden"
-            style={{ pointerEvents: isDetailOpen ? "auto" : "none" }}
+            style={{ pointerEvents: isDetailOpen ? 'auto' : 'none' }}
           >
             <ProjectDetail />
           </motion.div>

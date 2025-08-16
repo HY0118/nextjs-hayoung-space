@@ -1,28 +1,29 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+
+import { motion } from 'framer-motion';
 
 interface PageTransitionProps {
   children: ReactNode;
-  direction?: "left" | "right" | "up" | "down" | "fade";
+  direction?: 'left' | 'right' | 'up' | 'down' | 'fade';
 }
 
 const pageVariants = {
   initial: (direction: string) => {
     switch (direction) {
-      case "right":
-        return { x: "100%", opacity: 0 };
-      case "left":
-        return { x: "-100%", opacity: 0 };
-      case "up":
-        return { y: "-100%", opacity: 0 };
-      case "down":
-        return { y: "100%", opacity: 0 };
-      case "fade":
+      case 'right':
+        return { x: '100%', opacity: 0 };
+      case 'left':
+        return { x: '-100%', opacity: 0 };
+      case 'up':
+        return { y: '-100%', opacity: 0 };
+      case 'down':
+        return { y: '100%', opacity: 0 };
+      case 'fade':
         return { x: 0, y: 0, opacity: 0 };
       default:
-        return { x: "100%", opacity: 0 };
+        return { x: '100%', opacity: 0 };
     }
   },
   animate: (direction: string) => {
@@ -31,52 +32,52 @@ const pageVariants = {
       y: 0,
       opacity: 1,
       transition: {
-        type: "tween",
-        ease: direction === "fade" ? "easeInOut" : "easeOut",
-        duration: direction === "fade" ? 0.3 : 0.4,
+        type: 'tween',
+        ease: direction === 'fade' ? 'easeInOut' : 'easeOut',
+        duration: direction === 'fade' ? 0.3 : 0.4,
       },
     };
   },
   exit: (direction: string) => {
     switch (direction) {
-      case "right":
+      case 'right':
         return {
-          x: "-100%",
+          x: '-100%',
           opacity: 0,
           transition: {
-            type: "tween",
-            ease: "easeIn",
+            type: 'tween',
+            ease: 'easeIn',
             duration: 0.3,
           },
         };
-      case "left":
+      case 'left':
         return {
-          x: "100%",
+          x: '100%',
           opacity: 0,
           transition: {
-            type: "tween",
-            ease: "easeIn",
+            type: 'tween',
+            ease: 'easeIn',
             duration: 0.3,
           },
         };
-      case "fade":
+      case 'fade':
         return {
           x: 0,
           y: 0,
           opacity: 0,
           transition: {
-            type: "tween",
-            ease: "easeInOut",
+            type: 'tween',
+            ease: 'easeInOut',
             duration: 0.2,
           },
         };
       default:
         return {
-          x: "-100%",
+          x: '-100%',
           opacity: 0,
           transition: {
-            type: "tween",
-            ease: "easeIn",
+            type: 'tween',
+            ease: 'easeIn',
             duration: 0.3,
           },
         };
@@ -86,7 +87,7 @@ const pageVariants = {
 
 export default function PageTransition({
   children,
-  direction = "right",
+  direction = 'right',
 }: PageTransitionProps) {
   return (
     <div className="overflow-hidden">
@@ -102,4 +103,4 @@ export default function PageTransition({
       </motion.div>
     </div>
   );
-} 
+}

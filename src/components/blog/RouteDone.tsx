@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useRouteStore } from "@/store/routeStore";
+import { useEffect } from 'react';
+
+import { useRouteStore } from '@/store/routeStore';
 
 export default function RouteDone() {
   const stop = useRouteStore((s) => s.stop);
@@ -10,5 +11,3 @@ export default function RouteDone() {
   }, [stop]);
   return null;
 }
-
-

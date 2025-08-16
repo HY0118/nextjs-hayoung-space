@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
+import { motion, useAnimationControls } from 'framer-motion';
 
 type Spread = { left: number[]; right: number[] };
 
@@ -19,7 +20,13 @@ interface BookPaginatorProps {
   debug?: boolean;
 }
 
-export default function BookPaginator({ blocks, className = "", columnClassName = "", hints, debug = false }: BookPaginatorProps) {
+export default function BookPaginator({
+  blocks,
+  className = '',
+  columnClassName = '',
+  hints,
+  debug = false,
+}: BookPaginatorProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const measureRef = useRef<HTMLDivElement | null>(null);
   const measureColRef = useRef<HTMLDivElement | null>(null);
@@ -33,17 +40,17 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
     const measure = () => {
       if (!measureRef.current || !containerRef.current) return;
       // 실제 컬럼 너비와 동일하게 측정 컬럼 너비를 맞춤
-      const isTwoCols = window.matchMedia("(min-width: 768px)").matches; // md 기준
+      const isTwoCols = window.matchMedia('(min-width: 768px)').matches; // md 기준
       const container = containerRef.current;
       const computed = getComputedStyle(container);
-      const gap = parseFloat(computed.columnGap || computed.gap || "0");
+      const gap = parseFloat(computed.columnGap || computed.gap || '0');
       const columns = isTwoCols ? 2 : 1;
       const colWidth = (container.clientWidth - (columns - 1) * gap) / columns;
       if (measureColRef.current) {
         measureColRef.current.style.width = `${colWidth}px`;
       }
       const wrappers = Array.from(
-        measureRef.current.querySelectorAll<HTMLDivElement>("[data-measure]")
+        measureRef.current.querySelectorAll<HTMLDivElement>('[data-measure]'),
       );
       const h = wrappers.map((w) => w.getBoundingClientRect().height);
       setHeights(h);
@@ -62,8 +69,8 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
 
     // React element key는 내부적으로 '.$' prefix가 붙을 수 있어 정규화
     const normalizeKey = (key: unknown): string => {
-      const raw = String(key ?? "");
-      return raw.replace(/^\.\$/u, "");
+      const raw = String(key ?? '');
+      return raw.replace(/^\.\$/u, '');
     };
 
     // 블록의 키 목록 수집(없으면 인덱스 문자열 대체)
@@ -76,7 +83,7 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
     const toIndexSet = (items?: Array<number | string>): Set<number> => {
       const set = new Set<number>();
       items?.forEach((it) => {
-        if (typeof it === "number" && Number.isInteger(it)) {
+        if (typeof it === 'number' && Number.isInteger(it)) {
           set.add(it);
         } else {
           const key = String(it);
@@ -90,11 +97,18 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
     const forcedColumnBreakSet = toIndexSet(hints?.columnBreakAfter);
     const forcedSpreadBreakSet = toIndexSet(hints?.spreadBreakAfter);
 
-    if (debug && process.env.NODE_ENV !== "production") {
+    if (debug && process.env.NODE_ENV !== 'production') {
       try {
         // 개발 편의: 인덱스-키 매핑과 적용된 강제 분리 정보 출력
         // eslint-disable-next-line no-console
-        console.table(blockKeys.map((k, i) => ({ index: i, key: k, columnBreakAfter: forcedColumnBreakSet.has(i), spreadBreakAfter: forcedSpreadBreakSet.has(i) })));
+        console.table(
+          blockKeys.map((k, i) => ({
+            index: i,
+            key: k,
+            columnBreakAfter: forcedColumnBreakSet.has(i),
+            spreadBreakAfter: forcedSpreadBreakSet.has(i),
+          })),
+        );
       } catch {}
     }
 
@@ -128,7 +142,14 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
     }
     setSpreads(spreads);
     setCurrent((c) => Math.min(c, Math.max(spreads.length - 1, 0)));
-  }, [heights, blocks, blocks.length, hints?.columnBreakAfter, hints?.spreadBreakAfter, debug]);
+  }, [
+    heights,
+    blocks,
+    blocks.length,
+    hints?.columnBreakAfter,
+    hints?.spreadBreakAfter,
+    debug,
+  ]);
 
   const canPrev = current > 0;
   const canNext = current < Math.max(spreads.length - 1, 0);
@@ -138,49 +159,81 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
     // 들어있는 페이지를 오른쪽으로 넘기는 느낌 (오른쪽 페이지가 뒤로 젖혀짐)
     await rightControls.start({
       rotateY: 100,
-      transformOrigin: "right center",
-      transition: { duration: 0.45, ease: "easeInOut" },
-      boxShadow: "-20px 0 40px rgba(0,0,0,0.15)",
+      transformOrigin: 'right center',
+      transition: { duration: 0.45, ease: 'easeInOut' },
+      boxShadow: '-20px 0 40px rgba(0,0,0,0.15)',
     });
     setCurrent((c) => Math.max(c - 1, 0));
     // 다음 프레임에서 왼쪽에서 넘어오는 페이지 연출
-    await rightControls.set({ rotateY: -100, transformOrigin: "left center", boxShadow: "20px 0 40px rgba(0,0,0,0.15)" });
-    await rightControls.start({ rotateY: 0, transition: { duration: 0.45, ease: "easeInOut" }, boxShadow: "0 0 0 rgba(0,0,0,0)" });
+    await rightControls.set({
+      rotateY: -100,
+      transformOrigin: 'left center',
+      boxShadow: '20px 0 40px rgba(0,0,0,0.15)',
+    });
+    await rightControls.start({
+      rotateY: 0,
+      transition: { duration: 0.45, ease: 'easeInOut' },
+      boxShadow: '0 0 0 rgba(0,0,0,0)',
+    });
   };
   const handleNext = async () => {
     if (!canNext) return;
     // 현재 오른쪽 페이지가 왼쪽으로 넘어가는 애니메이션
     await rightControls.start({
       rotateY: -100,
-      transformOrigin: "left center",
-      transition: { duration: 0.45, ease: "easeInOut" },
-      boxShadow: "20px 0 40px rgba(0,0,0,0.15)",
+      transformOrigin: 'left center',
+      transition: { duration: 0.45, ease: 'easeInOut' },
+      boxShadow: '20px 0 40px rgba(0,0,0,0.15)',
     });
     setCurrent((c) => Math.min(c + 1, Math.max(spreads.length - 1, 0)));
     // 새 오른쪽 페이지가 오른쪽에서 닫히며 나타남
-    await rightControls.set({ rotateY: 100, transformOrigin: "right center", boxShadow: "-20px 0 40px rgba(0,0,0,0.15)" });
-    await rightControls.start({ rotateY: 0, transition: { duration: 0.45, ease: "easeInOut" }, boxShadow: "0 0 0 rgba(0,0,0,0)" });
+    await rightControls.set({
+      rotateY: 100,
+      transformOrigin: 'right center',
+      boxShadow: '-20px 0 40px rgba(0,0,0,0.15)',
+    });
+    await rightControls.start({
+      rotateY: 0,
+      transition: { duration: 0.45, ease: 'easeInOut' },
+      boxShadow: '0 0 0 rgba(0,0,0,0)',
+    });
   };
 
   const spread = spreads[current] || { left: [], right: [] };
 
   return (
-    <div ref={containerRef} className={`relative h-full w-full ${className}`}>
+    <div
+      ref={containerRef}
+      className={`relative h-full w-full ${className}`}
+    >
       {/* Visible book spread: 좌측은 정적, 우측은 페이지 넘김 애니메이션 */}
       <div className="grid h-full w-full grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <div className={`h-full overflow-hidden ${columnClassName}`}>
           <div className="h-full pr-2 md:pr-6">
             {spread.left.map((idx) => (
-              <div key={idx} className="mb-6 last:mb-0">
+              <div
+                key={idx}
+                className="mb-6 last:mb-0"
+              >
                 {blocks[idx]}
               </div>
             ))}
           </div>
         </div>
-        <div className={`h-full overflow-hidden ${columnClassName}`} style={{ perspective: 1200 }}>
-          <motion.div animate={rightControls} style={{ transformStyle: "preserve-3d" }} className="pl-2 md:pl-6">
+        <div
+          className={`h-full overflow-hidden ${columnClassName}`}
+          style={{ perspective: 1200 }}
+        >
+          <motion.div
+            animate={rightControls}
+            style={{ transformStyle: 'preserve-3d' }}
+            className="pl-2 md:pl-6"
+          >
             {spread.right.map((idx) => (
-              <div key={idx} className="mb-6 last:mb-0">
+              <div
+                key={idx}
+                className="mb-6 last:mb-0"
+              >
                 {blocks[idx]}
               </div>
             ))}
@@ -207,15 +260,25 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
       </div>
 
       {/* Hidden measuring column: same width as a single column */}
-      <div className="absolute -left-[9999px] top-0" aria-hidden>
+      <div
+        className="absolute -left-[9999px] top-0"
+        aria-hidden
+      >
         <div className="grid grid-cols-2 gap-8 md:gap-12">
-          <div ref={measureRef} className="px-2 md:px-6">
+          <div
+            ref={measureRef}
+            className="px-2 md:px-6"
+          >
             <div ref={measureColRef}>
-            {blocks.map((b, idx) => (
-              <div key={idx} data-measure className="mb-6 last:mb-0">
-                {b}
-              </div>
-            ))}
+              {blocks.map((b, idx) => (
+                <div
+                  key={idx}
+                  data-measure
+                  className="mb-6 last:mb-0"
+                >
+                  {b}
+                </div>
+              ))}
             </div>
           </div>
           <div />
@@ -224,5 +287,3 @@ export default function BookPaginator({ blocks, className = "", columnClassName 
     </div>
   );
 }
-
-

@@ -1,36 +1,38 @@
-"use client";
+'use client';
 
-import Link, { LinkProps } from "next/link";
-import { usePathname } from "next/navigation";
-import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
-import React from "react";
+import React from 'react';
 
-type Props = Omit<React.ComponentProps<typeof Link>, "href"> & {
+import Link, { LinkProps } from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { getLocaleFromPathname, withTrailingSlash } from '@/lib/urlUtils';
+
+type Props = Omit<React.ComponentProps<typeof Link>, 'href'> & {
   to: string;
 };
 
 export default function LocaleLink({ to, children, ...rest }: Props) {
-  const pathname = usePathname() || "/";
+  const pathname = usePathname() || '/';
   const locale = getLocaleFromPathname(pathname);
 
   const computeHref = (): string => {
     // External or mailto or absolute http(s)
     if (/^(mailto:|https?:\/\/)/i.test(to)) return to;
     // Hash only → anchor on home of current locale
-    if (to.startsWith("#")) {
-      const base = locale ? `/${locale}/` : "/";
+    if (to.startsWith('#')) {
+      const base = locale ? `/${locale}/` : '/';
       return `${base}${to}`;
     }
     // '/#section' → anchor on home
-    if (to.startsWith("/#")) {
-      const base = locale ? `/${locale}/` : "/";
+    if (to.startsWith('/#')) {
+      const base = locale ? `/${locale}/` : '/';
       return `${base}${to.slice(2)}`;
     }
     // Absolute app path
-    if (to.startsWith("/")) {
+    if (to.startsWith('/')) {
       // Already locale prefixed
       if (/^\/(ko|en)(\/|$)/.test(to)) return withTrailingSlash(to);
-      const base = locale ? `/${locale}` : "";
+      const base = locale ? `/${locale}` : '';
       return withTrailingSlash(`${base}${to}`);
     }
     // Relative path
@@ -39,10 +41,11 @@ export default function LocaleLink({ to, children, ...rest }: Props) {
 
   const href = computeHref();
   return (
-    <Link href={href as LinkProps["href"]} {...rest}>
+    <Link
+      href={href as LinkProps['href']}
+      {...rest}
+    >
       {children}
     </Link>
   );
 }
-
-

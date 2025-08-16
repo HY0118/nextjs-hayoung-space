@@ -1,7 +1,8 @@
-import type { Project } from "@interfaces/project";
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-export type MediaTab = "screenshots" | "video";
+import type { Project } from '@interfaces/project';
+
+export type MediaTab = 'screenshots' | 'video';
 
 export interface Achievement {
   value: string;
@@ -95,5 +96,3 @@ export interface DetailShellProps {
   contentPaddingClassName?: string; // ex) "px-8 py-12"
   maxWidthClassName?: string; // ex) "max-w-7xl"
 }
-
-

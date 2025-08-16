@@ -1,10 +1,14 @@
-"use client";
+'use client';
 
-import BlogCard from "@/components/blog/BlogCard";
-import { BlogPost } from "@/lib/notion";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useRouteStore } from "@/store/routeStore";
+import { useEffect } from 'react';
+
+import { useRouter } from 'next/navigation';
+
+import BlogCard from '@/components/blog/BlogCard';
+
+import { useRouteStore } from '@/store/routeStore';
+
+import { BlogPost } from '@/lib/notion';
 
 interface PostsSectionProps {
   title: string;
@@ -12,7 +16,11 @@ interface PostsSectionProps {
   featured?: boolean;
 }
 
-export default function PostsSection({ title, posts, featured = false }: PostsSectionProps) {
+export default function PostsSection({
+  title,
+  posts,
+  featured = false,
+}: PostsSectionProps) {
   const router = useRouter();
   const isNavigating = useRouteStore((s) => s.isNavigating);
 
@@ -27,12 +35,16 @@ export default function PostsSection({ title, posts, featured = false }: PostsSe
     <div className="mb-16">
       <h2 className="text-2xl font-bold text-text-primary mb-8">{title}</h2>
       <div
-        className={`group/zone grid md:grid-cols-2 lg:grid-cols-3 gap-8 ${isNavigating ? "pointer-events-none opacity-95" : ""}`}
+        className={`group/zone grid md:grid-cols-2 lg:grid-cols-3 gap-8 ${isNavigating ? 'pointer-events-none opacity-95' : ''}`}
         aria-busy={isNavigating}
         aria-disabled={isNavigating}
       >
         {posts.map((post) => (
-          <BlogCard key={post.id} post={post} featured={featured} />
+          <BlogCard
+            key={post.id}
+            post={post}
+            featured={featured}
+          />
         ))}
       </div>
     </div>

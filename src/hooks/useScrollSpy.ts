@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 
 export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
-  const [activeSection, setActiveSection] = useState<string>("about");
+  const [activeSection, setActiveSection] = useState<string>('about');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,13 +44,13 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     // 컴포넌트 마운트 시 즉시 실행
     setTimeout(() => {
       handleScroll();
     }, 100); // 약간의 지연을 주어 DOM이 완전히 로드된 후 실행
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [sectionIds, offset]);
 
   return activeSection;

@@ -1,10 +1,15 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import type { TechChipsProps } from "@interfaces/projectDetail";
+import type { TechChipsProps } from '@interfaces/projectDetail';
+import { motion } from 'framer-motion';
 
 const TechChips = ({ tech }: TechChipsProps) => (
-  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-10">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2 }}
+    className="mb-10"
+  >
     <div className="flex flex-wrap gap-2">
       {tech.map((t, idx) => (
         <span
@@ -19,5 +24,3 @@ const TechChips = ({ tech }: TechChipsProps) => (
 );
 
 export default TechChips;
-
-

@@ -1,5 +1,5 @@
 module.exports = {
-  printWidth: 100,
+  printWidth: 90,
   tabWidth: 2,
   useTabs: false,
   semi: true,
@@ -10,6 +10,7 @@ module.exports = {
   arrowParens: 'always',
   endOfLine: 'lf',
   proseWrap: 'always',
+  singleAttributePerLine: true,
   plugins: ['prettier-plugin-tailwindcss', '@trivago/prettier-plugin-sort-imports'],
   importOrder: [
     '^(react/(.*)$|react$)',
@@ -22,10 +23,8 @@ module.exports = {
     '^@/lib/(.*)$',
     '^@/constants/(.*)$',
     '^@/interfaces/(.*)$',
-    '^[./]'
+    '^[./]',
   ],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
 };
-
-

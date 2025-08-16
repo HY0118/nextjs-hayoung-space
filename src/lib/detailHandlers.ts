@@ -1,4 +1,4 @@
-import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
+import { getLocaleFromPathname, withTrailingSlash } from '@/lib/urlUtils';
 
 interface CloseArgs {
   closeDetail: () => void;
@@ -6,16 +6,18 @@ interface CloseArgs {
   closeModal: () => void;
 }
 
-export const createCloseProjectDetailHandler = ({ closeDetail, setSelectedProject, closeModal }: CloseArgs) => {
+export const createCloseProjectDetailHandler = ({
+  closeDetail,
+  setSelectedProject,
+  closeModal,
+}: CloseArgs) => {
   return () => {
-    const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+    const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
     const locale = getLocaleFromPathname(pathname);
-    const base = withTrailingSlash(locale ? `/${locale}` : "/");
-    window.history.pushState({}, "", `${base}#projects`);
+    const base = withTrailingSlash(locale ? `/${locale}` : '/');
+    window.history.pushState({}, '', `${base}#projects`);
     closeDetail();
     setSelectedProject(null);
     closeModal();
   };
 };
-
-

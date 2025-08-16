@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import ExternalLinkIcon from "@/components/icons/ExternalLinkIcon";
+import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon';
 
 const DemoButton = ({ href }: { href: string }) => (
   <a
@@ -21,5 +21,3 @@ const DemoButton = ({ href }: { href: string }) => (
 );
 
 export default DemoButton;
-
-

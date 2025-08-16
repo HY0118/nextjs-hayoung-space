@@ -1,4 +1,4 @@
-import type { MediaTab } from "@interfaces/projectDetail";
+import type { MediaTab } from '@interfaces/projectDetail';
 
 export const PROJECT_DETAIL_CONFIG = {
   limits: {
@@ -13,15 +13,13 @@ export const PROJECT_DETAIL_CONFIG = {
     screenshotsCount: 2,
   },
   media: {
-    defaultActiveTab: "screenshots" as MediaTab,
+    defaultActiveTab: 'screenshots' as MediaTab,
   },
   layout: {
-    marginTop: "73px",
-    backgroundClassName: "bg-white dark:bg-background",
-    headerPaddingClassName: "px-8 py-6",
-    contentPaddingClassName: "px-8 py-12",
-    maxWidthClassName: "max-w-7xl",
+    marginTop: '73px',
+    backgroundClassName: 'bg-white dark:bg-background',
+    headerPaddingClassName: 'px-8 py-6',
+    contentPaddingClassName: 'px-8 py-12',
+    maxWidthClassName: 'max-w-7xl',
   },
 } as const;
-
-

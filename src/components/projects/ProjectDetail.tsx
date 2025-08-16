@@ -1,31 +1,39 @@
-"use client";
+'use client';
 
 // import { motion } from "framer-motion";
-import { useProjectStore } from "@/store/projectStore";
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from 'react';
+
+import Achievements from '@/components/projects/detail/Achievements';
+import DetailShell from '@/components/projects/detail/DetailShell';
+import DividerToggle from '@/components/projects/detail/DividerToggle';
+import HeaderActions from '@/components/projects/detail/HeaderActions';
+import ImageViewerModal from '@/components/projects/detail/ImageViewerModal';
+import KeyFeatures from '@/components/projects/detail/KeyFeatures';
+import MediaTabs from '@/components/projects/detail/MediaTabs';
+import OptionalDetails from '@/components/projects/detail/OptionalDetails';
 // import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
-import Overview from "@/components/projects/detail/Overview";
-import Achievements from "@/components/projects/detail/Achievements";
-import TechChips from "@/components/projects/detail/TechChips";
-import KeyFeatures from "@/components/projects/detail/KeyFeatures";
-import MediaTabs from "@/components/projects/detail/MediaTabs";
-import DividerToggle from "@/components/projects/detail/DividerToggle";
-import OptionalDetails from "@/components/projects/detail/OptionalDetails";
-import ImageViewerModal from "@/components/projects/detail/ImageViewerModal";
-import HeaderActions from "@/components/projects/detail/HeaderActions";
-import { useProjectDerivedData } from "@/hooks/useProjectDerivedData";
-import { usePreloadScreenshots } from "@/hooks/usePreloadScreenshots";
-import { useModalVisibility } from "@/hooks/useModalVisibility";
-import DetailShell from "@/components/projects/detail/DetailShell";
-import { createCloseProjectDetailHandler } from "@/lib/detailHandlers";
-import { PROJECT_DETAIL_CONFIG } from "@/constants/projectDetailConfig";
-import type { MediaTab } from "@/interfaces/projectDetail";
+import Overview from '@/components/projects/detail/Overview';
+import TechChips from '@/components/projects/detail/TechChips';
+
+import { useModalVisibility } from '@/hooks/useModalVisibility';
+import { usePreloadScreenshots } from '@/hooks/usePreloadScreenshots';
+import { useProjectDerivedData } from '@/hooks/useProjectDerivedData';
+
+import { useProjectStore } from '@/store/projectStore';
+
+import { createCloseProjectDetailHandler } from '@/lib/detailHandlers';
+
+import { PROJECT_DETAIL_CONFIG } from '@/constants/projectDetailConfig';
+
+import type { MediaTab } from '@/interfaces/projectDetail';
 
 const ProjectDetail = () => {
   const { selectedProject, closeDetail, setSelectedProject } = useProjectStore();
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [activeMediaTab, setActiveMediaTab] = useState<MediaTab>(PROJECT_DETAIL_CONFIG.media.defaultActiveTab);
+  const [activeMediaTab, setActiveMediaTab] = useState<MediaTab>(
+    PROJECT_DETAIL_CONFIG.media.defaultActiveTab,
+  );
   const { open: openModal, close: closeModal } = useModalVisibility();
 
   const preloadImage = useCallback((url: string) => {
@@ -43,8 +51,20 @@ const ProjectDetail = () => {
     selectedProject.details.images.slice(0, 2).forEach((img) => preloadImage(img.url));
   }, [selectedProject, preloadImage]);
 
-  const handleClose = createCloseProjectDetailHandler({ closeDetail, setSelectedProject, closeModal });
-  const { achievements, features, performance, learnings, futureImprovements, screenshots, hasVideoOrGif } = useProjectDerivedData(selectedProject);
+  const handleClose = createCloseProjectDetailHandler({
+    closeDetail,
+    setSelectedProject,
+    closeModal,
+  });
+  const {
+    achievements,
+    features,
+    performance,
+    learnings,
+    futureImprovements,
+    screenshots,
+    hasVideoOrGif,
+  } = useProjectDerivedData(selectedProject);
   usePreloadScreenshots(selectedProject?.details.images ?? [], 2);
 
   if (!selectedProject) return null;
@@ -52,13 +72,18 @@ const ProjectDetail = () => {
   return (
     <>
       <DetailShell
-        header={<HeaderActions project={selectedProject} onClose={handleClose} />}
+        header={
+          <HeaderActions
+            project={selectedProject}
+            onClose={handleClose}
+          />
+        }
         marginTop={PROJECT_DETAIL_CONFIG.layout.marginTop}
         backgroundClassName={PROJECT_DETAIL_CONFIG.layout.backgroundClassName}
         headerPaddingClassName={PROJECT_DETAIL_CONFIG.layout.headerPaddingClassName}
         contentPaddingClassName={`${PROJECT_DETAIL_CONFIG.layout.contentPaddingClassName} `}
         maxWidthClassName={PROJECT_DETAIL_CONFIG.layout.maxWidthClassName}
-      > 
+      >
         {/* Essentials: Overview */}
         <Overview text={selectedProject.details.overview} />
 
@@ -83,7 +108,10 @@ const ProjectDetail = () => {
         />
 
         {/* Divider toggle for more details */}
-        <DividerToggle expanded={showDetails} onToggle={() => setShowDetails((v) => !v)} />
+        <DividerToggle
+          expanded={showDetails}
+          onToggle={() => setShowDetails((v) => !v)}
+        />
 
         {showDetails && (
           <>

@@ -1,5 +1,6 @@
-import Link from "next/link";
-import BlogPageWrapper from "@/components/blog/BlogPageWrapper";
+import Link from 'next/link';
+
+import BlogPageWrapper from '@/components/blog/BlogPageWrapper';
 
 export default function NotFound() {
   return (
@@ -33,4 +34,4 @@ export default function NotFound() {
       </div>
     </BlogPageWrapper>
   );
-} 
+}

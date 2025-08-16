@@ -1,3 +1,1 @@
-export { default } from "@/app/blog/loading";
-
-
+export { default } from '@/app/blog/loading';

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface IntroStore {
   isIntroComplete: boolean;
@@ -11,7 +11,7 @@ export const useIntroStore = create<IntroStore>((set) => ({
   setIntroComplete: (value) => set({ isIntroComplete: value }),
   initializeIntroState: () => {
     // URL에 해시가 없으면 인트로를 보여주도록 상태 설정
-    const shouldShowIntro = window.location.hash === "";
+    const shouldShowIntro = window.location.hash === '';
     set({ isIntroComplete: !shouldShowIntro });
   },
 }));

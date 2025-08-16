@@ -4,12 +4,20 @@ interface SpinnerProps {
   className?: string;
 }
 
-export default function Spinner({ size = 80, full = true, className = "" }: SpinnerProps) {
-  const containerClass = `${full ? "min-h-screen" : ""} flex items-center justify-center ${className}`.trim();
+export default function Spinner({
+  size = 80,
+  full = true,
+  className = '',
+}: SpinnerProps) {
+  const containerClass =
+    `${full ? 'min-h-screen' : ''} flex items-center justify-center ${className}`.trim();
   const innerSize = Math.max(Math.floor(size / 2), 10);
   return (
     <div className={containerClass}>
-      <div className="relative" style={{ width: size, height: size }}>
+      <div
+        className="relative"
+        style={{ width: size, height: size }}
+      >
         {/* 외부 원 */}
         <div className="absolute top-0 left-0 w-full h-full border-4 border-gray-200 rounded-full" />
         {/* 회전하는 그라데이션 원 */}

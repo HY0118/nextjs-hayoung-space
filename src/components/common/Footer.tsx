@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useIntroStore } from "@store/introStore";
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
+
+import { useIntroStore } from '@store/introStore';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Footer = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);
   const pathname = usePathname();
 
   // quick-portfolio 페이지에서는 헤더 숨김
-  if (pathname?.startsWith("/quick-portfolio")) {
+  if (pathname?.startsWith('/quick-portfolio')) {
     return null;
   }
 
@@ -23,7 +24,14 @@ const Footer = () => {
           className="py-8 border-t border-border"
         >
           <div className="max-w-7xl mx-auto px-8 text-center text-text-secondary">
-            <p suppressHydrationWarning>&copy; {new Date().toLocaleDateString('ko-KR', { year: 'numeric', timeZone: 'Asia/Seoul' })} hayoung. All rights reserved.</p>
+            <p suppressHydrationWarning>
+              &copy;{' '}
+              {new Date().toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                timeZone: 'Asia/Seoul',
+              })}{' '}
+              hayoung. All rights reserved.
+            </p>
           </div>
         </motion.footer>
       )}

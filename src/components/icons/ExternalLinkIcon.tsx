@@ -1,4 +1,8 @@
-export default function ExternalLinkIcon({ className = "w-4 h-4" }: { className?: string }) {
+export default function ExternalLinkIcon({
+  className = 'w-4 h-4',
+}: {
+  className?: string;
+}) {
   return (
     <svg
       className={className}
@@ -18,5 +22,3 @@ export default function ExternalLinkIcon({ className = "w-4 h-4" }: { className?
     </svg>
   );
 }
-
-

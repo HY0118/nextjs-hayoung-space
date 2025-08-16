@@ -1,11 +1,15 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useMemo, useRef } from "react";
-import { useRouteStore } from "@/store/routeStore";
-import { BlogPost } from "@lib/notion";
-import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
+import { useMemo, useRef } from 'react';
+
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+
+import { BlogPost } from '@lib/notion';
+
+import { useRouteStore } from '@/store/routeStore';
+
+import { getLocaleFromPathname, withTrailingSlash } from '@/lib/urlUtils';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -14,7 +18,7 @@ interface BlogCardProps {
 
 export default function BlogCard({ post, featured = false }: BlogCardProps) {
   const router = useRouter();
-  const pathname = usePathname() || "/";
+  const pathname = usePathname() || '/';
   const prefetchedRef = useRef(false);
   const startNavigating = useRouteStore((s) => s.start);
   const stopNavigating = useRouteStore((s) => s.stop);
@@ -23,7 +27,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
 
   const targetHref = useMemo(() => {
     const locale = getLocaleFromPathname(pathname);
-    const base = locale ? `/${locale}` : "";
+    const base = locale ? `/${locale}` : '';
     return withTrailingSlash(`${base}/blog/${post.slug}`);
   }, [pathname, post.slug]);
 
@@ -34,10 +38,10 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
       timeZone: 'Asia/Seoul',
     });
   };
@@ -70,7 +74,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         className={`group relative cursor-pointer h-full bg-surface rounded-xl p-6 
           transition-all duration-300 hover:shadow-lg hover:-translate-y-1
           border border-border hover:border-primary/30
-          ${featured ? "ring-2 ring-primary/20" : ""}`}
+          ${featured ? 'ring-2 ring-primary/20' : ''}`}
       >
         {/* 클릭된 카드 로컬 스피너 오버레이 */}
         {isNavigatingGlobal && localNavigatingRef.current && (
@@ -90,19 +94,15 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         {/* Title */}
         <h3
           className={`font-bold text-text-primary group-hover:text-primary transition-colors truncate mb-2
-            ${featured ? "text-lg" : "text-base"}`}
+            ${featured ? 'text-lg' : 'text-base'}`}
         >
           {post.title}
         </h3>
 
         {/* Summary (카테고리 컨테이너 hover 시 전체 카드 동시 표시) */}
         {post.summary && (
-          <div
-            className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover/zone:max-h-24 group-hover/zone:opacity-100 mb-0 group-hover/zone:mb-4"
-          >
-            <p className="text-text-secondary text-sm line-clamp-3">
-              {post.summary}
-            </p>
+          <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover/zone:max-h-24 group-hover/zone:opacity-100 mb-0 group-hover/zone:mb-4">
+            <p className="text-text-secondary text-sm line-clamp-3">{post.summary}</p>
           </div>
         )}
 
@@ -137,4 +137,4 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
       </article>
     </Link>
   );
-} 
+}

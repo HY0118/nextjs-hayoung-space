@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useTheme } from "@contexts/ThemeContext";
-import { motion } from "framer-motion";
+import { useTheme } from '@contexts/ThemeContext';
+import { motion } from 'framer-motion';
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
@@ -15,10 +15,10 @@ const ThemeToggle = () => {
       <motion.div
         initial={false}
         animate={{
-          scale: theme === "dark" ? 1 : 0,
-          rotate: theme === "dark" ? 0 : 180,
+          scale: theme === 'dark' ? 1 : 0,
+          rotate: theme === 'dark' ? 0 : 180,
         }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="absolute"
       >
         🌙
@@ -26,10 +26,10 @@ const ThemeToggle = () => {
       <motion.div
         initial={false}
         animate={{
-          scale: theme === "light" ? 1 : 0,
-          rotate: theme === "light" ? 0 : -180,
+          scale: theme === 'light' ? 1 : 0,
+          rotate: theme === 'light' ? 0 : -180,
         }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="absolute"
       >
         ☀️

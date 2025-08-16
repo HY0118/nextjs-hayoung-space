@@ -1,8 +1,11 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-20 min-h-screen flex flex-col justify-center bg-gray-100 dark:bg-gray-800">
+    <section
+      id="contact"
+      className="py-20 min-h-screen flex flex-col justify-center bg-gray-100 dark:bg-gray-800"
+    >
       <div className="max-w-7xl mx-auto px-8">
         <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
           Contact
@@ -32,7 +35,9 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <p className="text-text-secondary mb-2">더 자세한 프로필이 궁금하시다면 아래 링크를 방문해 주세요.</p>
+            <p className="text-text-secondary mb-2">
+              더 자세한 프로필이 궁금하시다면 아래 링크를 방문해 주세요.
+            </p>
             <a
               href="https://github.com/HY0118"
               target="_blank"

@@ -1,3 +1,1 @@
-export { default } from "@/app/blog/[slug]/not-found";
-
-
+export { default } from '@/app/blog/[slug]/not-found';

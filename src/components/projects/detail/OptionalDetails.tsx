@@ -1,15 +1,30 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import PerformanceBar from "@/components/projects/detail/PerformanceBar";
-import type { OptionalDetailsProps } from "@interfaces/projectDetail";
+import Image from 'next/image';
 
-const OptionalDetails = ({ problemStatement, solutionApproach, performance, architecture, learnings, futureImprovements }: OptionalDetailsProps) => (
-  <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-12">
+import type { OptionalDetailsProps } from '@interfaces/projectDetail';
+import { motion } from 'framer-motion';
+
+import PerformanceBar from '@/components/projects/detail/PerformanceBar';
+
+const OptionalDetails = ({
+  problemStatement,
+  solutionApproach,
+  performance,
+  architecture,
+  learnings,
+  futureImprovements,
+}: OptionalDetailsProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 16 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="space-y-12"
+  >
     {(problemStatement || solutionApproach) && (
       <div>
-        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">Background & Strategy</h4>
+        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">
+          Background & Strategy
+        </h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {problemStatement && (
             <div className="bg-gray-100 dark:bg-gray-800 p-5 rounded-xl">
@@ -29,10 +44,15 @@ const OptionalDetails = ({ problemStatement, solutionApproach, performance, arch
 
     {performance.length > 0 && (
       <div>
-        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">Performance</h4>
+        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">
+          Performance
+        </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {performance.map((metric, index) => (
-            <PerformanceBar key={index} metric={metric} />
+            <PerformanceBar
+              key={index}
+              metric={metric}
+            />
           ))}
         </div>
       </div>
@@ -40,21 +60,36 @@ const OptionalDetails = ({ problemStatement, solutionApproach, performance, arch
 
     {architecture && (
       <div>
-        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">Architecture</h4>
+        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">
+          Architecture
+        </h4>
         <div className="relative">
-          <Image src={architecture} alt="System Architecture" width={1200} height={600} className="rounded-xl" />
+          <Image
+            src={architecture}
+            alt="System Architecture"
+            width={1200}
+            height={600}
+            className="rounded-xl"
+          />
         </div>
       </div>
     )}
 
     {(learnings.length > 0 || futureImprovements.length > 0) && (
-      <div className={`grid grid-cols-1 ${futureImprovements.length ? "lg:grid-cols-2" : ""} gap-6`}>
+      <div
+        className={`grid grid-cols-1 ${futureImprovements.length ? 'lg:grid-cols-2' : ''} gap-6`}
+      >
         {learnings.length > 0 && (
           <div>
-            <h5 className="text-md font-medium text-primary mb-3 font-sora">Key Learnings</h5>
+            <h5 className="text-md font-medium text-primary mb-3 font-sora">
+              Key Learnings
+            </h5>
             <div className="space-y-3">
               {learnings.map((lesson, index) => (
-                <div key={index} className="flex items-start gap-3">
+                <div
+                  key={index}
+                  className="flex items-start gap-3"
+                >
                   <div className="mt-1.5 flex-shrink-0">
                     <div className="w-2 h-2 rounded-full bg-primary" />
                   </div>
@@ -66,10 +101,15 @@ const OptionalDetails = ({ problemStatement, solutionApproach, performance, arch
         )}
         {futureImprovements.length > 0 && (
           <div>
-            <h5 className="text-md font-medium text-primary mb-3 font-sora">Future Improvements</h5>
+            <h5 className="text-md font-medium text-primary mb-3 font-sora">
+              Future Improvements
+            </h5>
             <div className="space-y-3">
               {futureImprovements.map((imp, index) => (
-                <div key={index} className="flex items-start gap-3">
+                <div
+                  key={index}
+                  className="flex items-start gap-3"
+                >
                   <div className="mt-1.5 flex-shrink-0">
                     <div className="w-2 h-2 rounded-full bg-primary" />
                   </div>
@@ -85,5 +125,3 @@ const OptionalDetails = ({ problemStatement, solutionApproach, performance, arch
 );
 
 export default OptionalDetails;
-
-

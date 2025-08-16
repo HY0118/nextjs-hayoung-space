@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface RouteStoreState {
   isNavigating: boolean;
@@ -11,5 +11,3 @@ export const useRouteStore = create<RouteStoreState>((set) => ({
   start: () => set({ isNavigating: true }),
   stop: () => set({ isNavigating: false }),
 }));
-
-

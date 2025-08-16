@@ -1,32 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class", '[data-theme="dark"]'],
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/constants/**/*.{js,ts,jsx,tsx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/constants/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "var(--primary)",
-          light: "var(--primary-light)",
-          dark: "var(--primary-dark)",
+          DEFAULT: 'var(--primary)',
+          light: 'var(--primary-light)',
+          dark: 'var(--primary-dark)',
         },
         text: {
-          primary: "var(--text-primary)",
-          secondary: "var(--text-secondary)",
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
         },
         gray: {
-          100: "var(--gray-100)",
-          200: "var(--gray-200)",
-          300: "var(--gray-300)",
+          100: 'var(--gray-100)',
+          200: 'var(--gray-200)',
+          300: 'var(--gray-300)',
         },
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        border: "var(--border-color)",
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        border: 'var(--border-color)',
       },
       keyframes: {
         blink: {

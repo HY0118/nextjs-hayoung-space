@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import type { DemoMediaProps } from "@interfaces/projectDetail";
+import Image from 'next/image';
+
+import type { DemoMediaProps } from '@interfaces/projectDetail';
+import { motion } from 'framer-motion';
 
 const VideoGifMedia = ({ project }: DemoMediaProps) => {
   if (project.details.demoVideo) {
@@ -20,7 +21,12 @@ const VideoGifMedia = ({ project }: DemoMediaProps) => {
           playsInline
           className="w-full h-full object-cover transform hover:scale-[1.02] transition-transform duration-300"
         >
-          {project.details.demoVideo.mp4 && <source src={project.details.demoVideo.mp4} type="video/mp4" />}
+          {project.details.demoVideo.mp4 && (
+            <source
+              src={project.details.demoVideo.mp4}
+              type="video/mp4"
+            />
+          )}
         </video>
       </motion.div>
     );
@@ -50,5 +56,3 @@ const VideoGifMedia = ({ project }: DemoMediaProps) => {
 };
 
 export default VideoGifMedia;
-
-

@@ -1,35 +1,35 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  pageExtensions: ["js", "jsx", "ts", "tsx"],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   trailingSlash: true,
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "www.google.com",
+        protocol: 'https',
+        hostname: 'www.google.com',
       },
       {
-        protocol: "https",
-        hostname: "github.githubassets.com",
+        protocol: 'https',
+        hostname: 'github.githubassets.com',
       },
       {
-        protocol: "https",
-        hostname: "content.linkedin.com",
+        protocol: 'https',
+        hostname: 'content.linkedin.com',
       },
     ],
     minimumCacheTTL: 60,
-    formats: ["image/webp", "image/avif"],
+    formats: ['image/webp', 'image/avif'],
   },
   async headers() {
     return [
       {
-        source: "/api/:path*",
+        source: '/api/:path*',
         headers: [
           {
-            key: "Cache-Control",
-            value: "s-maxage=60, stale-while-revalidate=300",
+            key: 'Cache-Control',
+            value: 's-maxage=60, stale-while-revalidate=300',
           },
         ],
       },
@@ -38,15 +38,15 @@ const nextConfig: NextConfig = {
   experimental: {
     turbo: {
       rules: {
-        "**/test/**": ["ignore"],
+        '**/test/**': ['ignore'],
       },
     },
   },
-  serverExternalPackages: ["@notionhq/client"],
+  serverExternalPackages: ['@notionhq/client'],
   webpack: (config) => {
     // webpack 설정은 프로덕션 빌드에서만 적용됨
     config.watchOptions = {
-      ignored: ["**/test/**"],
+      ignored: ['**/test/**'],
     };
     return config;
   },

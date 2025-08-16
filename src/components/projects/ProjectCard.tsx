@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import type { Project } from "@interfaces/project";
-import { getTechColor } from "@constants/techColors";
+import Image from 'next/image';
+
+import { getTechColor } from '@constants/techColors';
+import type { Project } from '@interfaces/project';
+import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
   project: Project;

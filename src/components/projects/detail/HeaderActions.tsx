@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import type { Project } from "@interfaces/project";
-import Title from "@/components/projects/detail/header/Title";
-import RepoBadge from "@/components/projects/detail/header/RepoBadge";
-import NpmBadge from "@/components/projects/detail/header/NpmBadge";
-import DemoButton from "@/components/projects/detail/header/DemoButton";
-import CloseButton from "@/components/projects/detail/header/CloseButton";
+import type { Project } from '@interfaces/project';
+
+import CloseButton from '@/components/projects/detail/header/CloseButton';
+import DemoButton from '@/components/projects/detail/header/DemoButton';
+import NpmBadge from '@/components/projects/detail/header/NpmBadge';
+import RepoBadge from '@/components/projects/detail/header/RepoBadge';
+import Title from '@/components/projects/detail/header/Title';
 
 interface HeaderActionsProps {
   project: Project;
@@ -27,5 +28,3 @@ const HeaderActions = ({ project, onClose }: HeaderActionsProps) => {
 };
 
 export default HeaderActions;
-
-

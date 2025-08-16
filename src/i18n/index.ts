@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import HttpBackend from "i18next-http-backend";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/i18n/constants";
-
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n/constants';
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpBackend from 'i18next-http-backend';
+import { initReactI18next } from 'react-i18next';
 
 if (!i18n.isInitialized) {
   i18n
@@ -17,15 +16,15 @@ if (!i18n.isInitialized) {
       supportedLngs: SUPPORTED_LOCALES as unknown as string[],
       interpolation: { escapeValue: false },
       detection: {
-        order: ["path", "querystring", "cookie", "localStorage", "navigator"],
+        order: ['path', 'querystring', 'cookie', 'localStorage', 'navigator'],
       },
       backend: {
-        loadPath: "/locales/{{lng}}.json",
+        loadPath: '/locales/{{lng}}.json',
       },
       react: {
         useSuspense: true,
       },
-      load: "languageOnly",
+      load: 'languageOnly',
     });
 }
 

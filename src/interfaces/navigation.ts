@@ -1,10 +1,8 @@
-export type SectionId = "about" | "skills" | "projects" | "contact";
+export type SectionId = 'about' | 'skills' | 'projects' | 'contact';
 
 export const SECTIONS: readonly SectionId[] = [
-  "about",
-  "skills",
-  "projects",
-  "contact",
+  'about',
+  'skills',
+  'projects',
+  'contact',
 ] as const;
-
-

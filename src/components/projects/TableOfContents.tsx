@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useProjectStore } from "@store/projectStore";
+import { useEffect, useState } from 'react';
+
+import { useProjectStore } from '@store/projectStore';
 
 interface Section {
   id: string;
@@ -8,7 +9,7 @@ interface Section {
 
 const TableOfContents = () => {
   const { selectedProject } = useProjectStore();
-  const [activeSection, setActiveSection] = useState<string>("");
+  const [activeSection, setActiveSection] = useState<string>('');
 
   const [availableSections, setAvailableSections] = useState<Section[]>([]);
 
@@ -18,11 +19,11 @@ const TableOfContents = () => {
     const sections: Section[] = [];
 
     // Overview & Achievements는 항상 있음
-    sections.push({ id: "overview", label: "Overview & Achievements" });
+    sections.push({ id: 'overview', label: 'Overview & Achievements' });
 
     // Demo 섹션 체크
     if (selectedProject.details.demoGif || selectedProject.details.demoVideo) {
-      sections.push({ id: "demo", label: "Demo" });
+      sections.push({ id: 'demo', label: 'Demo' });
     }
 
     // Problem & Solution 체크
@@ -30,22 +31,22 @@ const TableOfContents = () => {
       selectedProject.details.problemStatement &&
       selectedProject.details.solutionApproach
     ) {
-      sections.push({ id: "problem-solution", label: "Problem & Solution" });
+      sections.push({ id: 'problem-solution', label: 'Problem & Solution' });
     }
 
     // Features 섹션 체크
     if (selectedProject.details.features?.length > 0) {
-      sections.push({ id: "features", label: "Key Features" });
+      sections.push({ id: 'features', label: 'Key Features' });
     }
 
     // Architecture 체크
     if (selectedProject.details.architecture) {
-      sections.push({ id: "architecture", label: "Architecture" });
+      sections.push({ id: 'architecture', label: 'Architecture' });
     }
 
     // Tech Stack 체크
     if (selectedProject.details.techStack?.length > 0) {
-      sections.push({ id: "tech-stack", label: "Tech Stack" });
+      sections.push({ id: 'tech-stack', label: 'Tech Stack' });
     }
 
     // Performance 체크
@@ -53,15 +54,12 @@ const TableOfContents = () => {
       selectedProject.details.performance &&
       selectedProject.details.performance.length > 0
     ) {
-      sections.push({ id: "performance", label: "Performance" });
+      sections.push({ id: 'performance', label: 'Performance' });
     }
 
     // Testing 체크
-    if (
-      selectedProject.details.testing &&
-      selectedProject.details.testing.length > 0
-    ) {
-      sections.push({ id: "testing", label: "Testing" });
+    if (selectedProject.details.testing && selectedProject.details.testing.length > 0) {
+      sections.push({ id: 'testing', label: 'Testing' });
     }
 
     // Key Learnings 체크
@@ -69,7 +67,7 @@ const TableOfContents = () => {
       selectedProject.details.learnings &&
       selectedProject.details.learnings.length > 0
     ) {
-      sections.push({ id: "learnings", label: "Key Learnings" });
+      sections.push({ id: 'learnings', label: 'Key Learnings' });
     }
 
     // Future Improvements 체크
@@ -78,17 +76,14 @@ const TableOfContents = () => {
       selectedProject.details.futureImprovements.length > 0
     ) {
       sections.push({
-        id: "future-improvements",
-        label: "Future Improvements",
+        id: 'future-improvements',
+        label: 'Future Improvements',
       });
     }
 
     // Screenshots 섹션 체크
-    if (
-      selectedProject.details.images &&
-      selectedProject.details.images.length > 0
-    ) {
-      sections.push({ id: "screenshots", label: "Screenshots" });
+    if (selectedProject.details.images && selectedProject.details.images.length > 0) {
+      sections.push({ id: 'screenshots', label: 'Screenshots' });
     }
 
     setAvailableSections(sections);
@@ -96,7 +91,7 @@ const TableOfContents = () => {
 
   const scrollToSection = (sectionId: string) => {
     const scrollContainer = document.querySelector(
-      ".project-detail-content .overflow-y-auto"
+      '.project-detail-content .overflow-y-auto',
     );
     const element = document.getElementById(sectionId);
 
@@ -107,7 +102,7 @@ const TableOfContents = () => {
 
       scrollContainer.scrollTo({
         top: scrollContainer.scrollTop + relativePosition - 100,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
 
       setActiveSection(sectionId);
@@ -116,7 +111,7 @@ const TableOfContents = () => {
 
   useEffect(() => {
     const scrollContainer = document.querySelector(
-      ".project-detail-content .overflow-y-auto"
+      '.project-detail-content .overflow-y-auto',
     );
 
     if (!scrollContainer) return;
@@ -134,9 +129,7 @@ const TableOfContents = () => {
             const rect = section.target.getBoundingClientRect();
             const containerRect = scrollContainer.getBoundingClientRect();
             const relativeTop = rect.top - containerRect.top;
-            const distance = Math.abs(
-              relativeTop + rect.height / 2 - middleOfContainer
-            );
+            const distance = Math.abs(relativeTop + rect.height / 2 - middleOfContainer);
 
             if (distance < minDistance) {
               minDistance = distance;
@@ -150,8 +143,8 @@ const TableOfContents = () => {
       {
         root: scrollContainer,
         threshold: 0.2,
-        rootMargin: "-10% 0px -45% 0px",
-      }
+        rootMargin: '-10% 0px -45% 0px',
+      },
     );
 
     availableSections.forEach((section) => {
@@ -171,8 +164,8 @@ const TableOfContents = () => {
           className={`block text-sm px-3 py-1.5 rounded-lg transition-all duration-200
             ${
               activeSection === section.id
-                ? "text-primary bg-gray-100 dark:bg-gray-800 font-medium"
-                : "text-text-secondary hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                ? 'text-primary bg-gray-100 dark:bg-gray-800 font-medium'
+                : 'text-text-secondary hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800/50'
             }
           `}
         >
