@@ -9,7 +9,7 @@ export const useProjectDerivedData = (project: Project | null) => {
   const learnings = project?.details.learnings.slice(0, limits.learnings) ?? [];
   const futureImprovements = (project?.details.futureImprovements ?? []).slice(0, limits.futureImprovements);
   const screenshots = project?.details.images.slice(0, limits.screenshots) ?? [];
-  const hasDemo = Boolean(project?.details.demoVideo?.mp4 || project?.details.demoGif);
+  const hasVideoOrGif = Boolean(project?.details.demoVideo?.mp4 || project?.details.demoGif);
 
   return {
     achievements,
@@ -18,7 +18,7 @@ export const useProjectDerivedData = (project: Project | null) => {
     learnings,
     futureImprovements,
     screenshots,
-    hasDemo,
+    hasVideoOrGif,
   };
 };
 

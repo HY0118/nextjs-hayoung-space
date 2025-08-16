@@ -19,12 +19,13 @@ import { useModalVisibility } from "@/hooks/useModalVisibility";
 import DetailShell from "@/components/projects/detail/DetailShell";
 import { createCloseProjectDetailHandler } from "@/lib/detailHandlers";
 import { PROJECT_DETAIL_CONFIG } from "@/constants/projectDetailConfig";
+import type { MediaTab } from "@interfaces/projectDetail";
 
 const ProjectDetail = () => {
   const { selectedProject, closeDetail, setSelectedProject } = useProjectStore();
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [activeMediaTab, setActiveMediaTab] = useState<"screenshots" | "demo">(PROJECT_DETAIL_CONFIG.media.defaultActiveTab);
+  const [activeMediaTab, setActiveMediaTab] = useState<MediaTab>(PROJECT_DETAIL_CONFIG.media.defaultActiveTab);
   const { open: openModal, close: closeModal } = useModalVisibility();
 
   const preloadImage = useCallback((url: string) => {
@@ -43,7 +44,7 @@ const ProjectDetail = () => {
   }, [selectedProject, preloadImage]);
 
   const handleClose = createCloseProjectDetailHandler({ closeDetail, setSelectedProject, closeModal });
-  const { achievements, features, performance, learnings, futureImprovements, screenshots, hasDemo } = useProjectDerivedData(selectedProject);
+  const { achievements, features, performance, learnings, futureImprovements, screenshots, hasVideoOrGif } = useProjectDerivedData(selectedProject);
   usePreloadScreenshots(selectedProject?.details.images ?? [], 2);
 
   if (!selectedProject) return null;
@@ -74,7 +75,7 @@ const ProjectDetail = () => {
         <MediaTabs
           project={selectedProject}
           screenshots={screenshots}
-          hasDemo={hasDemo}
+          hasVideoOrGif={hasVideoOrGif}
           activeTab={activeMediaTab}
           onChangeTab={setActiveMediaTab}
           onOpenViewer={handleOpenViewer}
@@ -85,14 +86,17 @@ const ProjectDetail = () => {
         <DividerToggle expanded={showDetails} onToggle={() => setShowDetails((v) => !v)} />
 
         {showDetails && (
-          <OptionalDetails
-            problemStatement={selectedProject.details.problemStatement}
-            solutionApproach={selectedProject.details.solutionApproach}
-            performance={performance}
-            architecture={selectedProject.details.architecture}
-            learnings={learnings}
-            futureImprovements={futureImprovements}
-          />
+          <>
+            <OptionalDetails
+              problemStatement={selectedProject.details.problemStatement}
+              solutionApproach={selectedProject.details.solutionApproach}
+              performance={performance}
+              architecture={selectedProject.details.architecture}
+              learnings={learnings}
+              futureImprovements={futureImprovements}
+            />
+            <div className="mt-12 mb-24" />
+          </>
         )}
       </DetailShell>
 

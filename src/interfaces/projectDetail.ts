@@ -1,7 +1,7 @@
 import type { Project } from "@interfaces/project";
 import type { ReactNode } from "react";
 
-export type MediaTab = "screenshots" | "demo";
+export type MediaTab = "screenshots" | "video";
 
 export interface Achievement {
   value: string;
@@ -51,7 +51,7 @@ export interface DemoMediaProps {
 export interface MediaTabsProps {
   project: Project;
   screenshots: ProjectImage[];
-  hasDemo: boolean;
+  hasVideoOrGif: boolean;
   activeTab: MediaTab;
   onChangeTab: (tab: MediaTab) => void;
   onOpenViewer: (index: number) => void;

@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import DemoMedia from "@/components/projects/detail/DemoMedia";
+import VideoGifMedia from "@/components/projects/detail/VideoGifMedia";
 import type { MediaTabsProps } from "@interfaces/projectDetail";
 
-const MediaTabs = ({ project, screenshots, hasDemo, activeTab, onChangeTab, onOpenViewer, onPreload }: MediaTabsProps) => {
+const MediaTabs = ({ project, screenshots, hasVideoOrGif, activeTab, onChangeTab, onOpenViewer, onPreload }: MediaTabsProps) => {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mb-12">
       <div className="mb-4 flex items-center justify-between">
@@ -25,17 +25,19 @@ const MediaTabs = ({ project, screenshots, hasDemo, activeTab, onChangeTab, onOp
         >
           Screenshots
         </button>
-        {hasDemo && (
+        {hasVideoOrGif && (
           <button
             type="button"
-            onClick={() => onChangeTab("demo")}
+            onClick={() => onChangeTab("video")}
             className={`px-3 py-1.5 rounded-md text-sm border transition-colors ${
-              activeTab === "demo"
+              activeTab === "video"
                 ? "bg-primary text-white border-primary"
                 : "bg-gray-100 dark:bg-gray-800 text-text-secondary border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
+            aria-label="Video or GIF"
+            title="Video/GIF"
           >
-            Demo
+            Video/GIF
           </button>
         )}
       </div>
@@ -67,9 +69,9 @@ const MediaTabs = ({ project, screenshots, hasDemo, activeTab, onChangeTab, onOp
           ))}
         </div>
       )}
-      {activeTab === "demo" && hasDemo && (
+      {activeTab === "video" && hasVideoOrGif && (
         <div className="aspect-video w-full h-full rounded-xl overflow-hidden shadow-lg">
-          <DemoMedia project={project} />
+          <VideoGifMedia project={project} />
         </div>
       )}
     </motion.div>

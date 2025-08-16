@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { DemoMediaProps } from "@interfaces/projectDetail";
 
-const DemoMedia = ({ project }: DemoMediaProps) => {
+const VideoGifMedia = ({ project }: DemoMediaProps) => {
   if (project.details.demoVideo) {
     return (
       <motion.div
@@ -49,6 +49,6 @@ const DemoMedia = ({ project }: DemoMediaProps) => {
   return null;
 };
 
-export default DemoMedia;
+export default VideoGifMedia;
 
 
