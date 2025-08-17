@@ -18,7 +18,7 @@ export const revalidate = 60;
 
 export default function QuickPortfolioPage() {
   return (
-    <main className="h-dvh w-screen overflow-hidden bg-background">
+    <main className="h-dvh w-full overflow-hidden bg-background">
       <section className="relative h-full w-full">
         {/* 배경과 페이지 패딩 */}
         <div className="absolute inset-0 -z-10">
