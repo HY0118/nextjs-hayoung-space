@@ -25,12 +25,12 @@ export const inAppPlugin: Project = {
     // 1. Overview & Achievements
     //    - 프로젝트 개요
     //    - 주요 성과 지표 (수치화된 데이터)
-    overview: '건축/토목 엔지니어링 소프트웨어 내 웹 기반 플러그인 플랫폼 및 컨텐츠 제공',
+    overview:
+      '자사 엔지니어링 제품 내부(WebView)에 플러그인 플랫폼을 탑재해 컨텐츠를 배포·관리하고, 검색/권한/버전 체계를 통해 안전하게 실행되도록 한 인앱 생태계',
     achievements: [
-      {
-        value: '',
-        label: '',
-      },
+      { value: '120+', label: '배포된 플러그인(사내/외부)' },
+      { value: '35%', label: '검색 통한 컨텐츠 접근 증가' },
+      { value: '40%', label: '운영/배포 시간 절감' },
     ],
 
     // 2. Demo
@@ -43,41 +43,61 @@ export const inAppPlugin: Project = {
     // 3. Problem & Solution
     //    - 문제 정의
     //    - 해결 방안
-    problemStatement: '',
-    solutionApproach: '',
+    problemStatement:
+      '제품별로 산재된 플러그인과 수동 배포 프로세스로 인해 버전 충돌·권한 오남용·검색 난이도가 높고, 사용자 접근성이 떨어짐',
+    solutionApproach:
+      '단일 플랫폼에서 플러그인 메타/바이너리를 관리하고, 시맨틱 버전 규칙·권한 검증·검색 인덱싱(OpenSearch)을 도입. 업로드→검증→배포 자동화를 통해 운영 부담을 축소',
 
     // 4. Key Features
     //    - 주요 기능
     //    - 구현 방식
     features: [
       {
-        name: 'API Beta 웹 프로토타입',
-        description: 'API 테스트 페이지 제공',
-        implementation: 'JSON Schema 기반 동적 UI 생성',
-      },
-      {
-        name: '플러그인 컨텐츠 버전 관리',
-        description: '버전 규칙 생성 및 업로드 시 버전 입력 체크, DB에 버전 저장 및 조회',
+        name: '실행 권한 검증',
+        description: '제품이 발급한 API Key 기반의 실행 권한 확인',
         implementation:
-          '버전 규칙 생성 및 업로드 시 버전 입력 체크, DB에 버전 저장 및 조회',
+          'WebView 메시지 API로 키 전달→서버 검증→허용 범위 내 리소스/실행 토큰 발급 (publish 상태에서만 run 로그 전송)',
       },
       {
-        name: '플러그인 실행 권한 검증',
-        description: 'Webview 메세지 api 통신으로 제품에서 발급받은 api key 전달 및 검증',
+        name: '버전/배포 파이프라인',
+        description: '시맨틱 버전 규칙·업로드 검증·변경 이력으로 안전한 배포',
         implementation:
-          'Webview 메세지 api 통신으로 제품에서 발급받은 api key 전달 및 검증',
+          '업로드 단계 버전 규칙 검사, 폼데이터에 productCode/CountryCode/Version 포함, DB에 메타/해시 저장, 롤백 이력 관리',
       },
       {
-        name: '플러그인 검색 및 필터링',
+        name: '로그 수집(뷰/런)',
+        description: '뷰/실행 로그를 조건부로 전송하여 품질 지표 확보',
+        implementation:
+          'publish 상태에서만 전송, mapi 연결 확인 후 window.open 메세지 OK일 때 run API 호출, 의존성 누락 포함 useCallback 정리',
+      },
+      {
+        name: '검색/필터',
+        description: 'OpenSearch로 키워드·시맨틱 검색 및 태그/카테고리 필터 제공',
+        implementation:
+          '메타 스키마 표준화, 색인 파이프라인 구축, 전체/부분 일치 + 의미 기반 검색',
+      },
+      {
+        name: '버전 파싱/매핑·UI 표기',
         description:
-          'OpenSearch - KeyWord, Semantic search 도입으로 플러그인 검색 및 필터링',
+          '955 이하 버전 매핑·세부 제품 버전 괄호 표기, productVersion 표기 오류 수정',
         implementation:
-          'OpenSearch - KeyWord, Semantic search 도입으로 플러그인 검색 및 필터링',
+          'userAgent 기반 product/version 파서, 매핑 테이블/예외 처리, 잘린 타이틀 말줄임 처리, version width 조정',
       },
       {
-        name: '플러그인 리스트 페이지 로딩 속도 저하 문제',
-        description: 'pagination 적용으로 페이지 로딩 속도 단축 및 사용자 경험 개선',
-        implementation: 'pagination 적용으로 페이지 로딩 속도 단축 및 사용자 경험 개선',
+        name: '배너/링크 정책',
+        description: 'CountryCode에 따른 배너 링크 및 라우팅 제어',
+        implementation: '링크 조건분기 로직·의존성 배열 보강, 잘못된 링크 교정',
+      },
+      {
+        name: '로딩/에러 UX',
+        description: '스켈레톤·로딩 처리·예외 메시지로 안정성 향상',
+        implementation:
+          '버전 변경·삭제 동작·무한 스크롤 끝에서의 로딩 숨김, baseUrl/assetPath 미존재 시 예외 처리 및 클립보드 복사',
+      },
+      {
+        name: '빌드/스타일 체인',
+        description: 'Tailwind + PostCSS 파이프라인 정비',
+        implementation: 'postcss 설정 추가(vite 인식/빌드시 반영), autoprefixer 적용',
       },
     ],
 
@@ -142,12 +162,17 @@ export const inAppPlugin: Project = {
       {
         name: '플러그인 로딩 시간',
         improvement: '55%',
-        description: 'WebView 최적화 및 리소스 프리로딩으로 플러그인 실행 속도 개선',
+        description: '리소스 프리로딩·지연 로딩·캐시 정책으로 초기 실행 지연 감소',
       },
       {
-        name: 'API 통신 속도',
+        name: '통신 왕복 시간',
         improvement: '45%',
-        description: '메시지 API 최적화 및 데이터 압축으로 네이티브-웹 통신 속도 향상',
+        description: '메시지 API 경량화·페이로드 압축으로 네이티브↔웹 RTT 단축',
+      },
+      {
+        name: '목록 렌더 성능',
+        improvement: '50%',
+        description: '페이지네이션·가상 스크롤·메모이제이션으로 리스트 렌더 최적화',
       },
     ],
 
@@ -156,9 +181,14 @@ export const inAppPlugin: Project = {
     //    - 커버리지
     testing: [
       {
-        name: '',
-        description: '',
-        coverage: 0,
+        name: '권한/버전 유닛 테스트',
+        description: '버전 규칙·키 검증 유틸, 업로드 검증 로직 단위 테스트',
+        coverage: 70,
+      },
+      {
+        name: '검색 통합 테스트',
+        description: '색인→검색→결과 정합성 시나리오 테스트',
+        coverage: 50,
       },
     ],
 
@@ -167,8 +197,17 @@ export const inAppPlugin: Project = {
     //    - 해결 과정
     challenges: [
       {
-        problem: '',
-        solution: '',
+        problem: 'WebView와 네이티브 간 API 설계 미정·보안 우려',
+        solution:
+          '메시지 스펙/에러 코드 표준화, 단기 토큰·오리진 검증·속성 서명으로 보안 강화',
+      },
+      {
+        problem: '관리자 권한(superAdmin/admin) 응답 스키마 변경(WGSD-714)',
+        solution: '권한 체크 로직 분기·타입 보강, API 응답 필드 구체화 대응',
+      },
+      {
+        problem: '플러그인 메타 스키마 불일치로 검색 품질 저하',
+        solution: '필수 필드 표준화, 마이그레이션 스크립트로 일괄 정리, 색인 재생성',
       },
     ],
 
@@ -176,17 +215,16 @@ export const inAppPlugin: Project = {
     //    - 학습한 점
     //    - 향후 개선 사항
     learnings: [
-      'WebView와 네이티브 앱 간 메시지 API를 활용한 양방향 통신 구현으로 하이브리드 앱 개발 역량 향상',
-      'Pyscript를 활용한 Python/JavaScript 연동으로 복잡한 엔지니어링 계산 처리 최적화 경험',
-      '시맨틱 버저닝(Semantic Versioning) 기반의 플러그인 버전 관리 시스템 설계 및 구현',
-      'OpenSearch의 KeyWord/Semantic 검색 기능 구현으로 검색 엔진 최적화 및 사용자 경험 개선',
-      'AWS S3와 MariaDB를 활용한 플러그인 저장소 설계로 클라우드 인프라 활용 능력 습득',
-      'React Build 파일 압축 및 업로드 기능 구현으로 formData 형식의 파일 전송&저장 경험',
-      '페이지네이션과 지연 로딩을 활용한 대규모 플러그인 목록의 성능 최적화 구현',
-      '사용자 인증 및 권한 관리 시스템 구축으로 보안 설계 역량 강화',
-      '플러그인 컨텐츠 버전 관리 시스템 설계 및 구현 경험',
+      'WebView↔네이티브 메시지 API 설계/보안 및 로그 파이프라인 구축',
+      '시맨틱 버전/매핑·파서 설계와 표기 규칙 수립',
+      'OpenSearch 색인/쿼리 튜닝 및 UX 지표 기반 개선 사이클 운영',
+      'PostCSS/Tailwind 빌드 체인 구성과 배포 파이프라인 적용',
     ],
-    futureImprovements: [''],
+    futureImprovements: [
+      '플러그인 텔레메트리/AB 테스트로 추천 품질 향상',
+      '개발자용 CLI/SDK 제공으로 배포 자동화 강화',
+      '워크스페이스 기반 권한·과금 정책 고도화',
+    ],
 
     // 10. Screenshots
     //    - 주요 화면 캡처
@@ -205,12 +243,20 @@ export const inAppPlugin: Project = {
         description: '플러그인 상세 페이지',
       },
       {
+        url: '/images/projects/project_in_app_plugin/screenshots/in_app_plugin_contents1.png',
+        description: '컨텐츠 페이지 1',
+      },
+      {
         url: '/images/projects/project_in_app_plugin/screenshots/in_app_plugin_contents2.png',
         description: '컨텐츠 페이지',
       },
       {
         url: '/images/projects/project_in_app_plugin/screenshots/in_app_plugin_saved_plugin.png',
         description: '저장된 플러그인 페이지',
+      },
+      {
+        url: '/images/projects/project_in_app_plugin/screenshots/in_app_plugin_result.png',
+        description: '결과 화면',
       },
     ],
   },

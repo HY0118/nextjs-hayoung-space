@@ -9,10 +9,10 @@ import { motiveTools } from '@constants/projects/motive-tools';
 export const projects = [
   motiveTools,
   motiveDesignEditor,
-  moauiPlayground,
-  moauiCRATemplate,
-  moauiDesignSystem,
   inAppPlugin,
+  moauiDesignSystem,
+  moauiCRATemplate,
+  moauiPlayground,
   apiBeta,
 ];
 
