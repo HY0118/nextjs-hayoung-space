@@ -30,7 +30,7 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-100 group-hover:scale-105"
+          className={`${project.imageFit === 'contain' ? 'object-contain p-6 bg-white' : 'object-cover'} transition-transform duration-100 group-hover:scale-105`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>

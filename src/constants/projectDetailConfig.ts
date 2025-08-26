@@ -7,7 +7,7 @@ export const PROJECT_DETAIL_CONFIG = {
     performance: 3,
     learnings: 3,
     futureImprovements: 3,
-    screenshots: 6,
+    screenshots: 8,
   },
   preload: {
     screenshotsCount: 2,
