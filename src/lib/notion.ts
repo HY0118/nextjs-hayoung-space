@@ -2,13 +2,14 @@
 import { EXTRA_NOTION_PAGE_URLS } from '@constants/extraNotionPageUrls';
 import { Client } from '@notionhq/client';
 
-// 환경 변수 확인
-if (!process.env.NOTION_TOKEN) {
-  throw new Error('NOTION_TOKEN 환경 변수가 설정되지 않았습니다.');
-}
+import { getMarkdownPost, getMarkdownPosts } from './markdown';
+
+// Notion 사용 가능 여부
+const NOTION_ENABLED = Boolean(process.env.NOTION_TOKEN);
 
 // DB ID는 다중 지원: NOTION_DATABASE_IDS(콤마), 없으면 NOTION_DATABASE_ID + NOTION_ADDITIONAL_DATABASE_IDS
 const databaseIds: string[] = (() => {
+  if (!NOTION_ENABLED) return [];
   const idsEnv = process.env.NOTION_DATABASE_IDS;
   if (idsEnv && idsEnv.trim().length > 0) {
     return idsEnv
@@ -42,10 +43,12 @@ const extraPageIds: string[] = Array.from(
   new Set([...extraPageIdsFromIds, ...extraPageIdsFromUrls]),
 );
 
-// Notion 클라이언트 초기화
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
+// Notion 클라이언트 초기화 (옵셔널)
+const notion: Client | null = NOTION_ENABLED
+  ? new Client({
+      auth: process.env.NOTION_TOKEN,
+    })
+  : null;
 
 // 유틸: Notion URL에서 32자 ID 추출
 function extractNotionId(input: string): string | null {
@@ -65,15 +68,16 @@ function slugify(input: string): string {
 // 유틸: DB query 전체 페이지네이션 수집
 async function queryAll(
   dbId: string,
-  args: Omit<Parameters<typeof notion.databases.query>[0], 'database_id'>,
+  args: Omit<Parameters<Client['databases']['query']>[0], 'database_id'>,
 ) {
+  if (!NOTION_ENABLED || !notion) return [] as any[];
   let cursor: string | undefined;
   const results: any[] = [];
   do {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const resp = await notion.databases.query({
+      const resp = await (notion as Client).databases.query({
         ...args,
         database_id: dbId,
         start_cursor: cursor,
@@ -100,7 +104,8 @@ export interface BlogPost {
   projectName?: string; // 프로젝트명(있으면 project로 분류)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any; // Notion 블록 컨텐츠
-  source?: 'db' | 'extra';
+  mdContentRaw?: string; // Markdown 원문
+  source?: 'db' | 'extra' | 'md';
 }
 
 // DB 속성 키
@@ -127,7 +132,7 @@ function pickFirst<T = any>(
   return undefined;
 }
 
-function mapDbPageToPost(page: any): Omit<BlogPost, 'content'> {
+function mapDbPageToPost(page: any): Omit<BlogPost, 'content' | 'mdContentRaw'> {
   const p = page.properties || {};
   const title =
     pickFirst<string>(p, TITLE_KEYS, (v) => v?.title?.[0]?.plain_text) || '제목 없음';
@@ -174,9 +179,10 @@ function mapDbPageToPost(page: any): Omit<BlogPost, 'content'> {
 
 async function mapExtraPageToPost(
   pageId: string,
-): Promise<Omit<BlogPost, 'content'> | null> {
+): Promise<Omit<BlogPost, 'content' | 'mdContentRaw'> | null> {
+  if (!NOTION_ENABLED || !notion) return null;
   try {
-    const page = await notion.pages.retrieve({ page_id: pageId });
+    const page = await (notion as Client).pages.retrieve({ page_id: pageId });
     const p: any = (page as any).properties || {};
     // 비-DB 페이지의 제목은 일반적으로 'title' 속성에 들어있음
     const title =
@@ -206,9 +212,28 @@ async function mapExtraPageToPost(
   }
 }
 
-// 데이터베이스에서 모든 블로그 포스트 가져오기 (다중 DB + 페이지네이션 + 추가 페이지)
+// 데이터베이스에서 모든 블로그 포스트 가져오기 (다중 DB + 페이지네이션 + 추가 페이지 + MD)
 export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
+    // Notion 비활성화면 MD만 반환
+    if (!NOTION_ENABLED || !notion) {
+      const mdPosts = await getMarkdownPosts();
+      const mdMapped: Omit<BlogPost, 'content' | 'mdContentRaw'>[] = mdPosts.map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        summary: p.summary,
+        publishedDate: p.publishedDate,
+        tags: p.tags,
+        featured: p.featured,
+        postType: 'note',
+        source: 'md',
+      }));
+      return mdMapped.sort((a, b) =>
+        (b.publishedDate || '').localeCompare(a.publishedDate || ''),
+      );
+    }
+
     const publishedFilter = {
       property: 'Published',
       checkbox: { equals: true },
@@ -223,9 +248,26 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const dbPosts = dbPages.map(mapDbPageToPost);
 
     const extraPostsRaw = await Promise.all(extraPageIds.map(mapExtraPageToPost));
-    const extraPosts = extraPostsRaw.filter(Boolean) as Omit<BlogPost, 'content'>[];
+    const extraPosts = extraPostsRaw.filter(Boolean) as Omit<
+      BlogPost,
+      'content' | 'mdContentRaw'
+    >[];
 
-    const all = [...dbPosts, ...extraPosts].sort((a, b) =>
+    // MD 포스트 병합
+    const mdPosts = await getMarkdownPosts();
+    const mdMapped: Omit<BlogPost, 'content' | 'mdContentRaw'>[] = mdPosts.map((p) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      summary: p.summary,
+      publishedDate: p.publishedDate,
+      tags: p.tags,
+      featured: p.featured,
+      postType: 'note',
+      source: 'md',
+    }));
+
+    const all = [...dbPosts, ...extraPosts, ...mdMapped].sort((a, b) =>
       (b.publishedDate || '').localeCompare(a.publishedDate || ''),
     );
     return all;
@@ -236,7 +278,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         id: 'dummy-1',
         title: '블로그 설정이 필요합니다',
         slug: 'setup-required',
-        summary: 'Notion API 설정을 완료하면 실제 블로그 포스트를 볼 수 있습니다.',
+        summary:
+          'Notion API 또는 Markdown 설정을 완료하면 실제 블로그 포스트를 볼 수 있습니다.',
         publishedDate: new Date().toISOString(),
         tags: ['설정'],
         featured: true,
@@ -246,24 +289,42 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   }
 }
 
-// 특정 블로그 포스트의 상세 내용 가져오기 (다중 DB + 추가 페이지)
+// 특정 블로그 포스트의 상세 내용 가져오기 (다중 DB + 추가 페이지 + MD)
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   const startTime = Date.now();
   console.log(`🔍 [Notion API] ${slug} 포스트 조회 시작`);
   try {
+    // Notion 비활성화면 MD에서만 조회
+    if (!NOTION_ENABLED || !notion) {
+      const md = await getMarkdownPost(slug);
+      if (!md) return null;
+      return {
+        id: md.id,
+        title: md.title,
+        slug: md.slug,
+        summary: md.summary,
+        publishedDate: md.publishedDate,
+        tags: md.tags,
+        featured: md.featured,
+        postType: 'note',
+        mdContentRaw: md.contentRaw,
+        source: 'md',
+      } as BlogPost;
+    }
+
     // 자식 블록 전체 수집(페이지네이션 + 재귀)
     const listAllBlocks = async (blockId: string): Promise<any[]> => {
       const all: any[] = [];
       let cursor: string | undefined = undefined;
       do {
-        const res = await notion.blocks.children.list({
+        const res = await (notion as Client).blocks.children.list({
           block_id: blockId,
           start_cursor: cursor,
         });
         for (const b of res.results as any[]) {
-          if (b.has_children) {
+          if ((b as any).has_children) {
             try {
-              (b as any).children = await listAllBlocks(b.id);
+              (b as any).children = await listAllBlocks((b as any).id);
             } catch {
               (b as any).children = [];
             }
@@ -276,7 +337,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     };
     // 1) 모든 DB에서 slug로 조회
     for (const dbId of databaseIds) {
-      const resp = await notion.databases.query({
+      const resp = await (notion as Client).databases.query({
         database_id: dbId,
         filter: {
           and: [
@@ -302,6 +363,23 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       }
     }
 
+    // 3) MD 파일에서 조회
+    const md = await getMarkdownPost(slug);
+    if (md) {
+      return {
+        id: md.id,
+        title: md.title,
+        slug: md.slug,
+        summary: md.summary,
+        publishedDate: md.publishedDate,
+        tags: md.tags,
+        featured: md.featured,
+        postType: 'note',
+        mdContentRaw: md.contentRaw,
+        source: 'md',
+      } as BlogPost;
+    }
+
     console.log(`❌ [Notion API] ${slug} 포스트를 찾을 수 없음`);
     return null;
   } catch (error) {
@@ -314,9 +392,10 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 // 태그별 블로그 포스트 가져오기 (다중 DB)
 export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
   try {
+    if (!NOTION_ENABLED || !notion) return [];
     const pagesArrays = await Promise.all(
       databaseIds.map((id) =>
-        notion.databases.query({
+        (notion as Client).databases.query({
           database_id: id,
           filter: {
             and: [
@@ -340,6 +419,7 @@ export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
 // 모든 태그 가져오기 (다중 DB)
 export async function getAllTags(): Promise<string[]> {
   try {
+    if (!NOTION_ENABLED || !notion) return [];
     const allTags = new Set<string>();
 
     for (const id of databaseIds) {

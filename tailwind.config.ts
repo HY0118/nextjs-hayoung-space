@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import typography from '@tailwindcss/typography';
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
   darkMode: ['class', '[data-theme="dark"]'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -30,12 +32,12 @@ module.exports = {
       },
       keyframes: {
         blink: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0 },
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
         },
         fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
       },
       animation: {
@@ -51,5 +53,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [typography],
 };
+
+export default config;
