@@ -136,11 +136,11 @@ export const motiveTools: Project = {
         description: '메인 페이지',
       },
       {
-        url: '/images/projects/project_tools/screenshots/tools_design_tool.png',
+        url: '/images/projects/project_tools/screenshots/tools_design_application.png',
         description: 'Design Tool - Fundamental Basic Wind Velocity Map',
       },
       {
-        url: '/images/projects/project_tools/screenshots/tools_design_tool2.png',
+        url: '/images/projects/project_tools/screenshots/tools_design_application2.png',
         description: 'Design Tool - Concrete Material Suite for Eurocode',
       },
       {

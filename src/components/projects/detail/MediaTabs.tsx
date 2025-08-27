@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import ScreenshotGrid from '@/components/projects/detail/ScreenshotGrid';
 import VideoGifMedia from '@/components/projects/detail/VideoGifMedia';
@@ -32,10 +32,10 @@ const MediaTabs = ({
         <button
           type="button"
           onClick={() => onChangeTab('screenshots')}
-          className={`px-3 py-1.5 rounded-md text-sm border transition-colors ${
+          className={`px-3 py-1.5 rounded-md text-sm border transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
             activeTab === 'screenshots'
-              ? 'bg-primary text-white border-primary'
-              : 'bg-gray-100 dark:bg-gray-800 text-text-secondary border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700'
+              ? 'bg-primary text-white border-primary shadow-sm'
+              : 'bg-gray-50 dark:bg-gray-900/40 text-black dark:text-white border-gray-200 dark:border-gray-700 hover:bg-gray-200/70 dark:hover:bg-gray-700/70 shadow-[inset_0_-2px_0_0_rgba(0,0,0,0.04)]'
           }`}
         >
           Screenshots
@@ -44,32 +44,49 @@ const MediaTabs = ({
           <button
             type="button"
             onClick={() => onChangeTab('video')}
-            className={`px-3 py-1.5 rounded-md text-sm border transition-colors ${
+            className={`px-3 py-1.5 rounded-md text-sm border transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
               activeTab === 'video'
-                ? 'bg-primary text-white border-primary'
-                : 'bg-gray-100 dark:bg-gray-800 text-text-secondary border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'bg-primary text-white border-primary shadow-sm'
+                : 'bg-gray-50 dark:bg-gray-900/40 text-black dark:text-white border-gray-200 dark:border-gray-700 hover:bg-gray-200/70 dark:hover:bg-gray-700/70 shadow-[inset_0_-2px_0_0_rgba(0,0,0,0.04)]'
             }`}
-            aria-label="Video or GIF"
-            title="Video/GIF"
+            aria-label="Video"
+            title="Video"
           >
-            Video/GIF
+            Video
           </button>
         )}
       </div>
 
-      {/* Tab Panels */}
-      {activeTab === 'screenshots' && (
-        <ScreenshotGrid
-          screenshots={screenshots}
-          onOpenViewer={onOpenViewer}
-          onPreload={onPreload}
-        />
-      )}
-      {activeTab === 'video' && hasVideoOrGif && (
-        <div className="aspect-video w-full h-full rounded-xl overflow-hidden shadow-lg">
-          <VideoGifMedia project={project} />
-        </div>
-      )}
+      {/* Tab Panels with symmetric transition */}
+      <AnimatePresence mode="wait">
+        {activeTab === 'screenshots' && (
+          <motion.div
+            key="screenshots"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+          >
+            <ScreenshotGrid
+              screenshots={screenshots}
+              onOpenViewer={onOpenViewer}
+              onPreload={onPreload}
+            />
+          </motion.div>
+        )}
+        {activeTab === 'video' && hasVideoOrGif && (
+          <motion.div
+            key="video"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="aspect-video w-full h-full rounded-xl overflow-hidden shadow-lg"
+          >
+            <VideoGifMedia project={project} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

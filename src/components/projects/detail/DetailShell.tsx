@@ -32,12 +32,18 @@ const DetailShell = ({
       )}
       style={{ marginTop }}
     >
-      <div className={cn('sticky top-0 z-10', backgroundClassName, 'border-b border-border')}>
-        <div className={cn(maxWidthClassName, 'mx-auto', headerPaddingClassName)}>{header}</div>
+      <div
+        className={cn('sticky top-0 z-10', backgroundClassName, 'border-b border-border')}
+      >
+        <div className={cn(maxWidthClassName, 'mx-auto', headerPaddingClassName)}>
+          {header}
+        </div>
       </div>
 
       <div className={cn('flex-1 overflow-y-auto overscroll-contain')}>
-        <div className={cn(maxWidthClassName, 'mx-auto', contentPaddingClassName)}>{children}</div>
+        <div className={cn(maxWidthClassName, 'mx-auto', contentPaddingClassName)}>
+          {children}
+        </div>
       </div>
     </motion.div>
   );

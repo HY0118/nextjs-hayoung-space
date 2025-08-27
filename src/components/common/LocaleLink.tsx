@@ -42,7 +42,10 @@ export default function LocaleLink({ to, children, ...rest }: Props) {
 
   const href = computeHref();
   return (
-    <Link href={href as LinkProps['href']} {...rest}>
+    <Link
+      href={href as LinkProps['href']}
+      {...rest}
+    >
       {children}
     </Link>
   );

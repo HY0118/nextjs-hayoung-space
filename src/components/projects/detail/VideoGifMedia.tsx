@@ -6,7 +6,8 @@ import type { DemoMediaProps } from '@interfaces/projectDetail';
 import { motion } from 'framer-motion';
 
 const VideoGifMedia = ({ project }: DemoMediaProps) => {
-  if (project.details.demoVideo) {
+  const mp4 = project.details.demoVideo?.mp4?.trim();
+  if (mp4) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -21,9 +22,9 @@ const VideoGifMedia = ({ project }: DemoMediaProps) => {
           playsInline
           className="w-full h-full object-cover transform hover:scale-[1.02] transition-transform duration-300"
         >
-          {project.details.demoVideo.mp4 && (
+          {mp4 && (
             <source
-              src={project.details.demoVideo.mp4}
+              src={mp4}
               type="video/mp4"
             />
           )}
@@ -47,6 +48,7 @@ const VideoGifMedia = ({ project }: DemoMediaProps) => {
           className="object-cover transform hover:scale-[1.02] transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           quality={100}
+          unoptimized
         />
       </motion.div>
     );

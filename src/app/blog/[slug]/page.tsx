@@ -5,6 +5,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { getBlogPost, getBlogPosts } from '@lib/notion';
+import { Highlight, themes } from 'prism-react-renderer';
+import type { Language } from 'prism-react-renderer';
+import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeRaw from 'rehype-raw';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
 
 import BlogPageWrapper from '@/components/blog/BlogPageWrapper';
 import NotionRenderer from '@/components/blog/NotionRenderer';
@@ -59,6 +67,53 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
+interface CodeBlockProps {
+  inline?: boolean;
+  className?: string;
+  children: string;
+}
+
+function CodeBlock({ inline, className, children }: CodeBlockProps) {
+  const code = children;
+  const match = /language-(\w+)/.exec(className || '');
+  const language = ((match?.[1] as Language) || ('tsx' as Language)) as Language;
+
+  if (inline) {
+    return (
+      <code className="px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800">{code}</code>
+    );
+  }
+
+  return (
+    <Highlight
+      code={code.trim()}
+      language={language}
+      theme={themes.github}
+    >
+      {({ className: cn, style, tokens, getLineProps, getTokenProps }) => (
+        <pre
+          className={`${cn} my-4 rounded-lg p-4 overflow-auto`}
+          style={style}
+        >
+          {tokens.map((line, i) => (
+            <div
+              key={i}
+              {...getLineProps({ line })}
+            >
+              {line.map((token, key) => (
+                <span
+                  key={key}
+                  {...getTokenProps({ token })}
+                />
+              ))}
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight>
+  );
+}
+
 async function PostArticle({ slug }: { slug: string }) {
   const post = await getCachedBlogPost(slug);
   if (!post) {
@@ -72,6 +127,56 @@ async function PostArticle({ slug }: { slug: string }) {
       day: 'numeric',
       timeZone: 'Asia/Seoul',
     });
+  };
+
+  const shouldShowPageTitle = !(
+    post.source === 'md' &&
+    typeof post.mdContentRaw === 'string' &&
+    /^\s*#\s+/.test(post.mdContentRaw)
+  );
+
+  const CodeRenderer: Components['code'] = (props) => {
+    const className = (props as { className?: string }).className;
+    const content = String(props.children ?? '');
+    const explicitInline = (props as { inline?: boolean }).inline;
+    const isInline = explicitInline === true || !/\n/.test(content);
+    return (
+      <CodeBlock
+        inline={isInline}
+        className={className}
+      >
+        {content}
+      </CodeBlock>
+    );
+  };
+
+  const markdownComponents: Components = {
+    code: CodeRenderer,
+    a({ href, children }) {
+      return (
+        <a
+          href={String(href)}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary underline underline-offset-2"
+        >
+          {children}
+        </a>
+      );
+    },
+    table({ children }) {
+      return <table className="table-auto border-collapse w-full my-4">{children}</table>;
+    },
+    th({ children }) {
+      return (
+        <th className="px-3 py-2 text-left bg-gray-50 dark:bg-gray-800 border border-border">
+          {children}
+        </th>
+      );
+    },
+    td({ children }) {
+      return <td className="px-3 py-2 border border-border align-top">{children}</td>;
+    },
   };
 
   return (
@@ -100,11 +205,13 @@ async function PostArticle({ slug }: { slug: string }) {
           ))}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-          {post.title}
-        </h1>
+        {shouldShowPageTitle && (
+          <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
+            {post.title}
+          </h1>
+        )}
 
-        {post.summary && (
+        {post.summary && shouldShowPageTitle && (
           <p className="text-xl text-text-secondary mb-6">{post.summary}</p>
         )}
 
@@ -123,13 +230,34 @@ async function PostArticle({ slug }: { slug: string }) {
               Notion Page
             </span>
           )}
+          {post.source === 'md' && (
+            <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded">
+              Markdown
+            </span>
+          )}
         </div>
       </header>
 
       {/* Content */}
-      <div className="prose prose-lg max-w-none">
-        {post.content && <NotionRenderer blocks={post.content} />}
-      </div>
+      {post.source === 'md' && post.mdContentRaw ? (
+        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-pre:rounded-lg prose-pre:shadow-sm prose-code:before:content-none prose-code:after:content-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[
+              rehypeRaw,
+              rehypeSlug,
+              [rehypeAutolinkHeadings, { behavior: 'append' }],
+            ]}
+            components={markdownComponents}
+          >
+            {post.mdContentRaw}
+          </ReactMarkdown>
+        </div>
+      ) : (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          {post.content && <NotionRenderer blocks={post.content} />}
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="mt-16 pt-8 border-t border-border">
