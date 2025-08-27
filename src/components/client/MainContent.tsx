@@ -58,53 +58,59 @@ export default function MainContent() {
 
   return (
     <>
-      <LandingSelector />
-      <AnimatePresence mode="wait">
-        {shouldShowTypeWriter ? (
-          <motion.div
-            key="intro"
-            className="min-h-screen flex items-center justify-center"
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-          >
-            <TypeWriter
-              onComplete={() => {
-                setTimeout(() => {
-                  setIntroComplete(true);
-                }, 500);
-              }}
-            />
-          </motion.div>
-        ) : isIntroComplete ? (
-          <motion.main
-            key="content"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Suspense fallback={<Spinner />}>
-              <About />
-            </Suspense>
-            <Suspense fallback={<Spinner />}>
-              <Skills />
-            </Suspense>
-            <Suspense fallback={<Spinner />}>
-              <Projects />
-            </Suspense>
-            <Suspense fallback={<Spinner />}>
-              <Contact />
-            </Suspense>
-          </motion.main>
-        ) : (
-          // 랜딩 선택이 열려있는 동안에는 인트로를 시작하지 않고 대기
-          <motion.div
-            key="intro-wait"
-            className="min-h-screen"
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-          />
-        )}
-      </AnimatePresence>
+      {isLandingOpen ? (
+        <LandingSelector />
+      ) : (
+        <>
+          <LandingSelector />
+          <AnimatePresence mode="wait">
+            {shouldShowTypeWriter ? (
+              <motion.div
+                key="intro"
+                className="min-h-screen flex items-center justify-center"
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <TypeWriter
+                  onComplete={() => {
+                    setTimeout(() => {
+                      setIntroComplete(true);
+                    }, 500);
+                  }}
+                />
+              </motion.div>
+            ) : isIntroComplete ? (
+              <motion.main
+                key="content"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Suspense fallback={<Spinner />}>
+                  <About />
+                </Suspense>
+                <Suspense fallback={<Spinner />}>
+                  <Skills />
+                </Suspense>
+                <Suspense fallback={<Spinner />}>
+                  <Projects />
+                </Suspense>
+                <Suspense fallback={<Spinner />}>
+                  <Contact />
+                </Suspense>
+              </motion.main>
+            ) : (
+              // 랜딩 선택이 열려있는 동안에는 인트로를 시작하지 않고 대기
+              <motion.div
+                key="intro-wait"
+                className="min-h-screen"
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              />
+            )}
+          </AnimatePresence>
+        </>
+      )}
     </>
   );
 }
