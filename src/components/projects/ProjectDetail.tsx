@@ -25,9 +25,9 @@ import { createCloseProjectDetailHandler } from '@/lib/detailHandlers';
 
 import { PROJECT_DETAIL_CONFIG } from '@/constants/projectDetailConfig';
 
-import type { MediaTab } from '@/interfaces/projectDetail';
+import type { MediaTab, ProjectDetailProps } from '@/interfaces/projectDetail';
 
-const ProjectDetail = () => {
+const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) => {
   const { selectedProject, closeDetail, setSelectedProject } = useProjectStore();
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const [showDetails, setShowDetails] = useState(false);
@@ -51,10 +51,12 @@ const ProjectDetail = () => {
     selectedProject.details.images.slice(0, 2).forEach((img) => preloadImage(img.url));
   }, [selectedProject, preloadImage]);
 
+  const variant = propVariant;
   const handleClose = createCloseProjectDetailHandler({
     closeDetail,
     setSelectedProject,
     closeModal,
+    useHistory: variant !== 'modal',
   });
   const {
     achievements,
@@ -78,11 +80,16 @@ const ProjectDetail = () => {
             onClose={handleClose}
           />
         }
-        marginTop={PROJECT_DETAIL_CONFIG.layout.marginTop}
         backgroundClassName={PROJECT_DETAIL_CONFIG.layout.backgroundClassName}
         headerPaddingClassName={PROJECT_DETAIL_CONFIG.layout.headerPaddingClassName}
         contentPaddingClassName={`${PROJECT_DETAIL_CONFIG.layout.contentPaddingClassName} `}
-        maxWidthClassName={PROJECT_DETAIL_CONFIG.layout.maxWidthClassName}
+        maxWidthClassName={
+          variant === 'modal'
+            ? 'max-w-6xl'
+            : PROJECT_DETAIL_CONFIG.layout.maxWidthClassName
+        }
+        className="z-50"
+        variant={variant}
       >
         {/* Essentials: Overview */}
         <Overview text={selectedProject.details.overview} />

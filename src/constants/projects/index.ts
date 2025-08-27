@@ -1,4 +1,3 @@
-import { apiBeta } from '@constants/projects/api-beta';
 import { inAppPlugin } from '@constants/projects/in-app-plugin';
 import { moauiCRATemplate } from '@constants/projects/moaui-cra-template';
 import { moauiDesignSystem } from '@constants/projects/moaui-design-system';
@@ -13,7 +12,6 @@ export const projects = [
   moauiDesignSystem,
   moauiCRATemplate,
   moauiPlayground,
-  apiBeta,
 ];
 
 export {
@@ -23,5 +21,4 @@ export {
   moauiCRATemplate,
   moauiDesignSystem,
   inAppPlugin,
-  apiBeta,
 };

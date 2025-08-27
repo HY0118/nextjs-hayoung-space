@@ -95,4 +95,9 @@ export interface DetailShellProps {
   headerPaddingClassName?: string; // ex) "px-8 py-6"
   contentPaddingClassName?: string; // ex) "px-8 py-12"
   maxWidthClassName?: string; // ex) "max-w-7xl"
+  variant?: 'panel' | 'modal';
+}
+
+export interface ProjectDetailProps {
+  variant?: 'panel' | 'modal';
 }

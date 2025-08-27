@@ -1,7 +1,7 @@
 import type { WhatIBringItem } from '@/interfaces/quickPortfolio';
 
 export const whatIBringItems: WhatIBringItem[] = [
-  'React/TS 기반 사용자 여정 인터랙션 설계',
-  '복잡한 UI 상태 관리와 성능 최적화 (메모리/렌더링)',
-  '디자인-개발 협업 환경 정비 및 문서화',
+  '복잡 UI 상태 모델링 · 성능 최적화(메모리/리렌더)',
+  '데이터 중심 UI(JSON Schema) · 구성 가능한 컴포넌트',
+  '디자인 시스템 운영 · 토큰/컴포넌트 표준화 · 문서화',
 ];

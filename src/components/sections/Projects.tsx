@@ -14,7 +14,7 @@ import { projects } from '@/constants/projects';
 import type { Project } from '@/interfaces/project';
 
 const Projects = () => {
-  const { setSelectedProject, openDetail, isDetailOpen } = useProjectStore();
+  const { setSelectedProject, openDetail, isDetailOpen, detailMode } = useProjectStore();
 
   useEffect(() => {
     if (isDetailOpen) {
@@ -59,7 +59,7 @@ const Projects = () => {
           requestAnimationFrame(animateScroll);
         } else {
           setTimeout(() => {
-            openDetail();
+            openDetail('panel');
             resolve();
           }, 50);
         }
@@ -81,7 +81,7 @@ const Projects = () => {
         const project = projects.find((p) => p.id === event.state.projectId);
         if (project) {
           setSelectedProject(project);
-          openDetail();
+          openDetail('panel');
         }
       }
     };
@@ -130,7 +130,7 @@ const Projects = () => {
         </div>
       </div>
       <AnimatePresence>
-        {isDetailOpen && (
+        {isDetailOpen && detailMode === 'panel' && (
           <motion.div
             key="project-detail-motion-div"
             initial={{ opacity: 0, x: '100%' }}

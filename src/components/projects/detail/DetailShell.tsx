@@ -8,7 +8,7 @@ import type { DetailShellProps } from '@/interfaces/projectDetail';
 
 const DetailShell = ({
   header,
-  marginTop = '73px',
+  marginTop = '0px',
   children,
   className,
   backgroundClassName = 'bg-white dark:bg-background',
@@ -16,7 +16,46 @@ const DetailShell = ({
   headerPaddingClassName = 'px-8 py-6',
   contentPaddingClassName = 'px-8 py-12',
   maxWidthClassName = 'max-w-7xl',
+  variant = 'panel',
 }: DetailShellProps) => {
+  if (variant === 'modal') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.98 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className={cn(
+          'fixed inset-0 z-50 flex items-start justify-center p-4 md:p-6 overflow-hidden',
+          className,
+        )}
+      >
+        <div
+          className={cn(
+            backgroundClassName,
+            'w-full',
+            'rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden mt-6 md:mt-10',
+            maxWidthClassName,
+          )}
+        >
+          <div className={cn('border-b border-border', headerPaddingClassName)}>
+            {header}
+          </div>
+          {/* Scroll area lives inside container to keep scrollbar within rounded corners */}
+          <div
+            className={cn(
+              'max-h-[75vh] overflow-y-auto transparent-scrollbar',
+              '[scrollbar-gutter:stable]',
+              'pr-3 -mr-3',
+            )}
+          >
+            <div className={cn(contentPaddingClassName)}>{children}</div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 100 }}

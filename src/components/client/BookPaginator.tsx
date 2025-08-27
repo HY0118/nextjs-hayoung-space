@@ -243,20 +243,22 @@ export default function BookPaginator({
 
       {/* Controls */}
       <div className="absolute bottom-0 right-6 z-10 flex items-center gap-2">
-        <button
-          onClick={handlePrev}
-          disabled={!canPrev}
-          className="px-3 py-1.5 rounded-lg border border-border/40 bg-background/80 disabled:opacity-40"
-        >
-          ← Prev
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={!canNext}
-          className="px-3 py-1.5 rounded-lg border border-border/40 bg-background/80 disabled:opacity-40"
-        >
-          Next →
-        </button>
+        {canPrev && (
+          <button
+            onClick={handlePrev}
+            className="px-3 py-1.5 rounded-lg border border-border/40 bg-background/80"
+          >
+            ← Prev
+          </button>
+        )}
+        {canNext && (
+          <button
+            onClick={handleNext}
+            className="px-3 py-1.5 rounded-lg border border-border/40 bg-background/80"
+          >
+            Next →
+          </button>
+        )}
       </div>
 
       {/* Hidden measuring column: same width as a single column */}

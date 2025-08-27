@@ -23,14 +23,14 @@ export default function Profile() {
           />
         </div>
         <div>
-          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary font-sora">
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary font-pret">
             이하영 · 프론트엔드 개발자
           </h2>
           <p className="text-text-secondary mt-2 font-pret">
             사용자 경험 중심 · React, Next.js, TypeScript
           </p>
           <div className="mt-4">
-            <h3 className="text-xs font-semibold tracking-[0.2em] text-text-secondary/80">
+            <h3 className="text-sm font-semibold tracking-[0.2em] text-text-secondary/80 font-pret">
               EMPLOYMENT
             </h3>
             <ul className="mt-2 grid grid-cols-[100px_minmax(150px,1fr)_minmax(160px,1fr)_auto] md:grid-cols-[120px_minmax(190px,1fr)_minmax(190px,1fr)_auto] gap-x-3 md:gap-x-4 gap-y-2 text-sm md:text-base font-pret">
@@ -49,9 +49,9 @@ export default function Profile() {
                     </span>
                     <span className="text-left">{formatDate(item.end)}</span>
                   </div>
-                  <span className="text-text-primary">{item.company}</span>
-                  <span className="text-text-primary">{item.dept}</span>
-                  <span className="text-text-primary">{item.position}</span>
+                  <span className="text-text-primary font-pret">{item.company}</span>
+                  <span className="text-text-primary font-pret">{item.dept}</span>
+                  <span className="text-text-primary font-pret">{item.position}</span>
                 </li>
               ))}
             </ul>

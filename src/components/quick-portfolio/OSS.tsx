@@ -1,10 +1,10 @@
 export default function OSS() {
   return (
-    <div className="mt-10">
-      <h3 className="text-xl md:text-2xl font-semibold text-text-primary font-sora">
-        오픈소스
+    <div className="mt-8">
+      <h3 className="text-sm font-semibold tracking-[0.2em] text-text-secondary/80 font-sora">
+        OPEN SOURCE
       </h3>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
         <div className="rounded-xl border border-border/40 p-4">
           <div className="font-semibold text-text-primary">react-aria-kit</div>
           <p className="text-text-secondary mt-1">

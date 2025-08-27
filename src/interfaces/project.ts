@@ -78,7 +78,8 @@ export interface Project {
 export interface ProjectStore {
   selectedProject: Project | null;
   isDetailOpen: boolean;
+  detailMode: 'panel' | 'modal' | null;
   setSelectedProject: (project: Project | null) => void;
-  openDetail: () => void;
+  openDetail: (mode: 'panel' | 'modal') => void;
   closeDetail: () => void;
 }

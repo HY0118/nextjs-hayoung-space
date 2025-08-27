@@ -9,7 +9,7 @@ export const moauiDesignSystem: Project = {
   tech: ['React', 'TypeScript', 'MUI', 'NPM', 'Storybook', 'Chromatic', 'Github'],
   github: 'https://github.com/midasit-dev/moaui',
   npm: 'https://www.npmjs.com/package/@midasit-dev/moaui-components-v1',
-  demo: 'https://main--6556d17f924e868b000ddaf5.chromatic.com/?path=/docs/components-chip--explore',
+  demo: 'https://main--6556d17f924e868b000ddaf5.chromatic.com/?path=/docs/welcome-moaui--explore',
 
   // Project Structure:
   details: {

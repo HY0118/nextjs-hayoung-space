@@ -21,8 +21,8 @@ export const motiveDesignEditor: Project = {
     'Anthropic API',
     'Bitbucket',
   ],
-  github: 'https://github.com/',
-  demo: 'https://demo.com',
+  github: '',
+  demo: 'https://tools.midasuser.com/ko/design-editor',
 
   // Project Structure:
   details: {

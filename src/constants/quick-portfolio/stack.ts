@@ -2,9 +2,11 @@ import type { StackName } from '@/interfaces/quickPortfolio';
 
 export const coreStacks: StackName[] = [
   'React',
-  'TypeScript',
   'Next.js',
+  'TypeScript',
+  'TanStack Query',
   'Zustand',
   'Framer Motion',
   'TailwindCSS',
+  'RJSF (react-jsonschema-form)',
 ];

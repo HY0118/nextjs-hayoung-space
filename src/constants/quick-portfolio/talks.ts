@@ -1,7 +1,11 @@
-import type { TalkOrWriting } from '@/interfaces/quickPortfolio';
+import type { TalkItem } from '@/interfaces/quickPortfolio';
 
-export const talksAndWritings: TalkOrWriting[] = [
-  '디자인 시스템에서 상태 기계(Statechart)로 인터랙션 모델링',
-  '대규모 테이블 렌더링 최적화: 가상 스크롤과 메모리 패턴',
-  '팀 온보딩을 위한 UI 프로토콜: Props, Tokens, Contracts',
+export const talksAndWritings: TalkItem[] = [
+  { title: 'moaUI Playground: 마일스톤 리뷰 및 성과 공유(사내 발표)' },
+  { title: 'Next.js 도입을 위한 사전 스터디: 설계·도입 방안 세미나(주도)' },
+  { title: 'TGC(Technical Growth Club): 연간 활동 참여 및 주제 발표' },
+  {
+    title: 'Class101: React 기초 강의 출강',
+    link: 'https://class101.net/ko/products/67da5e7d602884315493a3bd',
+  },
 ];
