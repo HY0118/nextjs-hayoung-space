@@ -4,7 +4,7 @@ export default function RecentRoles() {
       <h3 className="text-sm font-semibold tracking-[0.2em] text-text-secondary/80 font-pret">
         RECENT ROLES
       </h3>
-      <ul className="mt-3 space-y-1 text-text-primary text-base font-pret">
+      <ul className="mt-3 space-y-1 text-text-primary text-base font-pret list-disc list-inside">
         <li className="font-pret">
           웹({' '}
           <a

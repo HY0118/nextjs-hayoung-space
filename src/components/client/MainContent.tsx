@@ -48,7 +48,7 @@ export default function MainContent() {
         const project = projects.find((p) => p.id === projectId);
         if (project) {
           setSelectedProject(project);
-          openDetail();
+          openDetail('panel');
         }
       }
     }

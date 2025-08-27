@@ -1,58 +1,62 @@
-'use client';
-
-import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 import BookPaginator from '@/components/client/BookPaginator';
 import LanguageDropdown from '@/components/common/LanguageDropdown';
 import LocaleLink from '@/components/common/LocaleLink';
-import ProjectDetail from '@/components/projects/ProjectDetail';
-import CollabStyle from '@/components/quick-portfolio/CollabStyle';
-import Culture from '@/components/quick-portfolio/Culture';
-import ImpactMetrics from '@/components/quick-portfolio/ImpactMetrics';
-import Interests from '@/components/quick-portfolio/Interests';
-import Profile from '@/components/quick-portfolio/Profile';
-import Projects from '@/components/quick-portfolio/Projects';
-import RecentRoles from '@/components/quick-portfolio/RecentRoles';
-import Stack from '@/components/quick-portfolio/Stack';
-import Talks from '@/components/quick-portfolio/Talks';
-import WhatIBring from '@/components/quick-portfolio/WhatIBring';
-
-// import OSS from '@/components/quick-portfolio/OSS';
-import { useProjectStore } from '@/store/projectStore';
+import QuickPortfolioClient from '@/components/quick-portfolio/QuickPortfolioClient';
 
 import { cn } from '@/lib/cn';
 
-export const revalidate = 60;
+const Profile = dynamic(() => import('@/components/quick-portfolio/Profile'), {
+  ssr: false,
+  loading: () => null,
+});
+const RecentRoles = dynamic(() => import('@/components/quick-portfolio/RecentRoles'), {
+  ssr: false,
+  loading: () => null,
+});
+const WhatIBring = dynamic(() => import('@/components/quick-portfolio/WhatIBring'), {
+  ssr: false,
+  loading: () => null,
+});
+const ImpactMetrics = dynamic(
+  () => import('@/components/quick-portfolio/ImpactMetrics'),
+  {
+    ssr: false,
+    loading: () => null,
+  },
+);
+const CollabStyle = dynamic(() => import('@/components/quick-portfolio/CollabStyle'), {
+  ssr: false,
+  loading: () => null,
+});
+const Interests = dynamic(() => import('@/components/quick-portfolio/Interests'), {
+  ssr: false,
+  loading: () => null,
+});
+const Projects = dynamic(() => import('@/components/quick-portfolio/Projects'), {
+  ssr: false,
+  loading: () => null,
+});
+const Stack = dynamic(() => import('@/components/quick-portfolio/Stack'), {
+  ssr: false,
+  loading: () => null,
+});
+const Culture = dynamic(() => import('@/components/quick-portfolio/Culture'), {
+  ssr: false,
+  loading: () => null,
+});
+const Talks = dynamic(() => import('@/components/quick-portfolio/Talks'), {
+  ssr: false,
+  loading: () => null,
+});
+
+export const revalidate = false;
 
 export default function QuickPortfolioPage() {
-  const { isDetailOpen, closeDetail } = useProjectStore();
-
-  useEffect(() => {
-    if (!isDetailOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        closeDetail();
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [isDetailOpen, closeDetail]);
-
   return (
     <main className="h-dvh w-full overflow-hidden bg-background">
-      <section
-        className="relative h-full w-full"
-        onClick={() => {
-          const evt = new KeyboardEvent('keydown', { key: 'Escape' });
-          window.dispatchEvent(evt);
-        }}
-      >
+      <QuickPortfolioClient sectionClassName="relative h-full w-full">
         {/* 배경과 페이지 패딩 */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute -top-24 -left-24 w-[40vw] h-[40vw] rounded-full bg-primary/10 blur-3xl" />
@@ -74,7 +78,6 @@ export default function QuickPortfolioPage() {
               // 필요 시 스프레드 전환: TALKS 이후 다음 스프레드로
               spreadBreakAfter: ['talks'],
             }}
-            debug
             blocks={[
               <Profile key="profile" />,
               <RecentRoles key="recent-roles" />,
@@ -86,11 +89,8 @@ export default function QuickPortfolioPage() {
               <Stack key="stack" />,
               <Culture key="culture" />,
               <Talks key="talks" />,
-              // <OSS key="oss" />,
             ]}
           />
-
-          {/* 고정형 CTA 버튼 */}
         </div>
 
         {/* 고정형 CTA + Language */}
@@ -106,14 +106,7 @@ export default function QuickPortfolioPage() {
             홈으로
           </LocaleLink>
         </div>
-
-        {isDetailOpen && (
-          <>
-            <div className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40" />
-            <ProjectDetail variant="modal" />
-          </>
-        )}
-      </section>
+      </QuickPortfolioClient>
     </main>
   );
 }

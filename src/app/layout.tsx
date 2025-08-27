@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Outfit, Sora } from 'next/font/google';
+import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
 
 import Footer from '@components/common/Footer';
@@ -12,15 +12,15 @@ import I18nProvider from '@/app/providers/I18nProvider';
 
 import './globals.css';
 
-const outfit = Outfit({
-  subsets: ['latin'],
-  variable: '--font-outfit',
+const geistSans = localFont({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
   display: 'swap',
 });
 
-const sora = Sora({
-  subsets: ['latin'],
-  variable: '--font-sora',
+const geistMono = localFont({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
   display: 'swap',
 });
 
@@ -50,7 +50,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang={locale}
-      className={`${outfit.variable} ${sora.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
         <meta charSet="utf-8" />
