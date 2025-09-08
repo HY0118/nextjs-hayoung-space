@@ -25,7 +25,6 @@ npx lighthouse https://nextjs-hayoung-space.vercel.app --view
 
 ### **주요 페이지 링크**
 - 🏠 **홈페이지**: [https://nextjs-hayoung-space.vercel.app](https://nextjs-hayoung-space.vercel.app)
-- 📚 **블로그**: [https://nextjs-hayoung-space.vercel.app/blog](https://nextjs-hayoung-space.vercel.app/blog)
 - 💼 **간편 포트폴리오**: [https://nextjs-hayoung-space.vercel.app/quick-portfolio](https://nextjs-hayoung-space.vercel.app/quick-portfolio)
 - 🌍 **영어 버전**: [https://nextjs-hayoung-space.vercel.app/en](https://nextjs-hayoung-space.vercel.app/en)
 
@@ -59,13 +58,9 @@ graph LR
 
 ```bash
 # Vercel 환경 변수 (프로덕션)
-NOTION_API_KEY=secret_***
-NOTION_DATABASE_ID=22cd8f68147b8078833ef25cd882559d
 NEXT_PUBLIC_SITE_URL=https://nextjs-hayoung-space.vercel.app
 
 # 로컬 개발 환경 (.env.local)
-NOTION_API_KEY=your_notion_api_key
-NOTION_DATABASE_ID=your_database_id
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
@@ -78,10 +73,6 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["icn1", "nrt1"], // 아시아 리전 최적화
-  "env": {
-    "NOTION_API_KEY": "@notion-api-key",
-    "NOTION_DATABASE_ID": "@notion-database-id"
-  }
 }
 ```
 
@@ -145,24 +136,23 @@ const nextConfig: NextConfig = {
 // 정적 생성 페이지 (ISR)
 export const revalidate = 3600; // 1시간마다 재생성
 
-// 블로그 포스트 캐시 최적화
+// 정적 페이지 생성 최적화
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  // 정적으로 생성할 페이지들 정의
+  return [
+    { slug: 'about' },
+    { slug: 'projects' },
+    { slug: 'contact' },
+  ];
 }
 
 // 동적 메타데이터 생성
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
+  const { slug } = params;
   
   return {
-    title: post?.title,
-    description: post?.excerpt,
-    openGraph: {
-      images: [post?.coverImage],
-    },
+    title: `${slug} - Hayoung Space`,
+    description: '개인 포트폴리오 웹사이트',
   };
 }
 ```
@@ -343,12 +333,11 @@ export async function middleware(request: NextRequest) {
 
 ```bash
 # Vercel Secrets 관리
-vercel secrets add notion-api-key "your-secret-key"
-vercel secrets add notion-database-id "your-database-id"
+vercel secrets add site-url "https://nextjs-hayoung-space.vercel.app"
 
 # 환경별 변수 설정
-vercel env add NOTION_API_KEY production
-vercel env add NOTION_API_KEY preview
+vercel env add NEXT_PUBLIC_SITE_URL production
+vercel env add NEXT_PUBLIC_SITE_URL preview
 ```
 
 ---

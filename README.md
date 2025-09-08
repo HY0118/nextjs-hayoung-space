@@ -6,9 +6,9 @@
 [![License](https://img.shields.io/github/license/HY0118/nextjs-hayoung-space?color=important)](LICENSE)
 
 > **프론트엔드 개발자 이하영의 개인 포트폴리오 웹사이트**  
-> Next.js 15 + TypeScript + Tailwind CSS로 구현한 반응형 포트폴리오 및 블로그
+> Next.js 15 + TypeScript + Tailwind CSS로 구현한 반응형 포트폴리오
 
-## 🚀 **프로젝트 개요**
+## **프로젝트 개요**
 
 이 프로젝트는 **모듈화된 아키텍처**와 **타입 안전성**을 중시하여 개발한 개인 포트폴리오 웹사이트입니다.
 
@@ -16,29 +16,25 @@
 
 - 📱 **반응형 디자인**: 모바일/태블릿/데스크톱 최적화
 - 🎨 **인터랙티브 UI**: Framer Motion 기반 애니메이션
-- 📚 **동적 블로그**: Notion API + Markdown 하이브리드
 - 🔧 **모듈화 구조**: 역할별 분리된 깨끗한 코드베이스
 - 🌍 **다국어 지원**: i18n 기반 한국어/영어 지원
 - ⚡ **성능 최적화**: SSR, 이미지 최적화, 코드 스플릿
 
 ---
 
-## 🏗️ **아키텍처 & 폴더 구조**
+## **아키텍처 & 폴더 구조**
 
 ```
 src/
 ├── app/                    # App Router (Next.js 15)
 │   ├── [locale]/          # 다국어 라우팅
-│   ├── blog/              # 블로그 페이지
 │   └── quick-portfolio/   # 간편 포트폴리오
 ├── components/            # React 컴포넌트
 │   ├── common/           # 공통 컴포넌트
 │   ├── sections/         # 섹션별 컴포넌트
 │   ├── projects/         # 프로젝트 관련
-│   └── blog/             # 블로그 관련
 ├── utils/                # 유틸리티 함수들
 │   ├── handlers/         # 이벤트 핸들러
-│   ├── notion/           # Notion API 모듈
 │   ├── imageViewer/      # 이미지 뷰어 로직
 │   └── paginator/        # 페이지네이터 로직
 ├── interfaces/           # TypeScript 타입 정의
@@ -67,7 +63,7 @@ src/
 
 ---
 
-## 💻 **기술 스택**
+## **기술 스택**
 
 ### **Core**
 
@@ -78,7 +74,6 @@ src/
 
 ### **Integration**
 
-- **CMS**: Notion API + Markdown
 - **Deploy**: Vercel (CI/CD 자동화)
 - **Analytics**: Vercel Analytics
 
@@ -90,7 +85,7 @@ src/
 
 ---
 
-## 🎯 **주요 기능 구현 상세**
+## **주요 기능 구현 상세**
 
 ### **1. 모듈화된 컴포넌트 아키텍처**
 
@@ -147,7 +142,7 @@ export const handleProjectSelect = (projectId: string) => {
 
 ---
 
-## 🌐 **배포 & 접속 가이드**
+## **배포 & 접속 가이드**
 
 ### **라이브 사이트**
 
@@ -185,16 +180,29 @@ npm start
 
 ---
 
-## 📊 **성능 지표**
+## **성능 지표**
 
-- ⚡ **Lighthouse 점수**: 95+ (Performance)
-- 🎯 **First Contentful Paint**: < 1.5s
-- 📱 **모바일 최적화**: 100% 반응형
-- 🔍 **SEO 점수**: 95+
+### **🌐 Field Data (CrUX - 실제 사용자 경험)**
+- **Performance**: 100/100 (완벽)
+- **First Contentful Paint**: 0.2s (매우 빠름)
+- **Largest Contentful Paint**: 0.6s (우수)
+- **Total Blocking Time**: 10ms (최적화됨)
+- **Cumulative Layout Shift**: 0.001 (안정적)
+
+### **🧪 Lab Data (Lighthouse - 개발 환경 테스트)**
+- **Performance**: 92/100 (A급)
+- **First Contentful Paint**: 1.4s (양호)
+- **Largest Contentful Paint**: 3.1s (개선 가능)
+- **SEO**: 91/100 (A급)
+- **Accessibility**: 100/100 (완벽)
+
+> **📝 성능 측정 방식 차이점**  
+> **CrUX (Field Data)**는 실제 Chrome 사용자들로부터 수집된 28일간의 경험 데이터로, 다양한 네트워크 환경과 디바이스에서의 실제 성능을 반영합니다.  
+> **Lighthouse (Lab Data)**는 제어된 환경에서 시뮬레이션된 테스트 결과로, 개발 중 성능 최적화와 디버깅에 활용됩니다.
 
 ---
 
-## 🛠 **개발 및 협업 전략**
+## **개발 및 협업 전략**
 
 ### **커밋 컨벤션**
 
@@ -214,7 +222,7 @@ docs: 문서 업데이트
 
 ---
 
-## 📈 **프로젝트 통계**
+## **프로젝트 통계**
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=HY0118&show_icons=true&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
 
@@ -222,7 +230,7 @@ docs: 문서 업데이트
 
 ---
 
-## 🔧 **기술적 의사결정 기록**
+## **기술적 의사결정 기록**
 
 ### **왜 Next.js 15를 선택했나?**
 
@@ -244,7 +252,7 @@ docs: 문서 업데이트
 
 ---
 
-## 📞 **Contact**
+## **Contact**
 
 - **Email**: [lhy.it.0118@gmail.com](mailto:lhy.it.0118@gmail.com)
 - **LinkedIn**: [linkedin.com/in/hayoung-lee-756b72332](https://linkedin.com/in/hayoung-lee-756b72332)
@@ -252,23 +260,22 @@ docs: 문서 업데이트
 
 ---
 
-## 📚 **프로젝트 문서**
+## **프로젝트 문서**
 
 ### **핵심 문서**
 
-- 📖 **[기술적 의사결정 가이드](TECHNICAL_DECISIONS.md)** - 구체적인 코드 예시와 함께하는 기술 선택 이유
-- 🔧 **[코드 품질 가이드](CODE_QUALITY.md)** - 모듈화 전략과 코드 품질 향상 사례
-- 🚀 **[배포 가이드](DEPLOYMENT.md)** - 프로덕션 배포 및 접속 방법
-- 🤝 **[협업 가이드](COLLABORATION.md)** - 커밋 컨벤션과 PR 전략
+- **[기술적 의사결정 가이드](TECHNICAL_DECISIONS.md)** - 구체적인 코드 예시와 함께하는 기술 선택 이유
+- **[코드 품질 가이드](CODE_QUALITY.md)** - 모듈화 전략과 코드 품질 향상 사례
+- **[배포 가이드](DEPLOYMENT.md)** - 프로덕션 배포 및 접속 방법
+- **[협업 가이드](COLLABORATION.md)** - 커밋 컨벤션과 PR 전략
 
 ### **빠른 시작 링크**
 
-- 🌐 **[라이브 사이트 접속](https://nextjs-hayoung-space.vercel.app)**
-- 📱 **[모바일 최적화 확인](https://nextjs-hayoung-space.vercel.app/quick-portfolio)**
-- 📚 **[블로그 섹션](https://nextjs-hayoung-space.vercel.app/blog)**
+- **[포트폴리오 사이트 접속](https://nextjs-hayoung-space.vercel.app)**
+- **[이력서 확인](https://nextjs-hayoung-space.vercel.app/quick-portfolio)**
 
 ---
 
-## 📄 **License**
+## **License**
 
 이 프로젝트는 MIT 라이선스 하에 있습니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
