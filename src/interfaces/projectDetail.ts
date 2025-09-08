@@ -73,7 +73,6 @@ export interface DividerToggleProps {
 export interface OptionalDetailsProps {
   problemStatement?: string;
   solutionApproach?: string;
-  performance: PerformanceMetric[];
   architecture?: string;
   learnings: string[];
   futureImprovements: string[];

@@ -13,8 +13,8 @@ import ImageViewerModal from '@/components/projects/detail/ImageViewerModal';
 import KeyFeatures from '@/components/projects/detail/KeyFeatures';
 import MediaTabs from '@/components/projects/detail/MediaTabs';
 import OptionalDetails from '@/components/projects/detail/OptionalDetails';
-// import { getLocaleFromPathname, withTrailingSlash } from "@/utils/urlUtils";
 import Overview from '@/components/projects/detail/Overview';
+import Performance from '@/components/projects/detail/Performance';
 import TechChips from '@/components/projects/detail/TechChips';
 
 import { useModalVisibility } from '@/hooks/useModalVisibility';
@@ -91,19 +91,22 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
         className="z-50"
         variant={variant}
       >
-        {/* Essentials: Overview */}
+        {/* 1. 프로젝트 개요 - 무엇을 만들었는지 */}
         <Overview text={selectedProject.details.overview} />
 
-        {/* Essentials: Achievements (≤3) */}
+        {/* 2. 성과 지표 - 내가 달성한 것들 */}
         <Achievements items={achievements} />
 
-        {/* Essentials: Tech chips */}
-        <TechChips tech={selectedProject.tech} />
+        {/* 3. 성능 개선 결과 - 구체적인 임팩트 */}
+        <Performance performance={performance} />
 
-        {/* Essentials: Key Features (≤3, compact) */}
+        {/* 4. 핵심 기능 - 어떤 기능을 구현했는지 */}
         <KeyFeatures features={features} />
 
-        {/* Essentials: Media (Screenshots / Demo Tabs) */}
+        {/* 5. 기술 스택 - 어떤 기술을 사용했는지 */}
+        <TechChips tech={selectedProject.tech} />
+
+        {/* 6. 실제 결과물 - 시각적 증거 */}
         <MediaTabs
           project={selectedProject}
           screenshots={screenshots}
@@ -125,7 +128,6 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
             <OptionalDetails
               problemStatement={selectedProject.details.problemStatement}
               solutionApproach={selectedProject.details.solutionApproach}
-              performance={performance}
               architecture={selectedProject.details.architecture}
               learnings={learnings}
               futureImprovements={futureImprovements}

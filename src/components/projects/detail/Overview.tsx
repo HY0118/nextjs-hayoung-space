@@ -10,7 +10,12 @@ const Overview = ({ text }: OverviewProps) => (
     transition={{ delay: 0.1 }}
     className="mb-8"
   >
-    <p className="text-lg whitespace-pre-line font-pret leading-relaxed">{text}</p>
+    <h3 className="text-base font-semibold text-text-primary mb-3 font-sora">
+      Project Overview
+    </h3>
+    <p className="text-base text-text-secondary whitespace-pre-line font-pret leading-relaxed">
+      {text}
+    </p>
   </motion.div>
 );
 
