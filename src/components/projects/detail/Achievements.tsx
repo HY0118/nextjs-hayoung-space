@@ -5,6 +5,14 @@ import { motion } from 'framer-motion';
 
 const Achievements = ({ items }: AchievementsProps) => {
   if (!items || items.length === 0) return null;
+
+  // 동적 그리드 컬럼 결정
+  const getGridCols = () => {
+    if (items.length === 1) return 'grid-cols-1';
+    if (items.length === 2) return 'grid-cols-1 sm:grid-cols-2';
+    return 'grid-cols-1 sm:grid-cols-3';
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -15,7 +23,7 @@ const Achievements = ({ items }: AchievementsProps) => {
       <h3 className="text-base font-semibold text-text-primary mb-3 font-sora">
         Key Achievements
       </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className={`grid ${getGridCols()} gap-3`}>
         {items.map((achievement, index) => (
           <div
             key={index}

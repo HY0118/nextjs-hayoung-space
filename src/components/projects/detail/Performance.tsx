@@ -12,6 +12,13 @@ interface PerformanceProps {
 const Performance = ({ performance }: PerformanceProps) => {
   if (performance.length === 0) return null;
 
+  // 동적 그리드 컬럼 결정
+  const getGridCols = () => {
+    if (performance.length === 1) return 'grid-cols-1';
+    if (performance.length === 2) return 'grid-cols-1 lg:grid-cols-2';
+    return 'grid-cols-1 lg:grid-cols-3';
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -22,7 +29,7 @@ const Performance = ({ performance }: PerformanceProps) => {
       <h4 className="text-base font-semibold text-text-primary mb-3 font-sora">
         Performance Impact
       </h4>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className={`grid ${getGridCols()} gap-3`}>
         {performance.map((metric, index) => (
           <PerformanceCard
             key={index}
