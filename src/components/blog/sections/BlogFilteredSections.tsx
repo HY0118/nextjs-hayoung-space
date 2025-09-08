@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
+import type { BlogPost } from '@/utils/notion';
+
 import TagFilter from '@/components/blog/TagFilter';
 import BlogListServer from '@/components/blog/sections/BlogListServer';
-
-import type { BlogPost } from '@/utils/notion';
 
 interface BlogFilteredSectionsProps {
   posts: BlogPost[];

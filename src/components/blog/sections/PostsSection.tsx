@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { BlogPost } from '@/utils/notion';
+
 import BlogCard from '@/components/blog/BlogCard';
 
 import { useRouteStore } from '@/store/routeStore';
-
-import { BlogPost } from '@/utils/notion';
 
 interface PostsSectionProps {
   title: string;

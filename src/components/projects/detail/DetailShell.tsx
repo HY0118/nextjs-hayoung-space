@@ -1,8 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 import { cn } from '@/utils/cn';
+import { motion } from 'framer-motion';
 
 import type { DetailShellProps } from '@/interfaces/projectDetail';
 
