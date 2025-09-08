@@ -4,7 +4,7 @@ export interface TechColor {
 
 export const techColors: TechColor = {
   // JavaScript 생태계
-  React: 'bg-[#61DAFB]/10 text-[#4FA8C9] dark:text-[#61DAFB]/90',
+  React: 'bg-[#0EA5E9]/10 text-[#0284C7] dark:text-[#0EA5E9]/90',
   TypeScript: 'bg-[#3178C6]/10 text-[#2A669E] dark:text-[#3178C6]/90',
   'Next.js': 'bg-[#3178C6]/10 text-black dark:text-white/90',
   JavaScript: 'bg-[#F7DF1E]/10 text-[#B3A516] dark:text-[#F7DF1E]/90',

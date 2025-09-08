@@ -9,6 +9,7 @@ export interface Skill {
   projects: number;
   expertise: string[];
   description: string;
+  version?: string;
 }
 
 export interface SkillCategory {

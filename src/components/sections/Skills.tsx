@@ -90,13 +90,22 @@ const Skills = () => {
                                transition-all duration-300"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h4
-                          className={`text-base font-semibold ${getTechColor(skill.name)} rounded-lg px-1 py-1
-                                      group-hover:scale-105 group-hover:shadow-sm font-pret
-                                      transition-transform duration-100`}
-                        >
-                          {skill.name}
-                        </h4>
+                        <div className="flex items-center gap-2">
+                          <h4
+                            className={`text-base font-semibold ${getTechColor(skill.name)} rounded-lg px-1 py-1
+                                        group-hover:scale-105 font-pret
+                                        transition-transform duration-100`}
+                          >
+                            {skill.name}
+                          </h4>
+                          {skill.version && (
+                            <span
+                              className={`text-xs px-2 py-0.5 rounded-full ${getTechColor(skill.name)} border font-mono font-medium`}
+                            >
+                              v{skill.version}
+                            </span>
+                          )}
+                        </div>
                         <span
                           className={`text-xs font-medium px-2 py-0.5 rounded-full ${SKILL_LEVEL_STYLES[skill.level]}
                                       group-hover:scale-105 font-pret dark:text-black/90

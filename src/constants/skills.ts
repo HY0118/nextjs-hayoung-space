@@ -19,7 +19,14 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         level: SKILL_LEVELS.EXPERT,
         experience: '3+ years',
         projects: 7,
-        expertise: ['Hooks', 'Context', 'Component Design', 'Performance Optimization'],
+        version: '18+',
+        expertise: [
+          'Hooks',
+          'Context',
+          'Component Design',
+          'Performance Optimization',
+          'TanStack Query',
+        ],
         description: '대규모 웹 애플리케이션 및 플러그인 시스템 개발',
       },
       {
@@ -27,7 +34,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         level: SKILL_LEVELS.ADVANCED,
         experience: '2+ years',
         projects: 5,
-        expertise: ['SSR', 'Static Generation', 'API Routes', 'Dynamic Routing'],
+        version: '14+',
+        expertise: ['SSR', 'Static Generation', 'App Router', 'Dynamic Routing'],
         description: '서버사이드 렌더링 및 대규모 웹 애플리케이션 개발',
       },
       {
@@ -89,7 +97,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: 'Build & Deploy',
-        level: SKILL_LEVELS.INTERMEDIATE,
+        level: SKILL_LEVELS.ADVANCED,
         experience: '2+ years',
         projects: 3,
         expertise: [

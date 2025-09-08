@@ -38,14 +38,14 @@ const ProjectCard = ({ project, onSelect }: ProjectCardProps) => {
         <h3 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-primary transition-colors font-sora">
           {project.title}
         </h3>
-        <p className="text-text-secondary mb-4 line-clamp-2 group-hover:text-text-primary/90 transition-colors font-pret whitespace-pre-line">
+        <p className="text-text-secondary mb-4 line-clamp-2 group-hover:text-text-primary/90 transition-colors font-pret whitespace-pre-line min-h-[44px] h-[44px]">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-2 mt-auto">
+        <div className="flex flex-wrap gap-2 mt-auto h-[56px]">
           {project.tech.map((tech) => (
             <span
               key={tech}
-              className={`inline-flex items-center px-2 py-0.5 text-sm rounded-full font-medium font-pret
+              className={`inline-flex px-2 py-0.5 text-sm rounded-full font-medium font-pret 
               ${getTechColor(tech)} 
               transition-all duration-300 
               group-hover:scale-105`}

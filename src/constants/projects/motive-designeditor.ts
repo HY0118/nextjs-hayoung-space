@@ -11,7 +11,6 @@ export const motiveDesignEditor: Project = {
   tech: [
     'Next.js',
     'React',
-    'TypeScript',
     'ReactFlow',
     'RJSF',
     'Recoil',
@@ -19,7 +18,6 @@ export const motiveDesignEditor: Project = {
     'KaTeX',
     'Dagre',
     'Anthropic API',
-    'Bitbucket',
   ],
   github: '',
   demo: 'https://tools.midasuser.com/ko/design-editor',
