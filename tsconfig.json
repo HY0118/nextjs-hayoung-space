@@ -27,7 +27,7 @@
       "@constants/*": ["src/constants/*"],
       "@hooks/*": ["src/hooks/*"],
       "@interfaces/*": ["src/interfaces/*"],
-      "@lib/*": ["src/lib/*"]
+      "@utils/*": ["src/utils/*"]
     },
     "baseUrl": "."
   },
