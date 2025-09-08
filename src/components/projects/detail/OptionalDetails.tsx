@@ -19,7 +19,7 @@ const OptionalDetails = ({
   >
     {(problemStatement || solutionApproach) && (
       <div>
-        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">
+        <h4 className="text-base font-semibold text-text-primary mb-4 font-sora">
           Background & Strategy
         </h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -41,7 +41,7 @@ const OptionalDetails = ({
 
     {architecture && (
       <div>
-        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">
+        <h4 className="text-base font-semibold text-text-primary mb-4 font-sora">
           Architecture
         </h4>
         <div className="relative">

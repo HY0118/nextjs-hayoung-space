@@ -24,7 +24,7 @@ const MediaTabs = ({
       className="mb-12"
     >
       <div className="mb-4 flex items-center justify-between">
-        <h4 className="text-xl font-semibold text-text-primary font-sora">Media</h4>
+        <h4 className="text-base font-semibold text-text-primary font-sora">Media</h4>
       </div>
 
       {/* Tabs */}

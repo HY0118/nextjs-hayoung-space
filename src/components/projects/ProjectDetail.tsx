@@ -100,13 +100,13 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
         {/* 3. 성능 개선 결과 - 구체적인 임팩트 */}
         <Performance performance={performance} />
 
-        {/* 4. 핵심 기능 - 어떤 기능을 구현했는지 */}
-        <KeyFeatures features={features} />
+        {/* 4. 핵심 기능 & 기술 스택 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <KeyFeatures features={features} />
+          <TechChips tech={selectedProject.tech} />
+        </div>
 
-        {/* 5. 기술 스택 - 어떤 기술을 사용했는지 */}
-        <TechChips tech={selectedProject.tech} />
-
-        {/* 6. 실제 결과물 - 시각적 증거 */}
+        {/* 5. 실제 결과물 - 시각적 증거 */}
         <MediaTabs
           project={selectedProject}
           screenshots={screenshots}
