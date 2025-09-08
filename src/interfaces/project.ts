@@ -79,6 +79,7 @@ export interface ProjectStore {
   selectedProject: Project | null;
   isDetailOpen: boolean;
   detailMode: 'panel' | 'modal' | null;
+  savedScrollPosition: number;
   setSelectedProject: (project: Project | null) => void;
   openDetail: (mode: 'panel' | 'modal') => void;
   closeDetail: () => void;

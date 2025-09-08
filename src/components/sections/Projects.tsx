@@ -14,25 +14,13 @@ import { useProjectStore } from '@/store/projectStore';
 import { projects } from '@/constants/projects';
 
 const Projects = () => {
-  const { setSelectedProject, openDetail, isDetailOpen, detailMode } = useProjectStore();
-
-  // body overflow 관리
-  useEffect(() => {
-    if (isDetailOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isDetailOpen]);
+  const { setSelectedProject, openDetail, isDetailOpen, detailMode, closeDetail } =
+    useProjectStore();
 
   // 히스토리 관리
   useEffect(() => {
-    return setupProjectHistory({ setSelectedProject, openDetail });
-  }, [setSelectedProject, openDetail]);
+    return setupProjectHistory({ setSelectedProject, openDetail, closeDetail });
+  }, [setSelectedProject, openDetail, closeDetail]);
 
   return (
     <section
@@ -68,7 +56,10 @@ const Projects = () => {
               <ProjectCard
                 project={project}
                 onSelect={() =>
-                  handleProjectSelect(project, { setSelectedProject, openDetail })
+                  handleProjectSelect(project, {
+                    setSelectedProject,
+                    openDetail,
+                  })
                 }
               />
             </motion.div>
