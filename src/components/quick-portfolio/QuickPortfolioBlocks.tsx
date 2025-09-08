@@ -2,11 +2,11 @@
 
 import dynamic from 'next/dynamic';
 
+import { cn } from '@/utils/cn';
+
 import BookPaginator from '@/components/client/BookPaginator';
 import LanguageDropdown from '@/components/common/LanguageDropdown';
 import LocaleLink from '@/components/common/LocaleLink';
-
-import { cn } from '@/utils/cn';
 
 const Profile = dynamic(() => import('@/components/quick-portfolio/Profile'), {
   ssr: false,

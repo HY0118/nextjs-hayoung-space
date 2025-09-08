@@ -6,9 +6,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n/constants';
-import { useScrollSpy } from '@hooks/useScrollSpy';
-
 import { buildHomeBase } from '@/utils/urlUtils';
+import { useScrollSpy } from '@hooks/useScrollSpy';
 
 import { SECTIONS, type SectionId } from '@/interfaces/navigation';
 

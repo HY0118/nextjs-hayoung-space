@@ -5,10 +5,9 @@ import { Suspense, lazy } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { withTrailingSlash } from '@/utils/urlUtils';
 import { useIntroStore } from '@store/introStore';
 import { AnimatePresence, motion } from 'framer-motion';
-
-import { withTrailingSlash } from '@/utils/urlUtils';
 
 const ThemeToggle = lazy(() => import('@components/common/ThemeToggle'));
 const Navigation = lazy(() => import('@components/common/Navigation'));

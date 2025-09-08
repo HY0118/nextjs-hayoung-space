@@ -1,8 +1,8 @@
 'use client';
 
-import { useProjectStore } from '@/store/projectStore';
-
 import { cn } from '@/utils/cn';
+
+import { useProjectStore } from '@/store/projectStore';
 
 import { motiveDesignEditor, motiveTools } from '@/constants/projects';
 
