@@ -2,7 +2,7 @@
 
 import { useProjectStore } from '@/store/projectStore';
 
-import { cn } from '@/lib/cn';
+import { cn } from '@/utils/cn';
 
 import { motiveDesignEditor, motiveTools } from '@/constants/projects';
 

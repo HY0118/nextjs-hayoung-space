@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { getAllTags, getBlogPosts } from '@lib/notion';
+import { getAllTags, getBlogPosts } from '@utils/notion';
 
 import BlogPageWrapper from '@/components/blog/BlogPageWrapper';
 import BlogFilteredSections from '@/components/blog/sections/BlogFilteredSections';

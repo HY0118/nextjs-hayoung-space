@@ -8,7 +8,7 @@ import BlogCard from '@/components/blog/BlogCard';
 
 import { useRouteStore } from '@/store/routeStore';
 
-import { BlogPost } from '@/lib/notion';
+import { BlogPost } from '@/utils/notion';
 
 interface PostsSectionProps {
   title: string;

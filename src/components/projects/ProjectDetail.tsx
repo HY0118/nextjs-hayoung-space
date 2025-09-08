@@ -3,6 +3,8 @@
 // import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from 'react';
 
+import { createCloseProjectDetailHandler } from '@/utils/handlers/detail';
+
 import Achievements from '@/components/projects/detail/Achievements';
 import DetailShell from '@/components/projects/detail/DetailShell';
 import DividerToggle from '@/components/projects/detail/DividerToggle';
@@ -11,7 +13,7 @@ import ImageViewerModal from '@/components/projects/detail/ImageViewerModal';
 import KeyFeatures from '@/components/projects/detail/KeyFeatures';
 import MediaTabs from '@/components/projects/detail/MediaTabs';
 import OptionalDetails from '@/components/projects/detail/OptionalDetails';
-// import { getLocaleFromPathname, withTrailingSlash } from "@/lib/urlUtils";
+// import { getLocaleFromPathname, withTrailingSlash } from "@/utils/urlUtils";
 import Overview from '@/components/projects/detail/Overview';
 import TechChips from '@/components/projects/detail/TechChips';
 
@@ -20,8 +22,6 @@ import { usePreloadScreenshots } from '@/hooks/usePreloadScreenshots';
 import { useProjectDerivedData } from '@/hooks/useProjectDerivedData';
 
 import { useProjectStore } from '@/store/projectStore';
-
-import { createCloseProjectDetailHandler } from '@/lib/detailHandlers';
 
 import { PROJECT_DETAIL_CONFIG } from '@/constants/projectDetailConfig';
 

@@ -8,10 +8,10 @@ import { motion } from 'framer-motion';
 
 import Spinner from '@/components/common/Spinner';
 
-import { useImageViewerControls } from '@/lib/imageViewer/controls';
-import { useImagePreloader } from '@/lib/imageViewer/preloader';
-import { useImageSlider } from '@/lib/imageViewer/slider';
-import type { ImageViewerModalProps } from '@/lib/imageViewer/types';
+import { useImageViewerControls } from '@/utils/imageViewer/controls';
+import { useImagePreloader } from '@/utils/imageViewer/preloader';
+import { useImageSlider } from '@/utils/imageViewer/slider';
+import type { ImageViewerModalProps } from '@/utils/imageViewer/types';
 
 const ImageViewerModal = ({ images, initialIndex, onClose }: ImageViewerModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);

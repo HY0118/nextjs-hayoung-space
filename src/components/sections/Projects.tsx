@@ -2,15 +2,14 @@
 
 import { useEffect } from 'react';
 
+import { handleProjectSelect } from '@/utils/handlers/project';
+import { setupProjectHistory } from '@/utils/handlers/projectHistory';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectDetail from '@/components/projects/ProjectDetail';
 
 import { useProjectStore } from '@/store/projectStore';
-
-import { handleProjectSelect } from '@/lib/projectHandlers';
-import { setupProjectHistory } from '@/lib/projectHistory';
 
 import { projects } from '@/constants/projects';
 

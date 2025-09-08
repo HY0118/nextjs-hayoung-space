@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { getBlogPost, getBlogPosts } from '@lib/notion';
+import { getBlogPost, getBlogPosts } from '@utils/notion';
 import { Highlight, themes } from 'prism-react-renderer';
 import type { Language } from 'prism-react-renderer';
 import ReactMarkdown from 'react-markdown';

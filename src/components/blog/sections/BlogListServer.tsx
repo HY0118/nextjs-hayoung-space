@@ -1,6 +1,6 @@
 import PostsSection from '@/components/blog/sections/PostsSection';
 
-import type { BlogPost } from '@/lib/notion';
+import type { BlogPost } from '@/utils/notion';
 
 interface BlogListServerProps {
   posts: BlogPost[];

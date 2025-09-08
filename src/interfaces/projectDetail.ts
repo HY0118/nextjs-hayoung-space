@@ -79,8 +79,8 @@ export interface OptionalDetailsProps {
   futureImprovements: string[];
 }
 
-// ImageViewerModal types moved to @/lib/imageViewer/types
-export type { ImageViewerModalProps } from '@/lib/imageViewer/types';
+// ImageViewerModal types moved to @/utils/imageViewer/types
+export type { ImageViewerModalProps } from '@/utils/imageViewer/types';
 
 export interface DetailShellProps {
   header: ReactNode;

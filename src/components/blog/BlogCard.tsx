@@ -5,11 +5,10 @@ import { useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { BlogPost } from '@lib/notion';
+import { getLocaleFromPathname, withTrailingSlash } from '@/utils/urlUtils';
+import { BlogPost } from '@utils/notion';
 
 import { useRouteStore } from '@/store/routeStore';
-
-import { getLocaleFromPathname, withTrailingSlash } from '@/lib/urlUtils';
 
 interface BlogCardProps {
   post: BlogPost;

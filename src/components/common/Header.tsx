@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useIntroStore } from '@store/introStore';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { withTrailingSlash } from '@/lib/urlUtils';
+import { withTrailingSlash } from '@/utils/urlUtils';
 
 const ThemeToggle = lazy(() => import('@components/common/ThemeToggle'));
 const Navigation = lazy(() => import('@components/common/Navigation'));

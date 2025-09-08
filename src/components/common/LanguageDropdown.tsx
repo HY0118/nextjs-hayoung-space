@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import i18n from '@/i18n';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n/constants';
 
-import { withTrailingSlash } from '@/lib/urlUtils';
+import { withTrailingSlash } from '@/utils/urlUtils';
 
 export default function LanguageDropdown() {
   const router = useRouter();

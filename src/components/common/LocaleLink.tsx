@@ -5,7 +5,7 @@ import React from 'react';
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { getLocaleFromPathname, withTrailingSlash } from '@/lib/urlUtils';
+import { getLocaleFromPathname, withTrailingSlash } from '@/utils/urlUtils';
 
 type Props = Omit<React.ComponentProps<typeof Link>, 'href'> & {
   to: string;

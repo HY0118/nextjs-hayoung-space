@@ -2,6 +2,7 @@
 
 import { Suspense, lazy, useEffect } from 'react';
 
+import { handleUrlHash } from '@/utils/handlers/url';
 import IntroManager from '@components/common/IntroManager';
 import Spinner from '@components/common/Spinner';
 import { useIntroStore } from '@store/introStore';
@@ -11,8 +12,6 @@ import { motion } from 'framer-motion';
 import LandingSelector from '@/components/client/LandingSelector';
 
 import { useLandingStore } from '@/store/landingStore';
-
-import { handleUrlHash } from '@/lib/urlHandlers';
 
 // 조건부 lazy import - 인트로 완료 후에만 로드
 const About = lazy(() => import('@components/sections/About'));

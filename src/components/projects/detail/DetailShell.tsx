@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 
-import { cn } from '@/lib/cn';
+import { cn } from '@/utils/cn';
 
 import type { DetailShellProps } from '@/interfaces/projectDetail';
 
