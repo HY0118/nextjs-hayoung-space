@@ -79,11 +79,8 @@ export interface OptionalDetailsProps {
   futureImprovements: string[];
 }
 
-export interface ImageViewerModalProps {
-  images: ProjectImage[];
-  initialIndex: number;
-  onClose: () => void;
-}
+// ImageViewerModal types moved to @/lib/imageViewer/types
+export type { ImageViewerModalProps } from '@/lib/imageViewer/types';
 
 export interface DetailShellProps {
   header: ReactNode;
