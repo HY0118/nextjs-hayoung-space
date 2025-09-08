@@ -10,35 +10,34 @@
 
 #### **Before (문제 상황)**
 ```typescript
-// 이전: ./src/lib/notion.ts (450 줄)
-// 하나의 파일에 모든 Notion 관련 기능이 집중
-export const getNotionClient = () => { /* ... */ };
-export const getBlogPosts = () => { /* ... */ };
-export const getBlogPost = () => { /* ... */ };
-export const transformNotionPage = () => { /* ... */ };
-export const validateProperties = () => { /* ... */ };
+// 이전: ./src/lib/utils.ts (450 줄)
+// 하나의 파일에 모든 유틸리티 기능이 집중
+export const getApiClient = () => { /* ... */ };
+export const fetchData = () => { /* ... */ };
+export const transformData = () => { /* ... */ };
+export const validateConfig = () => { /* ... */ };
+export const handleErrors = () => { /* ... */ };
 // ... 많은 함수들이 하나의 파일에
 ```
 
 #### **After (개선 결과)**
 ```typescript
 // 개선: 역할별로 분리된 모듈 구조
-src/utils/notion/
+src/utils/
 ├── config.ts         # 설정 및 환경변수 관리
-├── database.ts       # 데이터베이스 쿼리 로직  
+├── api.ts            # API 클라이언트 로직  
 ├── transformers.ts   # 데이터 변환 로직
 ├── types.ts          # 타입 정의
 └── index.ts          # 외부 인터페이스
 
-// ./src/utils/notion/database.ts
-// 데이터베이스 쿼리만 담당하는 순수 모듈
-export const getAllBlogPosts = async (): Promise<BlogPost[]> => {
-  const database = await notion.databases.query({
-    database_id: NOTION_CONFIG.databaseId,
-    sorts: [{ property: 'Published', direction: 'descending' }],
+// ./src/utils/api.ts
+// API 관련 기능만 담당하는 순수 모듈
+export const fetchProjectData = async (): Promise<Project[]> => {
+  const response = await fetch('/api/projects', {
+    headers: { 'Content-Type': 'application/json' },
   });
   
-  return database.results.map(transformNotionPageToBlogPost);
+  return response.json();
 };
 ```
 
@@ -177,14 +176,14 @@ export const isValidProject = (obj: any): obj is Project => {
 ### **제네릭을 활용한 재사용 가능한 유틸리티**
 
 ```typescript
-// ./src/utils/notion/transformers.ts
+// ./src/utils/transformers.ts
 // 제네릭으로 타입 안전한 속성 추출 함수 구현
 export const pickFirst = <T>(
-  propertyValue: any,
+  data: Record<string, any>,
   keys: readonly string[]
 ): T | null => {
   for (const key of keys) {
-    const value = propertyValue?.[key];
+    const value = data?.[key];
     if (value !== undefined && value !== null) {
       return value as T;
     }
@@ -192,15 +191,15 @@ export const pickFirst = <T>(
   return null;
 };
 
-// 사용 예시: 타입 안전한 Notion 속성 추출
+// 사용 예시: 타입 안전한 API 응답 속성 추출
 const title = pickFirst<string>(
-  notionPage.properties,
-  ['Title', '이름', 'Name', 'title'] as const
+  apiResponse.data,
+  ['title', 'name', 'heading'] as const
 );
 
 const publishedAt = pickFirst<string>(
-  notionPage.properties,
-  ['Published', '게시일', 'Date'] as const
+  apiResponse.data,
+  ['published_at', 'date', 'created_at'] as const
 );
 ```
 
@@ -390,37 +389,35 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 ### **방어적 프로그래밍**
 
 ```typescript
-// ./src/utils/notion/database.ts
+// ./src/utils/api.ts
 // 안전한 API 호출과 에러 처리
-export const getBlogPost = async (slug: string): Promise<BlogPost | null> => {
+export const fetchProjectData = async (id: string): Promise<Project | null> => {
   try {
     // 환경 설정 검증
-    if (!validateNotionConfig()) {
-      console.warn('Notion 설정 누락, 로컬 데이터로 폴백');
-      return await getMarkdownPost(slug);
+    if (!validateApiConfig()) {
+      console.warn('API 설정 누락, 로컬 데이터로 폴백');
+      return await getLocalProject(id);
     }
 
-    const response = await notion.databases.query({
-      database_id: NOTION_CONFIG.databaseId,
-      filter: {
-        property: 'Slug',
-        rich_text: { equals: slug }
-      }
+    const response = await fetch(`/api/projects/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
-    if (response.results.length === 0) {
-      // Notion에서 찾지 못한 경우 Markdown 파일 확인
-      return await getMarkdownPost(slug);
+    if (!response.ok) {
+      // API 에러 시 로컬 데이터로 폴백
+      return await getLocalProject(id);
     }
 
-    const notionPage = response.results[0];
-    return transformNotionPageToBlogPost(notionPage);
+    const data = await response.json();
+    return transformApiResponseToProject(data);
     
   } catch (error) {
-    console.error(`블로그 포스트 조회 실패 (${slug}):`, error);
+    console.error(`프로젝트 데이터 조회 실패 (${id}):`, error);
     
     // 네트워크 에러 시 로컬 데이터로 폴백
-    return await getMarkdownPost(slug);
+    return await getLocalProject(id);
   }
 };
 ```
@@ -428,24 +425,24 @@ export const getBlogPost = async (slug: string): Promise<BlogPost | null> => {
 ### **타입 안전한 환경 변수 관리**
 
 ```typescript
-// ./src/utils/notion/config.ts
+// ./src/utils/config.ts
 // 환경 변수의 타입 안전성과 검증
-export const NOTION_CONFIG = {
-  apiKey: process.env.NOTION_API_KEY,
-  databaseId: process.env.NOTION_DATABASE_ID,
-  version: '2022-06-28',
+export const APP_CONFIG = {
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || '/api',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+  environment: process.env.NODE_ENV,
 } as const;
 
-export const validateNotionConfig = (): boolean => {
-  const { apiKey, databaseId } = NOTION_CONFIG;
+export const validateApiConfig = (): boolean => {
+  const { apiUrl, siteUrl } = APP_CONFIG;
   
-  if (!apiKey) {
-    console.warn('NOTION_API_KEY가 설정되지 않았습니다.');
+  if (!apiUrl) {
+    console.warn('API_URL이 설정되지 않았습니다.');
     return false;
   }
   
-  if (!databaseId) {
-    console.warn('NOTION_DATABASE_ID가 설정되지 않았습니다.');
+  if (!siteUrl) {
+    console.warn('SITE_URL이 설정되지 않았습니다.');
     return false;
   }
   
@@ -454,9 +451,9 @@ export const validateNotionConfig = (): boolean => {
 
 // 개발 환경에서만 설정 상태 로깅
 if (process.env.NODE_ENV === 'development') {
-  console.log('Notion 설정 상태:', {
-    hasApiKey: !!NOTION_CONFIG.apiKey,
-    hasDatabaseId: !!NOTION_CONFIG.databaseId,
+  console.log('앱 설정 상태:', {
+    hasApiUrl: !!APP_CONFIG.apiUrl,
+    hasSiteUrl: !!APP_CONFIG.siteUrl,
   });
 }
 ```

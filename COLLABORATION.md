@@ -19,7 +19,7 @@
 
 | 타입 | 설명 | 예시 |
 |------|------|------|
-| `feat` | 새로운 기능 추가 | `feat(blog): Notion API 블로그 포스트 연동` |
+| `feat` | 새로운 기능 추가 | `feat(projects): 프로젝트 상세 모달 추가` |
 | `fix` | 버그 수정 | `fix(ui): 모바일 메뉴 토글 버튼 수정` |
 | `refactor` | 코드 리팩토링 | `refactor(utils): lib 폴더를 utils로 구조 개선` |
 | `style` | 코드 스타일 변경 | `style(components): ESLint 규칙 적용` |
@@ -56,7 +56,7 @@ update: 코드 업데이트
 <type>/<issue-number>-<short-description>
 
 # 예시
-feature/25-notion-blog-integration
+feature/25-project-detail-modal
 bugfix/31-mobile-menu-toggle
 refactor/18-code-splitting
 hotfix/42-production-build-error
@@ -67,7 +67,7 @@ hotfix/42-production-build-error
 ```mermaid
 graph LR
     A[main] --> B[develop]
-    B --> C[feature/blog-system]
+    B --> C[feature/project-system]
     B --> D[feature/image-viewer]
     C --> B
     D --> B

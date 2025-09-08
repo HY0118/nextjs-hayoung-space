@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+import { checkBlogAccess } from '@/utils/blogAuth';
 import { getAllTags, getBlogPosts } from '@utils/notion';
 
 import BlogPageWrapper from '@/components/blog/BlogPageWrapper';
@@ -19,6 +20,8 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<{ tag?: string; tags?: string }>;
 }) {
+  // 블로그 기능이 비활성화된 경우 홈으로 리다이렉트
+  checkBlogAccess();
   const generationTime = new Date().toISOString();
   console.log(`🔄 [ISR] Blog 페이지 생성 시간: ${generationTime}`);
 

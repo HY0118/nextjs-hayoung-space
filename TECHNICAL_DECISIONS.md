@@ -12,7 +12,6 @@
 src/utils/
 ├── handlers/          # 이벤트 처리 로직 집중화
 ├── imageViewer/       # 이미지 뷰어 관련 모듈
-├── notion/           # Notion API 래핑
 └── paginator/        # 페이지네이션 로직
 ```
 
@@ -155,11 +154,14 @@ export interface ProjectImage {
 ### **타입 가드 함수 활용**
 
 ```typescript
-// ./src/utils/notion/transformers.ts
-// Notion API 응답의 타입 안전성을 위한 헬퍼 함수 구현
-export const pickFirst = <T>(propertyValue: any, keys: readonly string[]): T | null => {
+// ./src/utils/transformers.ts
+// API 응답의 타입 안전성을 위한 헬퍼 함수 구현
+export const pickFirst = <T>(
+  obj: Record<string, any>,
+  keys: readonly string[]
+): T | null => {
   for (const key of keys) {
-    const value = propertyValue?.[key];
+    const value = obj?.[key];
     if (value !== undefined && value !== null) {
       return value as T;
     }
@@ -169,8 +171,8 @@ export const pickFirst = <T>(propertyValue: any, keys: readonly string[]): T | n
 
 // 사용 예시: 여러 가능한 속성명 중 존재하는 첫 번째 값 추출
 const title = pickFirst<string>(
-  notionPage.properties,
-  PROPERTY_KEYS.TITLE, // ['Title', '이름', 'Name', 'title']
+  apiResponse.data,
+  ['title', 'name', 'heading'] as const
 );
 ```
 
@@ -336,51 +338,48 @@ export default function Skills() {
 
 ---
 
-## 📊 **7. API 통합 및 데이터 관리**
-
-### **Notion API와 Markdown 하이브리드**
-
-```typescript
-// ./src/utils/notion/index.ts
-// Notion 데이터베이스와 로컬 Markdown 파일을 통합하여 유연한 콘텐츠 관리
-export const getBlogPosts = async (): Promise<BlogPost[]> => {
-  try {
-    // Notion 데이터베이스에서 블로그 포스트 가져오기
-    const notionPosts = await getAllBlogPosts();
-
-    // 로컬 Markdown 파일에서 추가 포스트 가져오기
-    const markdownPosts = await getMarkdownPosts();
-
-    // 두 소스를 통합하고 날짜순 정렬
-    const allPosts = [...notionPosts, ...markdownPosts].sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-    );
-
-    return allPosts;
-  } catch (error) {
-    console.error('블로그 포스트 로딩 실패:', error);
-    return [];
-  }
-};
-```
+## 📊 **7. 데이터 관리 및 환경 설정**
 
 ### **환경별 설정 관리**
 
 ```typescript
-// ./src/utils/notion/config.ts
-// 개발/프로덕션 환경별 안전한 API 설정 관리
-export const NOTION_CONFIG = {
-  apiKey: process.env.NOTION_API_KEY,
-  databaseId: process.env.NOTION_DATABASE_ID,
-  version: '2022-06-28',
+// ./src/utils/config.ts
+// 개발/프로덕션 환경별 안전한 설정 관리
+export const APP_CONFIG = {
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+  environment: process.env.NODE_ENV,
+  enableFeatures: {
+    analytics: process.env.NODE_ENV === 'production',
+    debugMode: process.env.NODE_ENV === 'development',
+  },
 } as const;
 
-export const validateNotionConfig = (): boolean => {
-  if (!NOTION_CONFIG.apiKey || !NOTION_CONFIG.databaseId) {
-    console.warn('Notion API 설정이 없습니다. 일부 기능이 제한될 수 있습니다.');
-    return false;
+export const validateConfig = (): boolean => {
+  const requiredEnvVars = ['NEXT_PUBLIC_SITE_URL'];
+  
+  for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+      console.warn(`필수 환경 변수가 없습니다: ${envVar}`);
+      return false;
+    }
   }
   return true;
+};
+```
+
+### **조건부 기능 활성화**
+
+```typescript
+// ./src/utils/featureFlags.ts
+// 환경별 기능 토글 관리
+export const isFeatureEnabled = (feature: string): boolean => {
+  const featureFlags = {
+    analytics: process.env.NODE_ENV === 'production',
+    devTools: process.env.NODE_ENV === 'development',
+    experimentalFeatures: process.env.ENABLE_EXPERIMENTAL === 'true',
+  };
+  
+  return featureFlags[feature as keyof typeof featureFlags] || false;
 };
 ```
 

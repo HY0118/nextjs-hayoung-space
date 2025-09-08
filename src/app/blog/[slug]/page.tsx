@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { checkBlogAccess } from '@/utils/blogAuth';
 import { getBlogPost, getBlogPosts } from '@utils/notion';
 import { Highlight, themes } from 'prism-react-renderer';
 import type { Language } from 'prism-react-renderer';
@@ -279,6 +280,9 @@ async function PostArticle({ slug }: { slug: string }) {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  // 블로그 기능이 비활성화된 경우 홈으로 리다이렉트
+  checkBlogAccess();
+
   const { slug } = await params;
   return (
     <BlogPageWrapper animationType="fade">

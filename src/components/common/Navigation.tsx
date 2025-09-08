@@ -18,6 +18,9 @@ const Navigation = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const homeBase = buildHomeBase(pathname);
 
+  // 블로그 기능 활성화 여부 확인
+  const isBlogEnabled = process.env.NEXT_PUBLIC_ENABLE_BLOG === 'true';
+
   // 페이지 타입 판별 (로케일 접두사 고려)
   const isBlogPage = /^\/(blog|(ko|en)\/blog)(\/|$)/.test(pathname);
   const isHomePage = pathname === '/' || /^\/(ko|en)\/?$/.test(pathname);
@@ -91,26 +94,28 @@ const Navigation = () => {
             </Link>
           </li>
         ))}
-        {/* Blog Link */}
-        <li>
-          <Link
-            href={`${(() => {
-              const first = pathname.split('/')[1];
-              const supported = SUPPORTED_LOCALES as readonly string[];
-              const locale = supported.includes(first) ? first : DEFAULT_LOCALE;
-              return `/${locale}/blog`;
-            })()}`}
-            onClick={handleBlogClick}
-            className={`relative transition-colors hover:text-primary 
-              ${isBlogPage ? 'text-black dark:text-white' : 'text-text-secondary'}
-              after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 
-              after:h-0.5 after:bg-primary after:origin-left
-              after:transition-transform after:duration-300 after:ease-out
-              ${isBlogPage ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'}`}
-          >
-            Blog
-          </Link>
-        </li>
+        {/* Blog Link - 개발 환경에서만 표시 */}
+        {isBlogEnabled && (
+          <li>
+            <Link
+              href={`${(() => {
+                const first = pathname.split('/')[1];
+                const supported = SUPPORTED_LOCALES as readonly string[];
+                const locale = supported.includes(first) ? first : DEFAULT_LOCALE;
+                return `/${locale}/blog`;
+              })()}`}
+              onClick={handleBlogClick}
+              className={`relative transition-colors hover:text-primary 
+                ${isBlogPage ? 'text-black dark:text-white' : 'text-text-secondary'}
+                after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 
+                after:h-0.5 after:bg-primary after:origin-left
+                after:transition-transform after:duration-300 after:ease-out
+                ${isBlogPage ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'}`}
+            >
+              Blog
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

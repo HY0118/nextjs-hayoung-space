@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   trailingSlash: true,
+  env: {
+    // 개발 환경에서만 블로그 활성화
+    NEXT_PUBLIC_ENABLE_BLOG: process.env.NODE_ENV === 'development' ? 'true' : 'false',
+  },
   images: {
     remotePatterns: [
       {
