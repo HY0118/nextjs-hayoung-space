@@ -1,11 +1,10 @@
 import { checkBlogAccess } from '@/utils/blogAuth';
 
+// ISR 설정: 60초마다 재생성 (원본과 동일)
+export const revalidate = 60;
+
 // 기본 블로그 슬러그 페이지 설정 재사용
-export {
-  generateStaticParams,
-  generateMetadata,
-  revalidate,
-} from '@/app/blog/[slug]/page';
+export { generateStaticParams, generateMetadata } from '@/app/blog/[slug]/page';
 
 // 로케일별 블로그 슬러그 페이지 래퍼
 export default async function LocaleBlogSlugPage({
