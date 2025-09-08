@@ -12,16 +12,21 @@ const Achievements = ({ items }: AchievementsProps) => {
       transition={{ delay: 0.15 }}
       className="mb-8"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <h3 className="text-base font-semibold text-text-primary mb-3 font-sora">
+        Key Achievements
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {items.map((achievement, index) => (
           <div
             key={index}
-            className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl text-center"
+            className="p-4 bg-gray-50/50 dark:bg-gray-800/30 rounded-lg text-center border border-gray-200/30 dark:border-gray-700/30 hover:border-primary/30 transition-colors duration-200"
           >
-            <div className="text-3xl font-bold text-primary mb-2">
+            <div className="text-2xl font-bold text-primary mb-1">
               {achievement.value}
             </div>
-            <div className="text-sm text-text-secondary">{achievement.label}</div>
+            <div className="text-xs text-text-secondary font-medium">
+              {achievement.label}
+            </div>
           </div>
         ))}
       </div>

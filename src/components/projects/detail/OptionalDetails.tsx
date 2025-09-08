@@ -5,12 +5,9 @@ import Image from 'next/image';
 import type { OptionalDetailsProps } from '@interfaces/projectDetail';
 import { motion } from 'framer-motion';
 
-import PerformanceBar from '@/components/projects/detail/PerformanceBar';
-
 const OptionalDetails = ({
   problemStatement,
   solutionApproach,
-  performance,
   architecture,
   learnings,
   futureImprovements,
@@ -38,22 +35,6 @@ const OptionalDetails = ({
               <p className="text-sm text-text-secondary">{solutionApproach}</p>
             </div>
           )}
-        </div>
-      </div>
-    )}
-
-    {performance.length > 0 && (
-      <div>
-        <h4 className="text-xl font-semibold text-text-primary mb-4 font-sora">
-          Performance
-        </h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {performance.map((metric, index) => (
-            <PerformanceBar
-              key={index}
-              metric={metric}
-            />
-          ))}
         </div>
       </div>
     )}
