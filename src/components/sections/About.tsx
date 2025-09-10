@@ -1,18 +1,17 @@
 import Image from 'next/image';
 
 import LocaleLink from '@/components/common/LocaleLink';
+import SectionTitle from '@/components/common/SectionTitle';
 import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon';
 
 const About = () => {
   return (
     <section
       id="about"
-      className="py-20 min-h-screen flex flex-col justify-center bg-background"
+      className="py-16 min-h-screen flex flex-col justify-center bg-background"
     >
       <div className="max-w-7xl mx-auto px-8">
-        <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
-          About Me
-        </h2>
+        <SectionTitle>About Me</SectionTitle>
         <div className="flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3 flex flex-col items-center">
             <div className="w-[200px] h-[250px] relative mb-6">

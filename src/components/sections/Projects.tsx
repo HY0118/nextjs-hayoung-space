@@ -6,6 +6,7 @@ import { handleProjectSelect } from '@/utils/handlers/project';
 import { setupProjectHistory } from '@/utils/handlers/projectHistory';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import SectionTitle from '@/components/common/SectionTitle';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectDetail from '@/components/projects/ProjectDetail';
 
@@ -25,16 +26,12 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className={`relative py-20 min-h-screen flex flex-col justify-center bg-background ${
+      className={`relative py-16 min-h-screen flex flex-col justify-center bg-background ${
         isDetailOpen ? 'overflow-hidden' : ''
       }`}
     >
       <div className="mx-auto px-8">
-        {!isDetailOpen && (
-          <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
-            Projects
-          </h2>
-        )}
+        {!isDetailOpen && <SectionTitle>Projects</SectionTitle>}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <motion.div

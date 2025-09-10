@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n/constants';
+import { handleSectionNavigation } from '@/utils/scroll';
 import { buildHomeBase } from '@/utils/urlUtils';
 import { useScrollSpy } from '@hooks/useScrollSpy';
 
@@ -59,13 +60,19 @@ const Navigation = () => {
     }
   }, [activeSection, isScrolling, isHomePage]);
 
-  const handleClick = (section: string) => {
-    setIsScrolling(true);
-    setCurrentSection(section);
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>, section: string) => {
+    // 홈페이지에서만 커스텀 스크롤 사용
+    if (isHomePage) {
+      handleSectionNavigation(event, section, (sectionId) => {
+        setIsScrolling(true);
+        setCurrentSection(sectionId);
 
-    setTimeout(() => {
-      setIsScrolling(false);
-    }, 1000);
+        setTimeout(() => {
+          setIsScrolling(false);
+        }, 1000);
+      });
+    }
+    // 다른 페이지에서는 기본 Link 동작 유지
   };
 
   const handleBlogClick = () => {
@@ -82,7 +89,7 @@ const Navigation = () => {
           <li key={section}>
             <Link
               href={`${homeBase}#${section}`}
-              onClick={() => handleClick(section)}
+              onClick={(e) => handleClick(e, section)}
               className={`relative transition-colors hover:text-primary
                 ${currentSection === section && !isBlogPage ? 'text-black dark:text-white' : 'text-text-secondary'}
                 after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 

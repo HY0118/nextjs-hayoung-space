@@ -4,6 +4,8 @@ import { getTechColor } from '@constants/techColors';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 
+import SectionTitle from '@/components/common/SectionTitle';
+
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Skills = () => {
@@ -19,13 +21,11 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="py-20 min-h-screen flex flex-col justify-center bg-gray-100 dark:bg-gray-800"
+      className="py-16 min-h-screen flex flex-col justify-center bg-background"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
-            Skills
-          </h2>
+          <SectionTitle>Skills</SectionTitle>
           <div className="mt-8 flex items-center gap-2 text-sm">
             <span className="text-text-primary font-pret">level :</span>
             {Object.values(SKILL_LEVELS).map((level) => (
@@ -57,7 +57,7 @@ const Skills = () => {
             {SKILL_CATEGORIES.map((category) => (
               <div
                 key={category.title}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md 
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 
                          border border-gray-200 dark:border-gray-700
                          transition-all duration-300 hover:shadow-lg
                          overflow-auto h-full"

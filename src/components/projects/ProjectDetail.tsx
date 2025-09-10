@@ -16,6 +16,8 @@ import OptionalDetails from '@/components/projects/detail/OptionalDetails';
 import Overview from '@/components/projects/detail/Overview';
 import Performance from '@/components/projects/detail/Performance';
 import TechChips from '@/components/projects/detail/TechChips';
+import TechnicalIssues from '@/components/projects/detail/TechnicalIssues';
+import TechnicalIssueDetail from '@/components/technical-issues/TechnicalIssueDetail';
 
 import { useModalVisibility } from '@/hooks/useModalVisibility';
 import { usePreloadScreenshots } from '@/hooks/usePreloadScreenshots';
@@ -24,6 +26,7 @@ import { useProjectDerivedData } from '@/hooks/useProjectDerivedData';
 import { useProjectStore } from '@/store/projectStore';
 
 import { PROJECT_DETAIL_CONFIG } from '@/constants/projectDetailConfig';
+import { TECHNICAL_ISSUES } from '@/constants/technical-issues';
 
 import type { MediaTab, ProjectDetailProps } from '@/interfaces/projectDetail';
 
@@ -35,6 +38,9 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
     PROJECT_DETAIL_CONFIG.media.defaultActiveTab,
   );
   const { open: openModal, close: closeModal } = useModalVisibility();
+  const [selectedTechnicalIssue, setSelectedTechnicalIssue] = useState<string | null>(
+    null,
+  );
 
   const preloadImage = useCallback((url: string) => {
     const img = new window.Image();
@@ -100,13 +106,19 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
         {/* 3. 성능 개선 결과 - 구체적인 임팩트 */}
         <Performance performance={performance} />
 
-        {/* 4. 핵심 기능 & 기술 스택 */}
+        {/* 4. 기술 문제 해결 - 심화 기술 경험 */}
+        <TechnicalIssues
+          project={selectedProject}
+          onIssueClick={setSelectedTechnicalIssue}
+        />
+
+        {/* 5. 핵심 기능 & 기술 스택 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <KeyFeatures features={features} />
           <TechChips tech={selectedProject.tech} />
         </div>
 
-        {/* 5. 실제 결과물 - 시각적 증거 */}
+        {/* 6. 실제 결과물 - 시각적 증거 */}
         <MediaTabs
           project={selectedProject}
           screenshots={screenshots}
@@ -146,6 +158,33 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
             closeModal();
           }}
         />
+      )}
+
+      {selectedTechnicalIssue && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden">
+            {/* 모달 헤더 */}
+            <div className="flex items-center justify-between p-6 border-b border-white/20">
+              <h2 className="text-2xl font-bold text-white">기술 이슈 해결 과정</h2>
+              <button
+                onClick={() => setSelectedTechnicalIssue(null)}
+                className="text-white/80 hover:text-white transition-colors text-2xl font-light"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 모달 내용 */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)] bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+              {(() => {
+                const issue = TECHNICAL_ISSUES.find(
+                  (p) => p.id === selectedTechnicalIssue,
+                );
+                return issue ? <TechnicalIssueDetail issue={issue} /> : null;
+              })()}
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

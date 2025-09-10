@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect } from 'react';
 
 import { handleUrlHash } from '@/utils/handlers/url';
 import IntroManager from '@components/common/IntroManager';
+import SectionDivider from '@components/common/SectionDivider';
 import Spinner from '@components/common/Spinner';
 import { useIntroStore } from '@store/introStore';
 import { useProjectStore } from '@store/projectStore';
@@ -17,6 +18,7 @@ import { useLandingStore } from '@/store/landingStore';
 const About = lazy(() => import('@components/sections/About'));
 const Skills = lazy(() => import('@components/sections/Skills'));
 const Projects = lazy(() => import('@components/sections/Projects'));
+const TechnicalIssues = lazy(() => import('@components/sections/TechnicalIssues'));
 const Contact = lazy(() => import('@components/sections/Contact'));
 
 export default function MainContent() {
@@ -47,12 +49,27 @@ export default function MainContent() {
               <Suspense fallback={<Spinner />}>
                 <About />
               </Suspense>
+
+              <SectionDivider />
+
               <Suspense fallback={<Spinner />}>
                 <Skills />
               </Suspense>
+
+              <SectionDivider />
+
               <Suspense fallback={<Spinner />}>
                 <Projects />
               </Suspense>
+
+              <SectionDivider />
+
+              <Suspense fallback={<Spinner />}>
+                <TechnicalIssues />
+              </Suspense>
+
+              <SectionDivider />
+
               <Suspense fallback={<Spinner />}>
                 <Contact />
               </Suspense>

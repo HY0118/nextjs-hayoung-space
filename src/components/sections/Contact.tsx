@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
+import SectionTitle from '@/components/common/SectionTitle';
+
 const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-20 min-h-screen flex flex-col justify-center bg-gray-100 dark:bg-gray-800"
+      className="py-16 min-h-screen flex flex-col justify-center bg-background"
     >
       <div className="max-w-7xl mx-auto px-8">
-        <h2 className="text-4xl font-bold text-text-primary mb-16 relative font-sora inline-block after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-4 after:h-1 after:bg-primary">
-          Contact
-        </h2>
+        <SectionTitle>Contact</SectionTitle>
 
         <div className="grid md:grid-cols-2 gap-12 font-pretendard">
           <div className="flex flex-col gap-4">
