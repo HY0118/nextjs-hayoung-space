@@ -162,20 +162,22 @@ const ProjectDetail = ({ variant: propVariant = 'panel' }: ProjectDetailProps) =
 
       {selectedTechnicalIssue && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden border border-slate-200 dark:border-slate-700">
             {/* 모달 헤더 */}
-            <div className="flex items-center justify-between p-6 border-b border-white/20">
-              <h2 className="text-2xl font-bold text-white">기술 이슈 해결 과정</h2>
+            <div className="flex items-center justify-between p-6 bg-blue-500 border-b border-blue-600">
+              <h2 className="text-2xl font-bold text-white">
+                Technical Issue Resolution
+              </h2>
               <button
                 onClick={() => setSelectedTechnicalIssue(null)}
-                className="text-white/80 hover:text-white transition-colors text-2xl font-light"
+                className="text-white/80 hover:text-white transition-colors text-2xl font-light hover:bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center"
               >
                 ✕
               </button>
             </div>
 
             {/* 모달 내용 */}
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)] bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)] bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
               {(() => {
                 const issue = TECHNICAL_ISSUES.find(
                   (p) => p.id === selectedTechnicalIssue,
