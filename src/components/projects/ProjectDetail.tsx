@@ -26,7 +26,7 @@ import { useProjectDerivedData } from '@/hooks/useProjectDerivedData';
 import { useProjectStore } from '@/store/projectStore';
 
 import { PROJECT_DETAIL_CONFIG } from '@/constants/projectDetailConfig';
-import { TECHNICAL_ISSUES } from '@/constants/technical-issues';
+import { TECHNICAL_ISSUES } from '@/constants/technicalIssues';
 
 import type { MediaTab, ProjectDetailProps } from '@/interfaces/projectDetail';
 

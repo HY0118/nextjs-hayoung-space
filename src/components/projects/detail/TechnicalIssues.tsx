@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { motion } from 'framer-motion';
 
-import { TECHNICAL_ISSUES, TECHNICAL_ISSUES_CONFIG } from '@/constants/technical-issues';
+import { TECHNICAL_ISSUES, TECHNICAL_ISSUES_CONFIG } from '@/constants/technicalIssues';
 
 import type { Project } from '@/interfaces/project';
 

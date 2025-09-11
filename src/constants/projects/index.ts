@@ -1,9 +1,9 @@
-import { inAppPlugin } from '@constants/projects/in-app-plugin';
-import { moauiCRATemplate } from '@constants/projects/moaui-cra-template';
-import { moauiDesignSystem } from '@constants/projects/moaui-design-system';
-import { moauiPlayground } from '@constants/projects/moaui-playground';
-import { motiveDesignEditor } from '@constants/projects/motive-designeditor';
-import { motiveTools } from '@constants/projects/motive-tools';
+import { inAppPlugin } from '@constants/projects/inAppPlugin';
+import { moauiCRATemplate } from '@constants/projects/moauiCraTemplate';
+import { moauiDesignSystem } from '@constants/projects/moauiDesignSystem';
+import { moauiPlayground } from '@constants/projects/moauiPlayground';
+import { motiveDesignEditor } from '@constants/projects/motiveDesignEditor';
+import { motiveTools } from '@constants/projects/motiveTools';
 
 export const projects = [
   motiveTools,

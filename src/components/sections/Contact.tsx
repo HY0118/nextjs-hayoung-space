@@ -18,7 +18,7 @@ const Contact = () => {
             </p>
             <a
               href="mailto:lhy.it.0118@gmail.com"
-              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md hover:border-primary dark:hover:border-primary hover:shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary dark:hover:border-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
               <Image
                 src="https://www.google.com/gmail/about/static/images/logo-gmail.png?cache=1adba63"
@@ -42,7 +42,7 @@ const Contact = () => {
               href="https://github.com/HY0118"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md hover:border-primary dark:hover:border-primary hover:shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary dark:hover:border-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
               <Image
                 src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
@@ -60,7 +60,7 @@ const Contact = () => {
               href="https://www.linkedin.com/in/hayoung-lee-756b72332/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md hover:border-primary dark:hover:border-primary hover:shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary dark:hover:border-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
               <Image
                 src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"

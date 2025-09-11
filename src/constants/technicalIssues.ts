@@ -1,4 +1,4 @@
-import type { TechnicalIssue } from '@/interfaces/technical-issues';
+import type { TechnicalIssue } from '@/interfaces/technicalIssues';
 
 export const TECHNICAL_ISSUES: TechnicalIssue[] = [
   {
@@ -11,7 +11,13 @@ export const TECHNICAL_ISSUES: TechnicalIssue[] = [
       '120+ 플러그인 동시 실행 환경에서 메모리 누수와 상태 동기화 충돌 문제를 아키텍처 레벨에서 해결',
     impact: '메모리 사용량 65% 감소, 시스템 안정성 99.5% 달성',
     impactValue: '65%',
-    mainTechnologies: ['React', 'Redux-Saga', 'WebWorker', 'Protocol Buffers'],
+    mainTechnologies: [
+      'WebView API',
+      'MessagePack',
+      'Service Worker',
+      'OpenSearch',
+      'React',
+    ],
     detailPath: '/technical-issues/webview-memory-optimization',
     duration: '3 weeks',
   },
@@ -25,10 +31,11 @@ export const TECHNICAL_ISSUES: TechnicalIssue[] = [
     impact: 'First Contentful Paint 70% 개선, JavaScript 실행 시간 55% 단축',
     impactValue: '70%',
     mainTechnologies: [
-      'React Concurrent',
-      'Web Worker',
-      'Virtual Scrolling',
-      'IndexedDB',
+      'Next.js SSR/SSG',
+      'React.memo',
+      'TanStack Query',
+      'RJSF',
+      'Zustand',
     ],
     detailPath: '/technical-issues/virtual-dom-optimization',
     category: 'Performance',
@@ -43,7 +50,7 @@ export const TECHNICAL_ISSUES: TechnicalIssue[] = [
       '50+ 컴포넌트 간 circular dependency와 TypeScript 타입 추론 성능 저하를 시스템 아키텍처 재설계로 해결',
     impact: '빌드 시간 75% 단축, 타입 체크 성능 85% 향상',
     impactValue: '75%',
-    mainTechnologies: ['TypeScript', 'ESBuild', 'Module Federation', 'Nx'],
+    mainTechnologies: ['tsc-alias', 'TypeScript', 'MUI', 'Storybook', 'Chromatic'],
     detailPath: '/technical-issues/circular-dependency-resolution',
     category: 'Architecture',
     duration: '4 weeks',

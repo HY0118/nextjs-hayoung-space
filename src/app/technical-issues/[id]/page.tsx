@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import BackButton from '@/components/technical-issues/BackButton';
 import TechnicalIssueDetail from '@/components/technical-issues/TechnicalIssueDetail';
 
-import { TECHNICAL_ISSUES } from '@/constants/technical-issues';
+import { TECHNICAL_ISSUES } from '@/constants/technicalIssues';
 
 interface Props {
   params: Promise<{

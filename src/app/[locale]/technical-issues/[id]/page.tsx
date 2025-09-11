@@ -1,6 +1,6 @@
 import TechnicalIssuePage from '@/app/technical-issues/[id]/page';
 
-import { TECHNICAL_ISSUES } from '@/constants/technical-issues';
+import { TECHNICAL_ISSUES } from '@/constants/technicalIssues';
 
 interface Props {
   params: Promise<{
