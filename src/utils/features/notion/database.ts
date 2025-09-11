@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NOTION_ENABLED, databaseIds, notion } from '@/utils/features/notion/config';
+import { mapDbPageToPost } from '@/utils/features/notion/transformers';
+import { type BlogPost, PROPERTY_KEYS } from '@/utils/features/notion/types';
 import type { Client } from '@notionhq/client';
-
-import { NOTION_ENABLED, databaseIds, notion } from './config';
-import { mapDbPageToPost } from './transformers';
-import { type BlogPost, PROPERTY_KEYS } from './types';
 
 // 유틸: DB query 전체 페이지네이션 수집
 export async function queryAll(

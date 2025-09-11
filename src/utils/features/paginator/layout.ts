@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { BookPaginatorProps, Spread } from './types';
+import type { BookPaginatorProps, Spread } from '@/utils/features/paginator/types';
 
 // React element key는 내부적으로 '.$' prefix가 붙을 수 있어 정규화
 const normalizeKey = (key: unknown): string => {

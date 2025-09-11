@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { MeasurementRefs } from './types';
+import type { MeasurementRefs } from '@/utils/features/paginator/types';
 
 export function createMeasurement(
   refs: MeasurementRefs,

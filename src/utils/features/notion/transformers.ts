@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { slugify } from './config';
-import { type BlogPost, PROPERTY_KEYS } from './types';
+import { slugify } from '@/utils/features/notion/config';
+import { type BlogPost, PROPERTY_KEYS } from '@/utils/features/notion/types';
 
 export function pickFirst<T = any>(
   obj: any,

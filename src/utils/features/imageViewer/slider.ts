@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import type { SelectedImage, SlideDirection } from './types';
+import type { SelectedImage, SlideDirection } from '@/utils/features/imageViewer/types';
 
 export interface SliderHandlers {
   current: SelectedImage;

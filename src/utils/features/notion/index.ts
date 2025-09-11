@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getMarkdownPost, getMarkdownPosts } from '../../helpers/markdown';
-import { NOTION_ENABLED } from './config';
+import { NOTION_ENABLED } from '@/utils/features/notion/config';
 import {
   findPostInDatabase,
   getAllTags,
   getBlogPostsByTag,
   getBlogPostsFromDatabase,
-} from './database';
-import type { BlogPost } from './types';
+} from '@/utils/features/notion/database';
+import type { BlogPost } from '@/utils/features/notion/types';
+import { getMarkdownPost, getMarkdownPosts } from '@/utils/helpers/markdown';
 
 // 메인 exports - 기존 API 유지
-export type { BlogPost } from './types';
+export type { BlogPost } from '@/utils/features/notion/types';
 
 // 데이터베이스에서 모든 블로그 포스트 가져오기 (다중 DB + 페이지네이션 + 추가 페이지 + MD)
 export async function getBlogPosts(): Promise<BlogPost[]> {
