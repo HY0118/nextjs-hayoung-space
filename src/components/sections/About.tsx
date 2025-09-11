@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 
 import LocaleLink from '@/components/shared/LocaleLink';
@@ -5,6 +7,27 @@ import SectionTitle from '@/components/shared/SectionTitle';
 import ExternalLinkIcon from '@/components/ui/icons/ExternalLinkIcon';
 
 const About = () => {
+  // 이미지 프리로딩을 위한 useEffect
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = '/images/hayoung.webp';
+    link.type = 'image/webp';
+
+    // 중복 preload 링크 방지
+    const existingLink = document.querySelector('link[href="/images/hayoung.webp"]');
+    if (!existingLink) {
+      document.head.appendChild(link);
+    }
+
+    return () => {
+      if (link.parentNode) {
+        document.head.removeChild(link);
+      }
+    };
+  }, []);
+
   return (
     <section
       id="about"
@@ -14,14 +37,18 @@ const About = () => {
         <SectionTitle>About Me</SectionTitle>
         <div className="flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3 flex flex-col items-center">
-            <div className="w-[200px] h-[250px] relative mb-6">
+            <div className="w-[200px] h-[250px] relative mb-6 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
               <Image
-                src="/images/hayoung.jpg"
-                alt="Profile"
+                src="/images/hayoung.webp"
+                alt="Frontend Developer Profile - Hayoung Lee"
                 fill
-                sizes="250px"
+                sizes="(max-width: 768px) 150px, 200px"
                 priority
-                className="rounded-full object-cover"
+                placeholder="blur"
+                blurDataURL="data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA="
+                quality={90}
+                unoptimized={false}
+                className="rounded-full object-cover transition-opacity duration-300 hover:scale-105 transform transition-transform"
               />
             </div>
             <div className="text-center mt-4">
