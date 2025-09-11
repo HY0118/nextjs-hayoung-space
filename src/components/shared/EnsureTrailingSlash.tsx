@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { isLocaleRootPath, withTrailingSlash } from '@/utils/urlUtils';
+import { isLocaleRootPath, withTrailingSlash } from '@/utils/helpers/urlUtils';
 
 export default function EnsureTrailingSlash() {
   useEffect(() => {

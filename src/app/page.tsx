@@ -2,7 +2,7 @@
 
 import { Suspense } from 'react';
 
-import MainContent from '@components/client/MainContent';
+import MainContent from '@components/layout/MainContent';
 
 export default function Home() {
   return (

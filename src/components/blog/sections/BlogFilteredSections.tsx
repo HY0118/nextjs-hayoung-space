@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import type { BlogPost } from '@/utils/notion';
+import type { BlogPost } from '@/utils/helpers/notion';
 
 import TagFilter from '@/components/blog/TagFilter';
 import BlogListServer from '@/components/blog/sections/BlogListServer';

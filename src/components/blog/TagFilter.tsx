@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import ModeSwitch from '@/components/common/ModeSwitch';
-import ResetIcon from '@/components/icons/ResetIcon';
+import ModeSwitch from '@/components/shared/ModeSwitch';
+import ResetIcon from '@/components/ui/icons/ResetIcon';
 
 interface TagFilterProps {
   tags: string[];

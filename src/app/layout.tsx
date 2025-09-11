@@ -3,8 +3,8 @@ import React from 'react';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
 
-import Footer from '@components/common/Footer';
-import Header from '@components/common/Header';
+import Footer from '@components/layout/Footer';
+import Header from '@components/layout/Header';
 import { ThemeProvider } from '@contexts/ThemeContext';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 

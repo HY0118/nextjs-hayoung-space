@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/helpers/cn';
 
 import { coreStacks } from '@/constants/quick-portfolio/stack';
 

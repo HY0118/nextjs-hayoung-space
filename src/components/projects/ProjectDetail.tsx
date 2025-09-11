@@ -3,7 +3,7 @@
 // import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from 'react';
 
-import { createCloseProjectDetailHandler } from '@/utils/handlers/detail';
+import { createCloseProjectDetailHandler } from '@/utils/api/detail';
 
 import Achievements from '@/components/projects/detail/Achievements';
 import DetailShell from '@/components/projects/detail/DetailShell';

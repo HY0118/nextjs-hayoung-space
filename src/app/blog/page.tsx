@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { checkBlogAccess } from '@/utils/blogAuth';
-import { getAllTags, getBlogPosts } from '@utils/notion';
+import { checkBlogAccess } from '@/utils/helpers/blogAuth';
+import { getAllTags, getBlogPosts } from '@/utils/helpers/notion';
 
 import BlogPageWrapper from '@/components/blog/BlogPageWrapper';
 import BlogFilteredSections from '@/components/blog/sections/BlogFilteredSections';

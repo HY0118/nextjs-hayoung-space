@@ -1,4 +1,4 @@
-import { getLocaleFromPathname, withTrailingSlash } from '@/utils/urlUtils';
+import { getLocaleFromPathname, withTrailingSlash } from '@/utils/helpers/urlUtils';
 
 interface CloseArgs {
   closeDetail: () => void;

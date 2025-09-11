@@ -5,13 +5,13 @@ import { Suspense, lazy } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { withTrailingSlash } from '@/utils/urlUtils';
+import { withTrailingSlash } from '@/utils/helpers/urlUtils';
 import { useIntroStore } from '@store/introStore';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const ThemeToggle = lazy(() => import('@components/common/ThemeToggle'));
-const Navigation = lazy(() => import('@components/common/Navigation'));
-const LanguageDropdown = lazy(() => import('@components/common/LanguageDropdown'));
+const ThemeToggle = lazy(() => import('@components/shared/ThemeToggle'));
+const Navigation = lazy(() => import('@components/layout/Navigation'));
+const LanguageDropdown = lazy(() => import('@components/layout/LanguageDropdown'));
 
 const Header = () => {
   const isIntroComplete = useIntroStore((state) => state.isIntroComplete);

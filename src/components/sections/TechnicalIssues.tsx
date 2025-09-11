@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { motion } from 'framer-motion';
 
-import SectionTitle from '@/components/common/SectionTitle';
+import SectionTitle from '@/components/shared/SectionTitle';
 
 import { TECHNICAL_ISSUES, TECHNICAL_ISSUES_CONFIG } from '@/constants/technical-issues';
 

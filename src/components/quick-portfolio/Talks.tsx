@@ -1,4 +1,4 @@
-import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon';
+import ExternalLinkIcon from '@/components/ui/icons/ExternalLinkIcon';
 
 import { talksAndWritings } from '@/constants/quick-portfolio/talks';
 

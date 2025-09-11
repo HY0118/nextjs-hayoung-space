@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import SectionTitle from '@/components/common/SectionTitle';
+import SectionTitle from '@/components/shared/SectionTitle';
 
 const Contact = () => {
   return (

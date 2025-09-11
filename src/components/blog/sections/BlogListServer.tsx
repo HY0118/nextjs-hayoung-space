@@ -1,4 +1,4 @@
-import type { BlogPost } from '@/utils/notion';
+import type { BlogPost } from '@/utils/helpers/notion';
 
 import PostsSection from '@/components/blog/sections/PostsSection';
 

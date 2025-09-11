@@ -2,15 +2,15 @@
 
 import { Suspense, lazy, useEffect } from 'react';
 
-import { handleUrlHash } from '@/utils/handlers/url';
-import IntroManager from '@components/common/IntroManager';
-import SectionDivider from '@components/common/SectionDivider';
-import Spinner from '@components/common/Spinner';
+import { handleUrlHash } from '@/utils/api/url';
+import IntroManager from '@components/shared/IntroManager';
+import SectionDivider from '@components/shared/SectionDivider';
+import Spinner from '@components/shared/Spinner';
 import { useIntroStore } from '@store/introStore';
 import { useProjectStore } from '@store/projectStore';
 import { motion } from 'framer-motion';
 
-import LandingSelector from '@/components/client/LandingSelector';
+import LandingSelector from '@/components/landing/LandingSelector';
 
 import { useLandingStore } from '@/store/landingStore';
 

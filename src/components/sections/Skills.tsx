@@ -4,7 +4,7 @@ import { getTechColor } from '@constants/techColors';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 
-import SectionTitle from '@/components/common/SectionTitle';
+import SectionTitle from '@/components/shared/SectionTitle';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 

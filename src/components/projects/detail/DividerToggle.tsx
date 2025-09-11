@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/helpers/cn';
 
 import type { DividerToggleProps } from '@/interfaces/projectDetail';
 

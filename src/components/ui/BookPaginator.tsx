@@ -2,10 +2,10 @@
 
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { createPageHandlers } from '@/utils/paginator/animation';
-import { computeSpreads } from '@/utils/paginator/layout';
-import { createMeasurement } from '@/utils/paginator/measurement';
-import type { BookPaginatorProps, Spread } from '@/utils/paginator/types';
+import { createPageHandlers } from '@/utils/features/paginator/animation';
+import { computeSpreads } from '@/utils/features/paginator/layout';
+import { createMeasurement } from '@/utils/features/paginator/measurement';
+import type { BookPaginatorProps, Spread } from '@/utils/features/paginator/types';
 import { motion, useAnimationControls } from 'framer-motion';
 
 export default function BookPaginator({

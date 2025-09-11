@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { checkBlogAccess } from '@/utils/blogAuth';
-import { getBlogPost, getBlogPosts } from '@utils/notion';
+import { checkBlogAccess } from '@/utils/helpers/blogAuth';
+import { getBlogPost, getBlogPosts } from '@/utils/helpers/notion';
 import { Highlight, themes } from 'prism-react-renderer';
 import type { Language } from 'prism-react-renderer';
 import ReactMarkdown from 'react-markdown';

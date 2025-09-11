@@ -1,4 +1,4 @@
-import { checkBlogAccess } from '@/utils/blogAuth';
+import { checkBlogAccess } from '@/utils/helpers/blogAuth';
 
 // 기본 블로그 페이지 설정 재사용
 export { metadata } from '@/app/blog/page';

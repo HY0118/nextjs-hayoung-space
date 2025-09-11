@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { BlogPost } from '@/utils/notion';
+import { BlogPost } from '@/utils/helpers/notion';
 
 import BlogCard from '@/components/blog/BlogCard';
 

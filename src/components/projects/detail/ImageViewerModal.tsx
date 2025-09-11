@@ -4,13 +4,13 @@ import { useEffect, useRef } from 'react';
 
 import Image from 'next/image';
 
-import { useImageViewerControls } from '@/utils/imageViewer/controls';
-import { useImagePreloader } from '@/utils/imageViewer/preloader';
-import { useImageSlider } from '@/utils/imageViewer/slider';
-import type { ImageViewerModalProps } from '@/utils/imageViewer/types';
+import { useImageViewerControls } from '@/utils/features/imageViewer/controls';
+import { useImagePreloader } from '@/utils/features/imageViewer/preloader';
+import { useImageSlider } from '@/utils/features/imageViewer/slider';
+import type { ImageViewerModalProps } from '@/utils/features/imageViewer/types';
 import { motion } from 'framer-motion';
 
-import Spinner from '@/components/common/Spinner';
+import Spinner from '@/components/shared/Spinner';
 
 const ImageViewerModal = ({ images, initialIndex, onClose }: ImageViewerModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);

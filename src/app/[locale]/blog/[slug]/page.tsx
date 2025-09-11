@@ -1,4 +1,4 @@
-import { checkBlogAccess } from '@/utils/blogAuth';
+import { checkBlogAccess } from '@/utils/helpers/blogAuth';
 
 // ISR 설정: 60초마다 재생성 (원본과 동일)
 export const revalidate = 60;

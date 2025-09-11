@@ -1,6 +1,6 @@
 'use client';
 
-import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon';
+import ExternalLinkIcon from '@/components/ui/icons/ExternalLinkIcon';
 
 const DemoButton = ({ href }: { href: string }) => (
   <a

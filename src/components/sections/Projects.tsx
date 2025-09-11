@@ -2,13 +2,13 @@
 
 import { useEffect } from 'react';
 
-import { handleProjectSelect } from '@/utils/handlers/project';
-import { setupProjectHistory } from '@/utils/handlers/projectHistory';
+import { handleProjectSelect } from '@/utils/api/project';
+import { setupProjectHistory } from '@/utils/api/projectHistory';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import SectionTitle from '@/components/common/SectionTitle';
 import ProjectCard from '@/components/projects/ProjectCard';
 import ProjectDetail from '@/components/projects/ProjectDetail';
+import SectionTitle from '@/components/shared/SectionTitle';
 
 import { useProjectStore } from '@/store/projectStore';
 

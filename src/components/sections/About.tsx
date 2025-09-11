@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import LocaleLink from '@/components/common/LocaleLink';
-import SectionTitle from '@/components/common/SectionTitle';
-import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon';
+import LocaleLink from '@/components/shared/LocaleLink';
+import SectionTitle from '@/components/shared/SectionTitle';
+import ExternalLinkIcon from '@/components/ui/icons/ExternalLinkIcon';
 
 const About = () => {
   return (

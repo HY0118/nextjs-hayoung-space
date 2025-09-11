@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/helpers/cn';
 
 import type { ScreenshotGridProps } from '@/interfaces/projectDetail';
 

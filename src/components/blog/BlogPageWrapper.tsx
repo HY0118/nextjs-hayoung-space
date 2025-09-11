@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 
-import PageTransition from '@/components/common/PageTransition';
+import PageTransition from '@/components/layout/PageTransition';
 
 interface BlogPageWrapperProps {
   children: ReactNode;

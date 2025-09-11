@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { smoothScrollToSection } from '@/utils/scroll';
+import { smoothScrollToSection } from '@/utils/helpers/scroll';
 
 interface BackButtonProps {
   locale?: string;

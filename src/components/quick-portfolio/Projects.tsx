@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/helpers/cn';
 
 import { useProjectStore } from '@/store/projectStore';
 

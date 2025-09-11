@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getMarkdownPost, getMarkdownPosts } from '../markdown';
+import { getMarkdownPost, getMarkdownPosts } from '../../helpers/markdown';
 import { NOTION_ENABLED } from './config';
 import {
   findPostInDatabase,

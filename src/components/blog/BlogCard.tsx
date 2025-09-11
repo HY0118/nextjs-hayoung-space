@@ -5,8 +5,8 @@ import { useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { getLocaleFromPathname, withTrailingSlash } from '@/utils/urlUtils';
-import { BlogPost } from '@utils/notion';
+import { BlogPost } from '@/utils/helpers/notion';
+import { getLocaleFromPathname, withTrailingSlash } from '@/utils/helpers/urlUtils';
 
 import { useRouteStore } from '@/store/routeStore';
 

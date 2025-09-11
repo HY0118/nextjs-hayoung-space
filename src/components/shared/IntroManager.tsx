@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import TypeWriter from '@components/common/TypeWriter';
+import TypeWriter from '@components/shared/TypeWriter';
 import { useIntroStore } from '@store/introStore';
 import { AnimatePresence, motion } from 'framer-motion';
 
