@@ -29,9 +29,10 @@ export const databaseIds: string[] = (() => {
         .filter(Boolean)
     : [];
   if (base.length === 0 && more.length === 0) {
-    throw new Error(
-      'NOTION_DATABASE_ID 또는 NOTION_DATABASE_IDS 환경 변수가 필요합니다.',
+    console.warn(
+      'NOTION_DATABASE_ID 또는 NOTION_DATABASE_IDS 환경 변수가 설정되지 않았습니다. Blog 기능이 비활성화됩니다.',
     );
+    return [];
   }
   return [...base, ...more] as string[];
 })();
