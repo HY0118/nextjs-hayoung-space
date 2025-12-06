@@ -1,23 +1,28 @@
 export interface TechnicalIssue {
   id: string;
-  projectId: string;
+  category: 'performance' | 'architecture' | 'optimization';
   projectName: string;
-  category: 'Performance' | 'Architecture' | 'Security' | 'UX' | 'System Design';
   title: string;
   summary: string;
   impact: string;
-  impactValue: string; // "65%", "80%", "90%" 등
+  impactValue: string;
   mainTechnologies: string[];
-  detailPath: string;
-  duration: string; // "2 weeks", "1 month" 등
-}
-
-export interface TechnicalIssuesProps {
-  issues: TechnicalIssue[];
+  duration: string;
 }
 
 export interface TechnicalIssueCardProps {
   issue: TechnicalIssue;
   index: number;
   onClick: () => void;
+}
+
+export interface CategoryConfig {
+  label: string;
+  color: string;
+}
+
+export interface TechnicalIssuesConfig {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  categories: Record<string, CategoryConfig>;
 }

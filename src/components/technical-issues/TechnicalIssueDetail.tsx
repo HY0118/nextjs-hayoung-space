@@ -2,13 +2,13 @@
 
 import { motion } from 'framer-motion';
 
-import { TECHNICAL_ISSUES_CONFIG } from '@/constants/technicalIssues';
-import { getDetailContent } from '@/constants/technicalIssuesDetail';
+import { getDetailContent } from '@/constants/technical-issues-detail';
 import type {
   Result,
   Solution,
   TechnicalConsideration,
-} from '@/constants/technicalIssuesDetail';
+} from '@/constants/technical-issues-detail';
+import { TECHNICAL_ISSUES_CONFIG } from '@/constants/technicalIssues';
 
 import type { TechnicalIssue } from '@/interfaces/technicalIssues';
 
