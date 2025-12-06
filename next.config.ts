@@ -39,11 +39,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  experimental: {
-    turbo: {
-      rules: {
-        '**/test/**': ['ignore'],
-      },
+  turbopack: {
+    rules: {
+      '**/test/**': ['ignore'],
     },
   },
   serverExternalPackages: ['@notionhq/client'],
