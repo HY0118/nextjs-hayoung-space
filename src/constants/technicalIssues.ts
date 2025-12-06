@@ -1,70 +1,63 @@
-import type { TechnicalIssue } from '@/interfaces/technicalIssues';
+import type { TechnicalIssue, TechnicalIssuesConfig } from '@/interfaces/technicalIssues';
+
+export const TECHNICAL_ISSUES_CONFIG: TechnicalIssuesConfig = {
+  sectionTitle: 'Technical Issues',
+  sectionSubtitle:
+    '복잡한 기술적 문제를 해결한 경험과 그 과정에서 얻은 인사이트를 공유합니다.',
+  categories: {
+    performance: {
+      label: '성능 최적화',
+      color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    },
+    architecture: {
+      label: '아키텍처 설계',
+      color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    },
+    optimization: {
+      label: '시스템 최적화',
+      color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+    },
+  },
+};
 
 export const TECHNICAL_ISSUES: TechnicalIssue[] = [
   {
     id: 'webview-memory-optimization',
+    category: 'performance',
     projectId: 'in-app-plugin',
     projectName: 'In App Plugin Platform',
-    category: 'Performance',
-    title: '마이크로 프론트엔드 메모리 누수 해결',
+    title: 'WebView 메모리 누수 및 성능 최적화',
     summary:
-      '120+ 플러그인 동시 실행 환경에서 메모리 누수와 상태 동기화 충돌 문제를 아키텍처 레벨에서 해결',
-    impact: '메모리 사용량 65% 감소, 시스템 안정성 99.5% 달성',
-    impactValue: '65%',
-    mainTechnologies: [
-      'WebView API',
-      'MessagePack',
-      'Service Worker',
-      'OpenSearch',
-      'React',
-    ],
-    detailPath: '/technical-issues/webview-memory-optimization',
-    duration: '3 weeks',
+      'WebView 기반 플러그인 시스템에서 발생한 메모리 누수 문제를 해결하고 전체적인 성능을 75% 향상시킨 경험입니다.',
+    impact: '메모리 사용량 감소',
+    impactValue: '75%',
+    mainTechnologies: ['React', 'WebView', 'Memory Management', 'Performance API'],
+    duration: '4주',
   },
   {
     id: 'virtual-dom-optimization',
+    category: 'optimization',
     projectId: 'motive-tools',
     projectName: 'Tools Site',
-    title: '대용량 데이터 Virtual DOM 병목 최적화',
+    title: 'Virtual DOM 렌더링 병목 최적화',
     summary:
-      '10,000+ 설계 데이터 렌더링에서 React Reconciliation 알고리즘의 O(n³) 복잡도 문제를 해결',
-    impact: 'First Contentful Paint 70% 개선, JavaScript 실행 시간 55% 단축',
-    impactValue: '70%',
-    mainTechnologies: [
-      'Next.js SSR/SSG',
-      'React.memo',
-      'TanStack Query',
-      'RJSF',
-      'Zustand',
-    ],
-    detailPath: '/technical-issues/virtual-dom-optimization',
-    category: 'Performance',
-    duration: '2 weeks',
+      '대용량 데이터 렌더링 시 발생한 Virtual DOM 병목을 해결하여 렌더링 성능을 60% 개선한 사례입니다.',
+    impact: '렌더링 시간 단축',
+    impactValue: '60%',
+    mainTechnologies: ['React', 'Virtual DOM', 'React.memo', 'useMemo'],
+    duration: '3주',
   },
   {
     id: 'circular-dependency-resolution',
+    category: 'architecture',
     projectId: 'moaui-design-system',
     projectName: 'moaUI Design System',
-    title: '분산 컴포넌트 순환 의존성 해결',
+    title: '순환 의존성 해결 및 아키텍처 재설계',
     summary:
-      '50+ 컴포넌트 간 circular dependency와 TypeScript 타입 추론 성능 저하를 시스템 아키텍처 재설계로 해결',
-    impact: '빌드 시간 75% 단축, 타입 체크 성능 85% 향상',
-    impactValue: '75%',
-    mainTechnologies: ['tsc-alias', 'TypeScript', 'MUI', 'Storybook', 'Chromatic'],
-    detailPath: '/technical-issues/circular-dependency-resolution',
-    category: 'Architecture',
-    duration: '4 weeks',
+      '컴포넌트 라이브러리에서 발생한 순환 의존성 문제를 해결하고 확장 가능한 아키텍처로 재설계한 경험입니다.',
+    impact: '빌드 시간 단축',
+    impactValue: '85%',
+    mainTechnologies: ['TypeScript', 'Dependency Injection', 'Module Architecture'],
+    duration: '6주',
   },
 ];
-
-export const TECHNICAL_ISSUES_CONFIG = {
-  sectionTitle: 'Technical Issues',
-  sectionSubtitle: '깊이있는 기술 고민 경험',
-  categories: {
-    Performance: { label: '성능 최적화', color: 'bg-blue-100 text-blue-800' },
-    Architecture: { label: '아키텍처', color: 'bg-purple-100 text-purple-800' },
-    Security: { label: '보안', color: 'bg-red-100 text-red-800' },
-    UX: { label: 'UX 개선', color: 'bg-green-100 text-green-800' },
-    'System Design': { label: '시스템 설계', color: 'bg-yellow-100 text-yellow-800' },
-  },
-} as const;

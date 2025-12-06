@@ -107,7 +107,10 @@ export default async function TechnicalIssuePage({ params }: Props) {
           {/* Content Card */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
             <div className="px-6 py-5">
-              <TechnicalIssueDetail issue={issue} />
+              <TechnicalIssueDetail
+                key={issue.id}
+                issue={issue}
+              />
             </div>
           </div>
         </div>
