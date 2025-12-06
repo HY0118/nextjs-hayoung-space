@@ -24,6 +24,7 @@ export const TECHNICAL_ISSUES: TechnicalIssue[] = [
   {
     id: 'webview-memory-optimization',
     category: 'performance',
+    projectId: 'in-app-plugin',
     projectName: 'In App Plugin Platform',
     title: 'WebView 메모리 누수 및 성능 최적화',
     summary:
@@ -36,6 +37,7 @@ export const TECHNICAL_ISSUES: TechnicalIssue[] = [
   {
     id: 'virtual-dom-optimization',
     category: 'optimization',
+    projectId: 'motive-tools',
     projectName: 'Tools Site',
     title: 'Virtual DOM 렌더링 병목 최적화',
     summary:
@@ -48,6 +50,7 @@ export const TECHNICAL_ISSUES: TechnicalIssue[] = [
   {
     id: 'circular-dependency-resolution',
     category: 'architecture',
+    projectId: 'moaui-design-system',
     projectName: 'moaUI Design System',
     title: '순환 의존성 해결 및 아키텍처 재설계',
     summary:

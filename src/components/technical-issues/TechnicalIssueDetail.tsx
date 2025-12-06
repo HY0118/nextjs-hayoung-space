@@ -45,7 +45,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       {/* Header Card */}
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
-        initial={false}
+        initial={{ opacity: 0, y: 20 }}
         animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6 }}
       >
@@ -89,7 +89,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       {/* Problem Description Card */}
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
-        initial={false}
+        initial={{ opacity: 0, y: 20 }}
         animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
@@ -105,7 +105,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       {/* Technical Considerations Card */}
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
-        initial={false}
+        initial={{ opacity: 0, y: 20 }}
         animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
@@ -132,7 +132,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       {/* Solutions Card */}
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
-        initial={false}
+        initial={{ opacity: 0, y: 20 }}
         animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
@@ -165,7 +165,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       {/* Results Card */}
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
-        initial={false}
+        initial={{ opacity: 0, y: 20 }}
         animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
@@ -195,7 +195,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       {/* Technology Stack Card */}
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
-        initial={false}
+        initial={{ opacity: 0, y: 20 }}
         animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.5 }}
       >

@@ -1,6 +1,7 @@
 export interface TechnicalIssue {
   id: string;
   category: 'performance' | 'architecture' | 'optimization';
+  projectId: string;
   projectName: string;
   title: string;
   summary: string;
