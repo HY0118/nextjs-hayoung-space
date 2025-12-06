@@ -1,14 +1,16 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { motion } from 'framer-motion';
 
-import { TECHNICAL_ISSUES_CONFIG } from '@/constants/technicalIssues';
-import { getDetailContent } from '@/constants/technicalIssuesDetail';
+import { getDetailContent } from '@/constants/technical-issues-detail';
 import type {
   Result,
   Solution,
   TechnicalConsideration,
-} from '@/constants/technicalIssuesDetail';
+} from '@/constants/technical-issues-detail';
+import { TECHNICAL_ISSUES_CONFIG } from '@/constants/technicalIssues';
 
 import type { TechnicalIssue } from '@/interfaces/technicalIssues';
 
@@ -17,8 +19,13 @@ interface Props {
 }
 
 const TechnicalIssueDetail = ({ issue }: Props) => {
+  const [isAnimated, setIsAnimated] = useState(false);
   const categoryConfig = TECHNICAL_ISSUES_CONFIG.categories[issue.category];
   const detailContent = getDetailContent(issue.id);
+
+  useEffect(() => {
+    setIsAnimated(true);
+  }, []);
 
   if (!detailContent) {
     return (
@@ -39,7 +46,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6 }}
       >
         <div className="flex items-center gap-3 mb-6">
@@ -83,7 +90,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
@@ -99,7 +106,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
@@ -126,7 +133,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
@@ -159,7 +166,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
@@ -189,7 +196,7 @@ const TechnicalIssueDetail = ({ issue }: Props) => {
       <motion.div
         className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
