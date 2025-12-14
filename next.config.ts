@@ -44,7 +44,6 @@ const nextConfig: NextConfig = {
       '**/test/**': ['ignore'],
     },
   },
-  serverExternalPackages: ['@notionhq/client'],
   webpack: (config) => {
     // webpack 설정은 프로덕션 빌드에서만 적용됨
     config.watchOptions = {

@@ -217,9 +217,8 @@ cd nextjs-hayoung-space
 # 2. 의존성 설치
 npm install
 
-# 3. 환경 변수 설정
+# 3. 환경 변수 설정 (필요시)
 cp .env.example .env.local
-# NOTION_API_KEY와 NOTION_DATABASE_ID 설정
 
 # 4. 개발 서버 실행
 npm run dev
@@ -277,9 +276,6 @@ jobs:
       
       - name: Build project  
         run: npm run build
-        env:
-          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       
       - name: Deploy to Vercel
         uses: vercel/action@v1
