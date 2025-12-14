@@ -55,7 +55,7 @@ src/
 | --------------------- | ------------------------- | ----------------------------------------- |
 | **`src/app/`**        | Next.js App Router 페이지 | `page.tsx`, `layout.tsx`                  |
 | **`src/components/`** | React 컴포넌트 모음       | `sections/`, `common/`, `projects/`       |
-| **`src/utils/`**      | 유틸리티 함수 및 헬퍼     | `handlers/`, `notion/`, `imageViewer/`    |
+| **`src/utils/`**      | 유틸리티 함수 및 헬퍼     | `handlers/`, `imageViewer/`, `features/`  |
 | **`src/interfaces/`** | TypeScript 타입 정의      | `project.ts`, `skills.ts`                 |
 | **`src/constants/`**  | 정적 데이터 및 설정       | `projects/`, `skills.ts`, `techColors.ts` |
 | **`src/store/`**      | Zustand 상태 관리         | `projectStore.ts`, `introStore.ts`        |
@@ -160,9 +160,8 @@ git clone https://github.com/HY0118/nextjs-hayoung-space.git
 cd nextjs-hayoung-space
 npm install
 
-# 3. 환경 변수 설정
+# 3. 환경 변수 설정 (필요시)
 cp .env.example .env.local
-# NOTION_API_KEY와 NOTION_DATABASE_ID 설정
 
 # 4. 개발 서버 실행
 npm run dev
