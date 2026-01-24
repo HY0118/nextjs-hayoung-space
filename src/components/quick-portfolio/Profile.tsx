@@ -14,7 +14,7 @@ export default function Profile() {
       <div className="flex items-start gap-8">
         <div className="relative w-32 h-40 md:w-40 md:h-52 rounded-xl overflow-hidden">
           <Image
-            src="/images/hayoung.jpg"
+            src="/images/hayoung.webp"
             alt="Profile"
             fill
             className="object-cover"
