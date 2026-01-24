@@ -8,7 +8,7 @@ export default function RecentRoles() {
         <li className="font-pret">
           웹({' '}
           <a
-            href="https://tools.example.com"
+            href="https://tools.midasuser.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500"
@@ -17,7 +17,7 @@ export default function RecentRoles() {
           </a>
           ,{' '}
           <a
-            href="https://motiiv.example.com"
+            href="https://motiiv.ai"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500"
